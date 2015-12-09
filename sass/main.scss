@@ -1,0 +1,9 @@
+// Put any @imports here
+// See Readme for a list of supported ones
+
+@import "foundation";   
+@include foundation-everything;
+
+body {
+  background: #e2ebf3;
+}
