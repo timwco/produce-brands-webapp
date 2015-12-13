@@ -3111,7 +3111,7 @@ table.hover tr:nth-of-type(even):hover {
   .top-bar-right {
     float: right; } }
 
-body {
-  background: #e2ebf3; }
+.top-bar li > a, .top-bar ul li > a {
+  color: #2199e8; }
 
 /*# sourceMappingURL=main.css.map */

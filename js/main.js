@@ -13,7 +13,7 @@ import './app.layout/index';
 angular
   .module('app', ['app.core', 'app.layout'])
   .run( function ($rootScope) {
-    // $viewContentLoaded comes from Ui Router
+
     $rootScope.$on('$viewContentLoaded', function (event, data) {
       $(document).foundation();
     });

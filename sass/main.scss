@@ -4,6 +4,4 @@
 @import "foundation";   
 @include foundation-everything;
 
-body {
-  background: #e2ebf3;
-}
+.top-bar li > a, .top-bar ul li > a { color: #2199e8; }
