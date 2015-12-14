@@ -7,10 +7,12 @@
       </ul>
     </div>
     <div class="top-bar-right">
-      <ul class="menu">
-        <li><input type="search" placeholder="Search"></li>
-        <li><button type="button" class="button">Search</button></li>
-      </ul>
+      <form ng-submit="vm.search(query)">
+        <ul class="menu">
+          <li><input type="search" placeholder="Search" ng-model="query"></li>
+          <li><button class="button">Search</button></li>
+        </ul>
+      </form>
     </div>
   </div>
 </div>

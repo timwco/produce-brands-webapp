@@ -2,8 +2,6 @@ let HomeController = function() {
   
   let vm = this;
 
-  vm.foo = 'bar';
-  
 
 };
 

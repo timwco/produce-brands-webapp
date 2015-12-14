@@ -3,7 +3,8 @@ let config = function($stateProvider, $urlRouterProvider) {
   $stateProvider
     .state('root', {
       abstract: true,
-      templateUrl: 'templates/app-layout/layout.tpl.html'
+      templateUrl: 'templates/app-layout/layout.tpl.html',
+      controller: 'LayoutController as vm'
     })
     .state('root.home', {
       url: "/",
