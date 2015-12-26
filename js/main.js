@@ -8,11 +8,12 @@ import 'foundation';
 import './app.core/index';
 import './app.layout/index';
 import './app.search/index';
+import './app.user/index';
 
 // Set up a run block on an angular module to help with
 // loading foundation after templates load
 angular
-  .module('app', ['app.core', 'app.layout', 'app.search'])
+  .module('app', ['app.core', 'app.layout', 'app.search', 'app.user'])
   .run( function ($rootScope) {
 
     $rootScope.$on('$viewContentLoaded', function (event, data) {

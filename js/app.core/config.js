@@ -1,16 +1,32 @@
 let config = function($stateProvider, $urlRouterProvider) {
   
   $stateProvider
+
+    // Layout & Home States
     .state('root', {
       abstract: true,
       templateUrl: 'templates/app-layout/layout.tpl.html',
       controller: 'LayoutController as vm'
     })
     .state('root.home', {
-      url: "/",
+      url: '/',
       templateUrl: 'templates/app-layout/home.tpl.html',
       controller: 'HomeController as vm'
-    });
+    })
+
+    // User States
+    .state('root.login', {
+      url: '/login',
+      templateUrl: 'templates/app-user/login.tpl.html',
+      controller: 'LoginController as vm'
+    })
+    .state('root.register', {
+      url: '/register',
+      templateUrl: 'templates/app-user/register.tpl.html',
+      controller: 'RegisterController as vm'
+    })
+  
+  ; // End $stateProvider
 
 
   $urlRouterProvider.otherwise('/');

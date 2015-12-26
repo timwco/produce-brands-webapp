@@ -1,9 +1,14 @@
 <div class="top-bar">
   <div class="row">
     <div class="top-bar-left">
-      <ul class="dropdown menu" data-dropdown-menu>
+      <ul class="menu" ng-hide="vm.user">
         <li class="menu-text">Produce Brands</li>
-        <li><a href="http://producebrands.com" target="_blank">Website</a></li>
+        <li><a href="/#/login">Login</a></li>
+        <li><a href="/#/register">Register</a></li>
+      </ul>
+      <ul class="menu" ng-show="vm.user">
+        <li class="menu-text">Produce Brands</li>
+        <li><a href="/#/logout">Logout</a></li>
       </ul>
     </div>
     <div class="top-bar-right">
