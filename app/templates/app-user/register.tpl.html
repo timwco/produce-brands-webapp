@@ -1,1 +1,17 @@
-<p>Register</p>
+<div class="row">
+  <div class="medium-6 medium-centered large-4 large-centered columns">
+    <h3>Register</h3>
+    <form ng-submit="vm.register(user)">
+      <div class="row column log-in-form">
+        <input type="text" placeholder="Full Name" ng-model="user.name">
+        <input type="text" placeholder="Email Address" ng-model="user.email">
+        <input ng-init="showPassword = 'password'" type="{{ showPassword }}" placeholder="Password" ng-model="user.password">
+        <input id="show-password" type="checkbox" ng-model="showPassword" ng-true-value="'text'" ng-false-value="'password'">
+        <label for="show-password">Show password</label>
+        <p><button class="button expanded">Register User</button></p>
+        <p class="text-center"><a href="/#/login">Have An Account? Log In Here.</a></p>   
+      </div>
+    </form>
+
+  </div>
+</div>

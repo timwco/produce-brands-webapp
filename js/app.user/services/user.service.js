@@ -1,4 +1,4 @@
-let UserService = function($http) {
+let UserService = function($http, $cookies) {
 
   let url = 'http://localhost:3000/users';
   
@@ -9,10 +9,16 @@ let UserService = function($http) {
 
   // Register
   this.register = (user) => {
-    return $http.post(url, user);
+    return $http.post(url + '/new', user);
+  };
+
+  // Store User
+  this.store = (user) => {
+    $cookies.put('user-token', user.auth_token);
+    $cookies.put('user-email', user.email);
   };
 
 };
 
-UserService.$inject = ['$http'];
+UserService.$inject = ['$http', '$cookies'];
 export default UserService;
