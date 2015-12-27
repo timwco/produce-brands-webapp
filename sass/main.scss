@@ -4,7 +4,10 @@
 @import "foundation";   
 @include foundation-everything;
 
+@import "flash";
+
 .top-bar li > a, .top-bar ul li > a { color: #2199e8; }
 
 // Layout
 .pageContent { padding: 35px 0 10px 0; }
+.flash-message-container { margin: 15px 0; }

@@ -21,7 +21,7 @@ var config = function config($stateProvider, $urlRouterProvider) {
 
   // User States
   .state('root.login', {
-    url: '/login',
+    url: '/login?c',
     templateUrl: 'templates/app-user/login.tpl.html',
     controller: 'AuthController as vm'
   }).state('root.register', {
@@ -49,13 +49,43 @@ var _angular2 = _interopRequireDefault(_angular);
 
 require('angular-ui-router');
 
+require('angular-flash-alert');
+
 var _config = require('./config');
 
 var _config2 = _interopRequireDefault(_config);
 
-_angular2['default'].module('app.core', ['ui.router']).config(_config2['default']);
+var _servicesMessageService = require('./services/message.service');
 
-},{"./config":1,"angular":16,"angular-ui-router":14}],3:[function(require,module,exports){
+var _servicesMessageService2 = _interopRequireDefault(_servicesMessageService);
+
+_angular2['default'].module('app.core', ['ui.router', 'flash']).config(_config2['default']).service('MessageService', _servicesMessageService2['default']);
+
+},{"./config":1,"./services/message.service":3,"angular":19,"angular-flash-alert":16,"angular-ui-router":17}],3:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+var MessageService = function MessageService() {
+
+  this.code = function (num) {
+    var msg = '';
+    switch (Number(num)) {
+      case 1:
+        msg = 'Sorry, you need to login or register first.';
+        break;
+    }
+
+    return msg;
+  };
+};
+
+MessageService.$inject = [];
+exports['default'] = MessageService;
+module.exports = exports['default'];
+
+},{}],4:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -71,7 +101,7 @@ HomeController.$inject = [];
 exports["default"] = HomeController;
 module.exports = exports["default"];
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -98,7 +128,7 @@ LayoutController.$inject = ['SearchService', 'UserService', '$scope'];
 exports['default'] = LayoutController;
 module.exports = exports['default'];
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -117,7 +147,7 @@ var _controllersLayoutController2 = _interopRequireDefault(_controllersLayoutCon
 
 _angular2['default'].module('app.layout', []).controller('HomeController', _controllersHomeController2['default']).controller('LayoutController', _controllersLayoutController2['default']);
 
-},{"./controllers/home.controller":3,"./controllers/layout.controller":4,"angular":16}],6:[function(require,module,exports){
+},{"./controllers/home.controller":4,"./controllers/layout.controller":5,"angular":19}],7:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -132,7 +162,7 @@ var _servicesSearchService2 = _interopRequireDefault(_servicesSearchService);
 
 _angular2['default'].module('app.search', []).service('SearchService', _servicesSearchService2['default']);
 
-},{"./services/search.service":7,"angular":16}],7:[function(require,module,exports){
+},{"./services/search.service":8,"angular":19}],8:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -152,18 +182,27 @@ SearchService.$inject = ['$http'];
 exports['default'] = SearchService;
 module.exports = exports['default'];
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-var AuthController = function AuthController(UserService) {
+var AuthController = function AuthController(UserService, Flash, $stateParams, MessageService) {
 
   var vm = this;
 
   vm.login = login;
   vm.register = register;
+
+  checkMessage();
+
+  function checkMessage() {
+    if ($stateParams.c) {
+      var msg = MessageService.code($stateParams.c);
+      Flash.create('warning', msg);
+    }
+  }
 
   function login(user) {
     UserService.login(user).then(function (res) {
@@ -173,17 +212,17 @@ var AuthController = function AuthController(UserService) {
 
   function register(user) {
     UserService.register(user).then(function (res) {
-      console.log(res);
+      UserService.store(res.data);
     });
   }
 };
 
-AuthController.$inject = ['UserService'];
+AuthController.$inject = ['UserService', 'Flash', '$stateParams', 'MessageService'];
 
 exports['default'] = AuthController;
 module.exports = exports['default'];
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -204,13 +243,13 @@ var _controllersAuthController2 = _interopRequireDefault(_controllersAuthControl
 
 _angular2['default'].module('app.user', ['ngCookies']).service('UserService', _servicesUserService2['default']).controller('AuthController', _controllersAuthController2['default']);
 
-},{"./controllers/auth.controller":8,"./services/user.service":10,"angular":16,"angular-cookies":13}],10:[function(require,module,exports){
+},{"./controllers/auth.controller":9,"./services/user.service":11,"angular":19,"angular-cookies":15}],11:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-var UserService = function UserService($http, $cookies) {
+var UserService = function UserService($http, $cookies, $state) {
 
   var url = 'http://localhost:3000/users';
 
@@ -226,16 +265,30 @@ var UserService = function UserService($http, $cookies) {
 
   // Store User
   this.store = function (user) {
-    $cookies.put('user-token', user.auth_token);
-    $cookies.put('user-email', user.email);
+    $cookies.putObject('produce-user', user);
+  };
+
+  // Check Login
+  this.checkAuth = function (route) {
+    var user = $cookies.getObject('produce-user');
+    console.log(user);
+
+    if (route !== 'root.register' && route !== 'root.login') {
+      $state.go('root.login', { c: 1 });
+    }
+  };
+
+  // Logout
+  this.logout = function () {
+    $cookies.remove('produce-user');
   };
 };
 
-UserService.$inject = ['$http', '$cookies'];
+UserService.$inject = ['$http', '$cookies', '$state'];
 exports['default'] = UserService;
 module.exports = exports['default'];
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -262,16 +315,40 @@ require('./app.search/index');
 
 require('./app.user/index');
 
+// Main Run Block
+
+var _runJs = require('./run.js');
+
+var _runJs2 = _interopRequireDefault(_runJs);
+
 // Set up a run block on an angular module to help with
 // loading foundation after templates load
-_angular2['default'].module('app', ['app.core', 'app.layout', 'app.search', 'app.user']).run(function ($rootScope) {
+_angular2['default'].module('app', ['app.core', 'app.layout', 'app.search', 'app.user']).run(_runJs2['default']);
 
-  $rootScope.$on('$viewContentLoaded', function (event, data) {
-    (0, _jquery2['default'])(document).foundation();
-  });
+},{"./app.core/index":2,"./app.layout/index":6,"./app.search/index":7,"./app.user/index":10,"./run.js":13,"angular":19,"foundation":20,"jquery":21}],13:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
 });
+var run = function run($rootScope, UserService) {
 
-},{"./app.core/index":2,"./app.layout/index":5,"./app.search/index":6,"./app.user/index":9,"angular":16,"foundation":17,"jquery":18}],12:[function(require,module,exports){
+  // When content loads, run the Foundation Object
+  $rootScope.$on('$viewContentLoaded', function (event, data) {
+    $(document).foundation();
+  });
+
+  // When a route changes, check login
+  $rootScope.$on('$stateChangeSuccess', function (event, data) {
+    UserService.checkAuth(data.name);
+  });
+};
+
+run.$inject = ['$rootScope', 'UserService'];
+exports['default'] = run;
+module.exports = exports['default'];
+
+},{}],14:[function(require,module,exports){
 /**
  * @license AngularJS v1.4.8
  * (c) 2010-2015 Google, Inc. http://angularjs.org
@@ -594,11 +671,102 @@ angular.module('ngCookies').provider('$$cookieWriter', function $$CookieWriterPr
 
 })(window, window.angular);
 
-},{}],13:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 require('./angular-cookies');
 module.exports = 'ngCookies';
 
-},{"./angular-cookies":12}],14:[function(require,module,exports){
+},{"./angular-cookies":14}],16:[function(require,module,exports){
+/*! angular-flash - v1.0.0 - 2015-03-19
+* https://github.com/sachinchoolur/angular-flash
+* Copyright (c) 2015 Sachin; Licensed MIT */
+(function() {
+    'use strict';
+    var app = angular.module('flash', []);
+
+    app.run(['$rootScope', function($rootScope) {
+        // initialize variables
+        $rootScope.flash = {};
+        $rootScope.flash.text = '';
+        $rootScope.flash.type = '';
+        $rootScope.flash.timeout = 5000;
+        $rootScope.hasFlash = false;
+    }]);
+
+    // Directive for compiling dynamic html
+    app.directive('dynamic', ['$compile', function($compile) {
+        return {
+            restrict: 'A',
+            replace: true,
+            link: function(scope, ele, attrs) {
+                scope.$watch(attrs.dynamic, function(html) {
+                    ele.html(html);
+                    $compile(ele.contents())(scope);
+                });
+            }
+        };
+    }]);
+
+    // Directive for closing the flash message
+    app.directive('closeFlash', ['$compile', 'Flash', function($compile, Flash) {
+        return {
+            link: function(scope, ele) {
+                ele.on('click', function() {
+                    Flash.dismiss();
+                });
+            }
+        };
+    }]);
+
+    // Create flashMessage directive
+    app.directive('flashMessage', ['$compile', '$rootScope', function($compile, $rootScope) {
+        return {
+            restrict: 'A',
+            template: '<div role="alert" ng-show="hasFlash" class="alert {{flash.addClass}} alert-{{flash.type}} alert-dismissible ng-hide alertIn alertOut "> <span dynamic="flash.text"></span> <button type="button" class="close" close-flash><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button> </div>',
+            link: function(scope, ele, attrs) {
+                // get timeout value from directive attribute and set to flash timeout
+                $rootScope.flash.timeout = parseInt(attrs.flashMessage, 10);
+            }
+        };
+    }]);
+
+    app.factory('Flash', ['$rootScope', '$timeout',
+        function($rootScope, $timeout) {
+
+            var dataFactory = {},
+                timeOut;
+
+            // Create flash message
+            dataFactory.create = function(type, text, addClass) {
+                var $this = this;
+                $timeout.cancel(timeOut);
+                $rootScope.flash.type = type;
+                $rootScope.flash.text = text;
+                $rootScope.flash.addClass = addClass;
+                $timeout(function() {
+                    $rootScope.hasFlash = true;
+                }, 100);
+                timeOut = $timeout(function() {
+                    $this.dismiss();
+                }, $rootScope.flash.timeout);
+            };
+
+            // Cancel flashmessage timeout function
+            dataFactory.pause = function() {
+                $timeout.cancel(timeOut);
+            };
+
+            // Dismiss flash message
+            dataFactory.dismiss = function() {
+                $timeout.cancel(timeOut);
+                $timeout(function() {
+                    $rootScope.hasFlash = false;
+                });
+            };
+            return dataFactory;
+        }
+    ]);
+}());
+},{}],17:[function(require,module,exports){
 /**
  * State-based routing for AngularJS
  * @version v0.2.15
@@ -4969,7 +5137,7 @@ angular.module('ui.router.state')
   .filter('isState', $IsStateFilter)
   .filter('includedByState', $IncludedByStateFilter);
 })(window, window.angular);
-},{}],15:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 /**
  * @license AngularJS v1.4.8
  * (c) 2010-2015 Google, Inc. http://angularjs.org
@@ -33988,11 +34156,11 @@ $provide.value("$locale", {
 })(window, document);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],16:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":15}],17:[function(require,module,exports){
+},{"./angular":18}],20:[function(require,module,exports){
 (function (global){
 ; var __browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 !function($) {
@@ -41463,7 +41631,7 @@ Foundation.plugin(ResponsiveToggle, 'ResponsiveToggle');
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],18:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 (function (global){
 ; var __browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 /*!
@@ -50683,7 +50851,7 @@ return jQuery;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}]},{},[11])
+},{}]},{},[12])
 
 
 //# sourceMappingURL=main.js.map

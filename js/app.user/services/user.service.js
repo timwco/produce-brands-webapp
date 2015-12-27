@@ -1,4 +1,4 @@
-let UserService = function($http, $cookies) {
+let UserService = function($http, $cookies, $state) {
 
   let url = 'http://localhost:3000/users';
   
@@ -14,11 +14,27 @@ let UserService = function($http, $cookies) {
 
   // Store User
   this.store = (user) => {
-    $cookies.put('user-token', user.auth_token);
-    $cookies.put('user-email', user.email);
+    $cookies.putObject('produce-user', user);
+  };
+
+  // Check Login
+  this.checkAuth = (route) => {
+    let user = $cookies.getObject('produce-user');
+    console.log(user);
+
+    if (route !== 'root.register' && route !== 'root.login') {
+      $state.go('root.login', { c: 1 });
+    }
+
+
+  };
+
+  // Logout
+  this.logout = () => {
+    $cookies.remove('produce-user');
   };
 
 };
 
-UserService.$inject = ['$http', '$cookies'];
+UserService.$inject = ['$http', '$cookies', '$state'];
 export default UserService;

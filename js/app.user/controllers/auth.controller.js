@@ -1,9 +1,18 @@
-let AuthController = function(UserService) {
+let AuthController = function(UserService, Flash, $stateParams, MessageService) {
   
   let vm = this;
 
   vm.login = login;
   vm.register = register;
+
+  checkMessage();
+
+  function checkMessage () {
+    if ($stateParams.c) {
+      let msg = MessageService.code($stateParams.c);
+      Flash.create('warning', msg);
+    }
+  }
 
 
   function login (user) {
@@ -14,12 +23,12 @@ let AuthController = function(UserService) {
 
   function register (user) {
     UserService.register(user).then( (res) => {
-      console.log(res);
+      UserService.store(res.data);
     });
   }
 
 };
 
-AuthController.$inject = ['UserService'];
+AuthController.$inject = ['UserService', 'Flash', '$stateParams', 'MessageService'];
 
 export default AuthController;
