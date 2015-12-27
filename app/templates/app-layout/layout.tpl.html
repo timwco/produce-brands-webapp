@@ -1,26 +1,16 @@
-<div class="top-bar">
-  <div class="row">
-    <div class="top-bar-left">
-      <ul class="menu" ng-hide="vm.user">
-        <li class="menu-text"><a href="/#/">Produce Brands</a></li>
-        <li><a href="/#/login">Login</a></li>
-        <li><a href="/#/register">Register</a></li>
-      </ul>
-      <ul class="menu" ng-show="vm.user">
-        <li class="menu-text">Produce Brands</li>
-        <li><a href="/#/logout">Logout</a></li>
-      </ul>
-    </div>
-    <div class="top-bar-right">
-      <form ng-submit="vm.search(query)">
-        <ul class="menu">
-          <li><input type="search" placeholder="Search" ng-model="query"></li>
-          <li><button class="button">Search</button></li>
-        </ul>
-      </form>
-    </div>
-  </div>
-</div>
+<nav class="menu">
+  <h1 class="name">Produce Brands</a></h1>
+  <ul class="inline-list top-nav">
+    <li><a href="/#/">Home</a></li>
+    <li><a href="/#/">Something</a></li>
+    <li><a href="http://producebrands.com">Website</a></li>
+  </ul>
+  <ul class="inline-list hide-for-small-only account-action" ng-hide="vm.user">
+    <li><a href="/#/login">Login</a></li>
+    <li><a class="signup" href="/#/register">Signup</a></li>
+  </ul>
+  <a class="account hide-for-medium-up" href="/#/login"><i class="fi-unlock"></i></a>
+</nav>
 
 <div class="row">
   <div class="medium-12 columns">
@@ -30,8 +20,7 @@
 </div>
 
 <div class="row column">
-  <hr>
-  <ul class="menu">
-    <li>Produce Brands LLC</li>
-  </ul>
+  <footer>
+    <h6>&copy; 2015 Produce Brands. All Rights Reserved</h4>
+  </footer>
 </div>

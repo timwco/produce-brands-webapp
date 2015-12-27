@@ -29,7 +29,7 @@ let config = function($stateProvider, $urlRouterProvider) {
   ; // End $stateProvider
 
 
-  $urlRouterProvider.otherwise('/');
+  $urlRouterProvider.otherwise('/login');
   
 
 };

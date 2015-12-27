@@ -3234,13 +3234,104 @@ button.close {
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0); }
 
+body {
+  color: #41494d; }
+
+.button {
+  background: #f15b36; }
+
+a {
+  color: #f15b36; }
+
+h1.name {
+  color: #f15b36; }
+
 .top-bar li > a, .top-bar ul li > a {
   color: #2199e8; }
+
+footer {
+  border-top: 1px solid #41494d;
+  padding: 10px 0 0 0; }
+  footer h6 {
+    font-size: 12px; }
 
 .pageContent {
   padding: 35px 0 10px 0; }
 
 .flash-message-container {
   margin: 15px 0; }
+
+.top-nav li {
+  padding: 0 5px; }
+
+.menu {
+  background-color: #41494d;
+  padding: 1.5rem 3rem;
+  height: auto; }
+
+.menu .inline-list {
+  text-align: center; }
+
+.menu .inline-list li {
+  float: none;
+  display: inline-block; }
+
+.menu .inline-list a {
+  color: #fff;
+  padding-bottom: 0.5rem; }
+
+.menu .inline-list a:hover {
+  color: #f15b36;
+  transition: all .3s ease-in-out; }
+
+.menu .inline-list .active a {
+  color: #f15b36; }
+
+.menu .account {
+  position: absolute;
+  top: 3%;
+  right: 3%; }
+
+.menu .account a, .menu .account i {
+  color: #fff; }
+
+@media only screen and (min-width: 40.063em) {
+  .menu {
+    height: 5rem; }
+  .menu .inline-list {
+    float: left;
+    margin: 0 0 0 1.5rem; }
+  .menu a:hover {
+    border-bottom: 2px solid #f15b36; } }
+
+.menu .account-action {
+  float: right;
+  margin: 0 0 0 0; }
+
+.menu .account-action li {
+  margin-left: .2rem; }
+
+.menu .account-action a {
+  padding: 0.75rem 1rem; }
+
+.menu .account-action a.signup {
+  font-weight: bold;
+  background-color: #3d4146;
+  border-radius: 3px; }
+
+.name {
+  text-align: center;
+  font-size: 1.5rem;
+  line-height: 1;
+  margin: 0 0 1rem 0;
+  color: #fff; }
+
+.name i {
+  color: #f15b36;
+  margin-right: 0.5rem; }
+
+@media only screen and (min-width: 40.063em) {
+  .name {
+    float: left; } }
 
 /*# sourceMappingURL=main.css.map */

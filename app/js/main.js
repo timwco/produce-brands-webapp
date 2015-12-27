@@ -30,7 +30,7 @@ var config = function config($stateProvider, $urlRouterProvider) {
     controller: 'AuthController as vm'
   }); // End $stateProvider
 
-  $urlRouterProvider.otherwise('/');
+  $urlRouterProvider.otherwise('/login');
 };
 
 config.$inject = ['$stateProvider', '$urlRouterProvider'];
