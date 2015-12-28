@@ -189,16 +189,24 @@ module.exports = exports['default'];
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-var AuthController = function AuthController(UserService, Flash, $stateParams, MessageService) {
+var AuthController = function AuthController(UserService, Flash, $stateParams, MessageService, $state) {
 
   var vm = this;
 
   vm.login = login;
   vm.register = register;
 
-  checkMessage();
+  activate();
 
-  function checkMessage() {
+  function activate() {
+
+    // First Check for user authed, then route away
+    var user = UserService.currentUser();
+    if (user) {
+      $state.go('root.home');
+    }
+
+    // Second Check for Auth Message
     if ($stateParams.c) {
       var msg = MessageService.code($stateParams.c);
       Flash.create('warning', msg);
@@ -207,18 +215,23 @@ var AuthController = function AuthController(UserService, Flash, $stateParams, M
 
   function login(user) {
     UserService.login(user).then(function (res) {
-      UserService.store(res.data);
+      authSuccess(res.data);
     });
   }
 
   function register(user) {
     UserService.register(user).then(function (res) {
-      UserService.store(res.data);
+      authSuccess(res.data);
     });
+  }
+
+  function authSuccess(user) {
+    UserService.store(user);
+    $state.go('root.home');
   }
 };
 
-AuthController.$inject = ['UserService', 'Flash', '$stateParams', 'MessageService'];
+AuthController.$inject = ['UserService', 'Flash', '$stateParams', 'MessageService', '$state'];
 
 exports['default'] = AuthController;
 module.exports = exports['default'];
@@ -250,7 +263,7 @@ _angular2['default'].module('app.user', ['ngCookies']).service('UserService', _s
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-var UserService = function UserService($http, $cookies, $state) {
+var UserService = function UserService($http, $cookies, $state, $rootScope) {
 
   var url = 'http://localhost:3000/users';
 
@@ -269,6 +282,11 @@ var UserService = function UserService($http, $cookies, $state) {
     $cookies.putObject('produce-user', user);
   };
 
+  // Expose User
+  this.currentUser = function () {
+    return $cookies.getObject('produce-user');
+  };
+
   // Check Login
   this.checkAuth = function () {
     var user = $cookies.getObject('produce-user');
@@ -278,7 +296,7 @@ var UserService = function UserService($http, $cookies, $state) {
         return $state.go('root.login', { c: 1 });
       }
     }
-    return user;
+    $rootScope.$broadcast('user:updated', user);
   };
 
   // Logout
@@ -288,7 +306,7 @@ var UserService = function UserService($http, $cookies, $state) {
   };
 };
 
-UserService.$inject = ['$http', '$cookies', '$state'];
+UserService.$inject = ['$http', '$cookies', '$state', '$rootScope'];
 exports['default'] = UserService;
 module.exports = exports['default'];
 
@@ -342,10 +360,7 @@ var run = function run($rootScope, UserService) {
     $(document).foundation();
 
     // Check Login - Update Nav Bar
-    var user = UserService.checkAuth();
-    if (user) {
-      $rootScope.$broadcast('user:updated', user);
-    }
+    UserService.checkAuth();
   });
 };
 

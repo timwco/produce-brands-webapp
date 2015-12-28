@@ -1,4 +1,4 @@
-let UserService = function($http, $cookies, $state) {
+let UserService = function($http, $cookies, $state, $rootScope) {
 
   let url = 'http://localhost:3000/users';
   
@@ -17,6 +17,11 @@ let UserService = function($http, $cookies, $state) {
     $cookies.putObject('produce-user', user);
   };
 
+  // Expose User
+  this.currentUser = () => {
+    return $cookies.getObject('produce-user');
+  };
+
   // Check Login
   this.checkAuth = () => {
     let user = $cookies.getObject('produce-user');
@@ -26,7 +31,7 @@ let UserService = function($http, $cookies, $state) {
         return $state.go('root.login', { c: 1 });
       }
     }
-    return user;
+    $rootScope.$broadcast('user:updated', user);
   };
 
   // Logout
@@ -37,5 +42,5 @@ let UserService = function($http, $cookies, $state) {
 
 };
 
-UserService.$inject = ['$http', '$cookies', '$state'];
+UserService.$inject = ['$http', '$cookies', '$state', '$rootScope'];
 export default UserService;

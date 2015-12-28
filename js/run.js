@@ -6,8 +6,7 @@ let run = function($rootScope, UserService) {
     $(document).foundation();
 
     // Check Login - Update Nav Bar
-    let user = UserService.checkAuth();
-    if (user) { $rootScope.$broadcast('user:updated', user); }
+    UserService.checkAuth();
   });
 
 };

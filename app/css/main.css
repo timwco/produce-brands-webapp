@@ -3237,7 +3237,7 @@ button.close {
 body {
   color: #41494d; }
 
-.button {
+.button, .button:hover, .button:focus {
   background: #f15b36; }
 
 a {
@@ -3260,6 +3260,10 @@ footer {
 
 .flash-message-container {
   margin: 15px 0; }
+
+.logged-in-name {
+  color: white;
+  margin-right: 10px; }
 
 .top-nav li {
   padding: 0 5px; }
@@ -3317,7 +3321,7 @@ footer {
 
 .menu .account-action a.signup {
   font-weight: bold;
-  background-color: #3d4146;
+  background-color: #586369;
   border-radius: 3px; }
 
 .name {
