@@ -187,13 +187,16 @@ Object.defineProperty(exports, '__esModule', {
 var ListingController = function ListingController(SearchService, $stateParams) {
 
   var vm = this;
+  vm.items = [];
 
   activate();
 
   function activate() {
     // Check for Fetch Page Data
     var type = $stateParams.type;
-    SearchService.getListing(type);
+    SearchService.getListing(type).then(function (res) {
+      vm.items = res.data;
+    });
   }
 };
 
@@ -380,7 +383,6 @@ var UserService = function UserService($http, $cookies, $state, $rootScope, APP)
       }
     }
     $rootScope.$broadcast('user:updated', user);
-    console.log('did');
     APP.CONFIG.headers['X-AUTH-TOKEN'] = user.auth_token;
   };
 
