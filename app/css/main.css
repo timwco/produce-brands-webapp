@@ -3243,15 +3243,26 @@ body {
 a {
   color: #f15b36; }
 
+a:hover {
+  color: #f8a995; }
+
 h1.name {
   color: #f15b36; }
 
 .top-bar li > a, .top-bar ul li > a {
   color: #2199e8; }
 
+.top-border {
+  border-top: 1px solid #c2c8cb;
+  padding-top: 15px; }
+
+.top-pad {
+  padding-top: 15px; }
+
 footer {
-  border-top: 1px solid #41494d;
-  padding: 10px 0 0 0; }
+  border-top: 1px solid #c2c8cb;
+  padding: 10px 0 0 0;
+  margin-top: 25px; }
   footer h6 {
     font-size: 12px; }
 
@@ -3285,8 +3296,7 @@ footer {
   padding-bottom: 0.5rem; }
 
 .menu .inline-list a:hover {
-  color: #f15b36;
-  transition: all .3s ease-in-out; }
+  color: #f15b36; }
 
 .menu .inline-list .active a {
   color: #f15b36; }
@@ -3330,6 +3340,8 @@ footer {
   line-height: 1;
   margin: 0 0 1rem 0;
   color: #fff; }
+  .name a:hover {
+    border-bottom: none; }
 
 .name i {
   color: #f15b36;
@@ -3342,5 +3354,24 @@ footer {
 @media only screen and (max-width: 639px) {
   .menu .account {
     display: block; } }
+
+.home-blocks .item-wrapper {
+  padding: 20px;
+  border: 2px solid #efefef;
+  border-radius: 7px;
+  margin-top: 10px; }
+
+.home-blocks .img-wrapper {
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden; }
+
+.home-blocks h3 {
+  font-size: 22px; }
+
+.home-blocks p {
+  color: #888;
+  font-size: 13px;
+  margin-bottom: 0; }
 
 /*# sourceMappingURL=main.css.map */

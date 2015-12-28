@@ -14,15 +14,19 @@ $grey: #41494d;
 body { color: $grey; }
 .button, .button:hover, .button:focus { background: $orange; }
 a { color: $orange; }
+a:hover { color: lighten($orange, 20%); }
 
 h1.name { color: $orange; }
 .top-bar li > a, .top-bar ul li > a { color: #2199e8; }
+.top-border { border-top: 1px solid lighten($grey, 50%); padding-top: 15px; }
+.top-pad { padding-top: 15px; }
 
 
 // Footer 
 footer {
-  border-top: 1px solid $grey;
+  border-top: 1px solid lighten($grey, 50%);
   padding: 10px 0 0 0;
+  margin-top: 25px;
   h6 { font-size: 12px; }
 }
 
@@ -47,8 +51,7 @@ footer {
       color: #fff;
       padding-bottom: 0.5rem; }
       .menu .inline-list a:hover {
-        color: $orange;
-        transition: all .3s ease-in-out; }
+        color: $orange; }
     .menu .inline-list .active a {
       color: $orange; }
   .menu .account {
@@ -83,7 +86,11 @@ footer {
   font-size: 1.5rem;
   line-height: 1;
   margin: 0 0 1rem 0;
-  color: #fff; }
+  color: #fff; 
+  a:hover {
+    border-bottom: none;
+  }
+}
   .name i {
     color: $orange;
     margin-right: 0.5rem; }
@@ -93,4 +100,30 @@ footer {
 
 @media only screen and (max-width: 639px) {
   .menu .account { display: block; }
+}
+
+.home-blocks {
+  .item-wrapper {
+    padding: 20px;
+    border: 2px solid #efefef;
+    border-radius: 7px;
+    margin-top: 10px;
+  }
+
+  .img-wrapper {
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  h3 {
+    font-size: 22px;
+  }
+
+  p {
+    color: #888;
+    font-size: 13px;
+    margin-bottom: 0;
+  }
+
 }
