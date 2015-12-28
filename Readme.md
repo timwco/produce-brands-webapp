@@ -11,3 +11,9 @@
 | Code   | Description |
 | ------ | ----------- |
 | 1      | Not Logged In |
+| 2      | Successful Log Out |
+
+
+## Todo
+
+- Check `$contentLoaded` running multiple times

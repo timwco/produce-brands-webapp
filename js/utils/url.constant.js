@@ -1,14 +1,8 @@
-// Production Setup
-let production =  {
-  URL: ''
+// Define URL's (add trailing slash)
+let development = 'http://localhost:3000/';
+let production = '';
+
+export default {
+  URL: (window.location.href.indexOf("localhost")) ? development : production,
+  CONFIG: { headers: {} }
 };
-
-// Development Setup
-let development = {
-  URL: 'http://localhost:3000/'
-};
-
-// Check for localhost (development)
-let exported = (window.location.href.indexOf("localhost")) ? development : production;
-
-export default exported;

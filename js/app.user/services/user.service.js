@@ -30,6 +30,8 @@ let UserService = function($http, $cookies, $state, $rootScope, APP) {
       }
     }
     $rootScope.$broadcast('user:updated', user);
+    console.log('did');
+    APP.CONFIG.headers['X-AUTH-TOKEN'] = user.auth_token;
   };
 
   // Logout

@@ -1,10 +1,16 @@
-let ListingController = function(SearchService) {
+let ListingController = function(SearchService, $stateParams) {
   
   let vm = this;
 
-  console.log('here');
+  activate();
+
+  function activate () {
+    // Check for Fetch Page Data
+    let type = $stateParams.type;
+    SearchService.getListing(type);
+  }
 
 };
 
-ListingController.$inject = ['SearchService'];
+ListingController.$inject = ['SearchService', '$stateParams'];
 export default ListingController;

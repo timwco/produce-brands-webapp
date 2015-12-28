@@ -184,14 +184,20 @@ module.exports = exports["default"];
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-var ListingController = function ListingController(SearchService) {
+var ListingController = function ListingController(SearchService, $stateParams) {
 
   var vm = this;
 
-  console.log('here');
+  activate();
+
+  function activate() {
+    // Check for Fetch Page Data
+    var type = $stateParams.type;
+    SearchService.getListing(type);
+  }
 };
 
-ListingController.$inject = ['SearchService'];
+ListingController.$inject = ['SearchService', '$stateParams'];
 exports['default'] = ListingController;
 module.exports = exports['default'];
 
@@ -246,10 +252,16 @@ Object.defineProperty(exports, '__esModule', {
 var SearchService = function SearchService($http, APP) {
 
   this.query = query;
+  this.getListing = getListing;
 
   // Standard Query
   function query(q) {
-    return $http.get(APP.URL + 'brands');
+    return $http.get(APP.URL + 'brands', APP.CONFIG);
+  }
+
+  // Get Listing Results
+  function getListing(type) {
+    return $http.get(APP.URL + type, APP.CONFIG);
   }
 };
 SearchService.$inject = ['$http', 'APP'];
@@ -368,6 +380,8 @@ var UserService = function UserService($http, $cookies, $state, $rootScope, APP)
       }
     }
     $rootScope.$broadcast('user:updated', user);
+    console.log('did');
+    APP.CONFIG.headers['X-AUTH-TOKEN'] = user.auth_token;
   };
 
   // Logout
@@ -446,25 +460,19 @@ exports['default'] = run;
 module.exports = exports['default'];
 
 },{}],17:[function(require,module,exports){
-// Production Setup
+// Define URL's (add trailing slash)
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-var production = {
-  URL: ''
+var development = 'http://localhost:3000/';
+var production = '';
+
+exports['default'] = {
+  URL: window.location.href.indexOf("localhost") ? development : production,
+  CONFIG: { headers: {} }
 };
-
-// Development Setup
-var development = {
-  URL: 'http://localhost:3000/'
-};
-
-// Check for localhost (development)
-var exported = window.location.href.indexOf("localhost") ? development : production;
-
-exports['default'] = exported;
 module.exports = exports['default'];
 
 },{}],18:[function(require,module,exports){

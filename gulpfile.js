@@ -103,7 +103,6 @@ gulp.task('watch', function() {
   });
   watch(['./js/**/*.js', './package.json'], function () {
     gulp.start('browserify');
-    gulp.start('browserify-test');
   });
   watch('./app/index.html', function () {
     gulp.start('hint:html');
