@@ -52,6 +52,7 @@ footer {
       color: $orange; }
   .menu .account {
     position: absolute;
+    display: none;
     top: 3%;
     right: 3%; }
     .menu .account a, .menu .account i {
@@ -88,3 +89,7 @@ footer {
   @media only screen and (min-width: 40.063em) {
     .name {
       float: left; } }
+
+@media only screen and (max-width: 639px) {
+  .menu .account { display: block; }
+}
