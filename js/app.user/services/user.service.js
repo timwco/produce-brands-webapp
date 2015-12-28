@@ -1,15 +1,13 @@
-let UserService = function($http, $cookies, $state, $rootScope) {
-
-  let url = 'http://localhost:3000/users';
+let UserService = function($http, $cookies, $state, $rootScope, APP) {
   
   // Login
   this.login = (user) => {
-    return $http.post(url, user);
+    return $http.post(APP.URL, user);
   };
 
   // Register
   this.register = (user) => {
-    return $http.post(url + '/new', user);
+    return $http.post(APP.URL + 'new', user);
   };
 
   // Store User
@@ -42,5 +40,5 @@ let UserService = function($http, $cookies, $state, $rootScope) {
 
 };
 
-UserService.$inject = ['$http', '$cookies', '$state', '$rootScope'];
+UserService.$inject = ['$http', '$cookies', '$state', '$rootScope', 'APP'];
 export default UserService;

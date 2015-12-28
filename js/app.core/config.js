@@ -29,7 +29,7 @@ let config = function($stateProvider, $urlRouterProvider) {
     // Search & Listing States
     .state('root.all', {
       url: '/all/:type',
-      templateUrl: 'templates/app-search/all.tpl.html',
+      templateUrl: 'templates/app-search/listing.tpl.html',
       controller: 'ListingController as vm'
     })
     .state('root.search', {

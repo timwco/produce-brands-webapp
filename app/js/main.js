@@ -33,7 +33,7 @@ var config = function config($stateProvider, $urlRouterProvider) {
   // Search & Listing States
   .state('root.all', {
     url: '/all/:type',
-    templateUrl: 'templates/app-search/all.tpl.html',
+    templateUrl: 'templates/app-search/listing.tpl.html',
     controller: 'ListingController as vm'
   }).state('root.search', {
     url: '/search?q',
@@ -76,7 +76,7 @@ var _servicesMessageService2 = _interopRequireDefault(_servicesMessageService);
 
 _angular2['default'].module('app.core', ['ui.router', 'flash']).config(_config2['default']).service('MessageService', _servicesMessageService2['default']);
 
-},{"./config":1,"./services/message.service":3,"angular":22,"angular-flash-alert":19,"angular-ui-router":20}],3:[function(require,module,exports){
+},{"./config":1,"./services/message.service":3,"angular":23,"angular-flash-alert":20,"angular-ui-router":21}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -163,7 +163,7 @@ var _controllersLayoutController2 = _interopRequireDefault(_controllersLayoutCon
 
 _angular2['default'].module('app.layout', []).controller('HomeController', _controllersHomeController2['default']).controller('LayoutController', _controllersLayoutController2['default']);
 
-},{"./controllers/home.controller":4,"./controllers/layout.controller":5,"angular":22}],7:[function(require,module,exports){
+},{"./controllers/home.controller":4,"./controllers/layout.controller":5,"angular":23}],7:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -179,19 +179,21 @@ exports["default"] = ItemController;
 module.exports = exports["default"];
 
 },{}],8:[function(require,module,exports){
-"use strict";
+'use strict';
 
-Object.defineProperty(exports, "__esModule", {
+Object.defineProperty(exports, '__esModule', {
   value: true
 });
-var ListingController = function ListingController() {
+var ListingController = function ListingController(SearchService) {
 
   var vm = this;
+
+  console.log('here');
 };
 
-ListingController.$inject = [];
-exports["default"] = ListingController;
-module.exports = exports["default"];
+ListingController.$inject = ['SearchService'];
+exports['default'] = ListingController;
+module.exports = exports['default'];
 
 },{}],9:[function(require,module,exports){
 "use strict";
@@ -235,23 +237,22 @@ var _controllersListingController2 = _interopRequireDefault(_controllersListingC
 
 _angular2['default'].module('app.search', []).service('SearchService', _servicesSearchService2['default']).controller('SearchController', _controllersSearchController2['default']).controller('ItemController', _controllersItemController2['default']).controller('ListingController', _controllersListingController2['default']);
 
-},{"./controllers/item.controller":7,"./controllers/listing.controller":8,"./controllers/search.controller":9,"./services/search.service":11,"angular":22}],11:[function(require,module,exports){
+},{"./controllers/item.controller":7,"./controllers/listing.controller":8,"./controllers/search.controller":9,"./services/search.service":11,"angular":23}],11:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-var SearchService = function SearchService($http) {
-
-  var url = 'https://produce-api.herokuapp.com/';
+var SearchService = function SearchService($http, APP) {
 
   this.query = query;
 
+  // Standard Query
   function query(q) {
-    return $http.get(url + 'brands');
+    return $http.get(APP.URL + 'brands');
   }
 };
-SearchService.$inject = ['$http'];
+SearchService.$inject = ['$http', 'APP'];
 exports['default'] = SearchService;
 module.exports = exports['default'];
 
@@ -329,24 +330,22 @@ var _controllersAuthController2 = _interopRequireDefault(_controllersAuthControl
 
 _angular2['default'].module('app.user', ['ngCookies']).service('UserService', _servicesUserService2['default']).controller('AuthController', _controllersAuthController2['default']);
 
-},{"./controllers/auth.controller":12,"./services/user.service":14,"angular":22,"angular-cookies":18}],14:[function(require,module,exports){
+},{"./controllers/auth.controller":12,"./services/user.service":14,"angular":23,"angular-cookies":19}],14:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-var UserService = function UserService($http, $cookies, $state, $rootScope) {
-
-  var url = 'http://localhost:3000/users';
+var UserService = function UserService($http, $cookies, $state, $rootScope, APP) {
 
   // Login
   this.login = function (user) {
-    return $http.post(url, user);
+    return $http.post(APP.URL, user);
   };
 
   // Register
   this.register = function (user) {
-    return $http.post(url + '/new', user);
+    return $http.post(APP.URL + 'new', user);
   };
 
   // Store User
@@ -378,7 +377,7 @@ var UserService = function UserService($http, $cookies, $state, $rootScope) {
   };
 };
 
-UserService.$inject = ['$http', '$cookies', '$state', '$rootScope'];
+UserService.$inject = ['$http', '$cookies', '$state', '$rootScope', 'APP'];
 exports['default'] = UserService;
 module.exports = exports['default'];
 
@@ -411,15 +410,21 @@ require('./app.user/index');
 
 // Main Run Block
 
-var _runJs = require('./run.js');
+var _utilsRunJs = require('./utils/run.js');
 
-var _runJs2 = _interopRequireDefault(_runJs);
+var _utilsRunJs2 = _interopRequireDefault(_utilsRunJs);
+
+// Import APP Constants
+
+var _utilsUrlConstant = require('./utils/url.constant');
+
+var _utilsUrlConstant2 = _interopRequireDefault(_utilsUrlConstant);
 
 // Set up a run block on an angular module to help with
 // loading foundation after templates load
-_angular2['default'].module('app', ['app.core', 'app.layout', 'app.search', 'app.user']).run(_runJs2['default']);
+_angular2['default'].module('app', ['app.core', 'app.layout', 'app.search', 'app.user']).run(_utilsRunJs2['default']).constant('APP', _utilsUrlConstant2['default']);
 
-},{"./app.core/index":2,"./app.layout/index":6,"./app.search/index":10,"./app.user/index":13,"./run.js":16,"angular":22,"foundation":23,"jquery":24}],16:[function(require,module,exports){
+},{"./app.core/index":2,"./app.layout/index":6,"./app.search/index":10,"./app.user/index":13,"./utils/run.js":16,"./utils/url.constant":17,"angular":23,"foundation":24,"jquery":25}],16:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -441,6 +446,28 @@ exports['default'] = run;
 module.exports = exports['default'];
 
 },{}],17:[function(require,module,exports){
+// Production Setup
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+var production = {
+  URL: ''
+};
+
+// Development Setup
+var development = {
+  URL: 'http://localhost:3000/'
+};
+
+// Check for localhost (development)
+var exported = window.location.href.indexOf("localhost") ? development : production;
+
+exports['default'] = exported;
+module.exports = exports['default'];
+
+},{}],18:[function(require,module,exports){
 /**
  * @license AngularJS v1.4.8
  * (c) 2010-2015 Google, Inc. http://angularjs.org
@@ -763,11 +790,11 @@ angular.module('ngCookies').provider('$$cookieWriter', function $$CookieWriterPr
 
 })(window, window.angular);
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 require('./angular-cookies');
 module.exports = 'ngCookies';
 
-},{"./angular-cookies":17}],19:[function(require,module,exports){
+},{"./angular-cookies":18}],20:[function(require,module,exports){
 /*! angular-flash - v1.0.0 - 2015-03-19
 * https://github.com/sachinchoolur/angular-flash
 * Copyright (c) 2015 Sachin; Licensed MIT */
@@ -858,7 +885,7 @@ module.exports = 'ngCookies';
         }
     ]);
 }());
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 /**
  * State-based routing for AngularJS
  * @version v0.2.15
@@ -5229,7 +5256,7 @@ angular.module('ui.router.state')
   .filter('isState', $IsStateFilter)
   .filter('includedByState', $IncludedByStateFilter);
 })(window, window.angular);
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 /**
  * @license AngularJS v1.4.8
  * (c) 2010-2015 Google, Inc. http://angularjs.org
@@ -34248,11 +34275,11 @@ $provide.value("$locale", {
 })(window, document);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":21}],23:[function(require,module,exports){
+},{"./angular":22}],24:[function(require,module,exports){
 (function (global){
 ; var __browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 !function($) {
@@ -41723,7 +41750,7 @@ Foundation.plugin(ResponsiveToggle, 'ResponsiveToggle');
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 (function (global){
 ; var __browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 /*!

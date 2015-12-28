@@ -1,8 +1,10 @@
-let ListingController = function() {
+let ListingController = function(SearchService) {
   
   let vm = this;
 
+  console.log('here');
+
 };
 
-ListingController.$inject = [];
+ListingController.$inject = ['SearchService'];
 export default ListingController;
