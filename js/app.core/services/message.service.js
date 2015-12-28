@@ -4,7 +4,10 @@ let MessageService = function() {
     let msg = '';
     switch (Number(num)) {
       case 1:
-        msg = 'Sorry, you need to login or register first.';
+        msg = 'You need to login or register first.';
+      break;
+      case 2:
+        msg = 'You have been successfully logged out. Thanks!';
       break;
     }
 

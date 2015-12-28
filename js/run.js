@@ -1,14 +1,14 @@
 let run = function($rootScope, UserService) {
   
-  // When content loads, run the Foundation Object
-  $rootScope.$on('$viewContentLoaded', function (event, data) {
+  
+  $rootScope.$on('$viewContentLoaded', function (event) {
+    // When content loads, run the Foundation Object
     $(document).foundation();
-  });
 
-  // When a route changes, check login
-  $rootScope.$on('$stateChangeSuccess', function (event, data) {
-    UserService.checkAuth(data.name);
-  }); 
+    // Check Login - Update Nav Bar
+    let user = UserService.checkAuth();
+    if (user) { $rootScope.$broadcast('user:updated', user); }
+  });
 
 };
 

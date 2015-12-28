@@ -1,21 +1,18 @@
-let LayoutController = function(SearchService, UserService, $scope) {
+let LayoutController = function (UserService, $scope) {
 
   let vm = this;
 
-  vm.search = search;
+  vm.logout = logout;
   vm.user = null;
 
-  function search (query) {
-    SearchService.query(query).then( function (res) {
-      console.log(res);
-    });
+  function logout () {
+    UserService.logout();
   }
 
   $scope.$on('user:updated', (event, args) => {
-    console.log(args);
+    vm.user = args;
   });
 
-
 };
-LayoutController.$inject = ['SearchService', 'UserService', '$scope'];
+LayoutController.$inject = ['UserService', '$scope'];
 export default LayoutController;

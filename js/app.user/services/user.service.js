@@ -18,20 +18,21 @@ let UserService = function($http, $cookies, $state) {
   };
 
   // Check Login
-  this.checkAuth = (route) => {
+  this.checkAuth = () => {
     let user = $cookies.getObject('produce-user');
-    console.log(user);
-
-    if (route !== 'root.register' && route !== 'root.login') {
-      $state.go('root.login', { c: 1 });
+    if (!user) {  
+      // Logic needs to be better
+      if (!$state.is('root.register') && !$state.is('root.login')) {
+        return $state.go('root.login', { c: 1 });
+      }
     }
-
-
+    return user;
   };
 
   // Logout
   this.logout = () => {
     $cookies.remove('produce-user');
+    $state.go('root.login', { c: 2 });
   };
 
 };

@@ -30,7 +30,7 @@ var config = function config($stateProvider, $urlRouterProvider) {
     controller: 'AuthController as vm'
   }); // End $stateProvider
 
-  $urlRouterProvider.otherwise('/login');
+  $urlRouterProvider.otherwise('/');
 };
 
 config.$inject = ['$stateProvider', '$urlRouterProvider'];
@@ -73,7 +73,10 @@ var MessageService = function MessageService() {
     var msg = '';
     switch (Number(num)) {
       case 1:
-        msg = 'Sorry, you need to login or register first.';
+        msg = 'You need to login or register first.';
+        break;
+      case 2:
+        msg = 'You have been successfully logged out. Thanks!';
         break;
     }
 
@@ -107,24 +110,22 @@ module.exports = exports["default"];
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-var LayoutController = function LayoutController(SearchService, UserService, $scope) {
+var LayoutController = function LayoutController(UserService, $scope) {
 
   var vm = this;
 
-  vm.search = search;
+  vm.logout = logout;
   vm.user = null;
 
-  function search(query) {
-    SearchService.query(query).then(function (res) {
-      console.log(res);
-    });
+  function logout() {
+    UserService.logout();
   }
 
   $scope.$on('user:updated', function (event, args) {
-    console.log(args);
+    vm.user = args;
   });
 };
-LayoutController.$inject = ['SearchService', 'UserService', '$scope'];
+LayoutController.$inject = ['UserService', '$scope'];
 exports['default'] = LayoutController;
 module.exports = exports['default'];
 
@@ -269,18 +270,21 @@ var UserService = function UserService($http, $cookies, $state) {
   };
 
   // Check Login
-  this.checkAuth = function (route) {
+  this.checkAuth = function () {
     var user = $cookies.getObject('produce-user');
-    console.log(user);
-
-    if (route !== 'root.register' && route !== 'root.login') {
-      $state.go('root.login', { c: 1 });
+    if (!user) {
+      // Logic needs to be better
+      if (!$state.is('root.register') && !$state.is('root.login')) {
+        return $state.go('root.login', { c: 1 });
+      }
     }
+    return user;
   };
 
   // Logout
   this.logout = function () {
     $cookies.remove('produce-user');
+    $state.go('root.login', { c: 2 });
   };
 };
 
@@ -333,14 +337,15 @@ Object.defineProperty(exports, '__esModule', {
 });
 var run = function run($rootScope, UserService) {
 
-  // When content loads, run the Foundation Object
-  $rootScope.$on('$viewContentLoaded', function (event, data) {
+  $rootScope.$on('$viewContentLoaded', function (event) {
+    // When content loads, run the Foundation Object
     $(document).foundation();
-  });
 
-  // When a route changes, check login
-  $rootScope.$on('$stateChangeSuccess', function (event, data) {
-    UserService.checkAuth(data.name);
+    // Check Login - Update Nav Bar
+    var user = UserService.checkAuth();
+    if (user) {
+      $rootScope.$broadcast('user:updated', user);
+    }
   });
 };
 

@@ -9,6 +9,9 @@
     <li><a href="/#/login">Login</a></li>
     <li><a class="signup" href="/#/register">Signup</a></li>
   </ul>
+  <ul class="inline-list hide-for-small-only account-action" ng-show="vm.user">
+    <li><a href="/#/" ng-click="vm.logout()">Logout</a></li>
+  </ul>
   <a class="account hide-for-medium-up" href="/#/login"><i class="fi-unlock"></i></a>
 </nav>
 
