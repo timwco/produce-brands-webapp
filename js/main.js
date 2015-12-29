@@ -22,4 +22,9 @@ angular
   .module('app', ['app.core', 'app.layout', 'app.search', 'app.user'])
   .run(run)
   .constant('APP', APP)
+  .filter('underscoreCap', function () {
+    return function (input) {
+      return input.replace(/_/g, ' ').toUpperCase();
+    };
+  })
 ;

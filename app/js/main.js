@@ -32,16 +32,20 @@ var config = function config($stateProvider, $urlRouterProvider) {
 
   // Search & Listing States
   .state('root.all', {
-    url: '/all/:type',
-    templateUrl: 'templates/app-search/listing.tpl.html',
+    url: '/all/:type?page',
+    templateUrl: function templateUrl(params) {
+      return 'templates/app-search/listings/' + params.type + '.tpl.html';
+    },
     controller: 'ListingController as vm'
   }).state('root.search', {
     url: '/search?q',
     templateUrl: 'templates/app-search/search.tpl.html',
     controller: 'SearchController as vm'
   }).state('root.item', {
-    url: '/item/:id',
-    templateUrl: 'templates/app-search/single.tpl.html',
+    url: '/:type/:id',
+    templateUrl: function templateUrl(params) {
+      return 'templates/app-search/types/single-' + params.type + '.tpl.html';
+    },
     controller: 'ItemController as vm'
   }); // End $stateProvider
 
@@ -188,14 +192,33 @@ var ListingController = function ListingController(SearchService, $stateParams) 
 
   var vm = this;
   vm.items = [];
+  vm.current_page = 1;
+  vm.next_page = 2;
+  vm.pages = 0;
+  vm.entries = 0;
+
+  // Options
+  vm.brandColumns = ['name', 'country', 'state', 'image', 'description', 'producer'];
 
   activate();
 
   function activate() {
     // Check for Fetch Page Data
     var type = $stateParams.type;
-    SearchService.getListing(type).then(function (res) {
-      vm.items = res.data;
+    var page = $stateParams.page;
+    console.log($stateParams);
+    SearchService.getListing(type, page).then(function (res) {
+      console.log(res);
+
+      var next = res.data.current_page + 1;
+      var prev = res.data.current_page - 1;
+
+      vm.entries = res.data.total_entries;
+      vm.pages = res.data.total_pages;
+      vm.items = res.data.items;
+      vm.current_page = res.data.current_page;
+      vm.prev_page = prev === 0 ? null : prev;
+      vm.next_page = next > res.data.total_pages ? null : next;
     });
   }
 };
@@ -263,8 +286,9 @@ var SearchService = function SearchService($http, APP) {
   }
 
   // Get Listing Results
-  function getListing(type) {
-    return $http.get(APP.URL + type, APP.CONFIG);
+  function getListing(type, page) {
+    var url = APP.URL + type + '?page=' + page;
+    return $http.get(url, APP.CONFIG);
   }
 };
 SearchService.$inject = ['$http', 'APP'];
@@ -438,7 +462,11 @@ var _utilsUrlConstant2 = _interopRequireDefault(_utilsUrlConstant);
 
 // Set up a run block on an angular module to help with
 // loading foundation after templates load
-_angular2['default'].module('app', ['app.core', 'app.layout', 'app.search', 'app.user']).run(_utilsRunJs2['default']).constant('APP', _utilsUrlConstant2['default']);
+_angular2['default'].module('app', ['app.core', 'app.layout', 'app.search', 'app.user']).run(_utilsRunJs2['default']).constant('APP', _utilsUrlConstant2['default']).filter('underscoreCap', function () {
+  return function (input) {
+    return input.replace(/_/g, ' ').toUpperCase();
+  };
+});
 
 },{"./app.core/index":2,"./app.layout/index":6,"./app.search/index":10,"./app.user/index":13,"./utils/run.js":16,"./utils/url.constant":17,"angular":23,"foundation":24,"jquery":25}],16:[function(require,module,exports){
 'use strict';

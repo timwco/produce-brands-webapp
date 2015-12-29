@@ -28,8 +28,10 @@ let config = function($stateProvider, $urlRouterProvider) {
 
     // Search & Listing States
     .state('root.all', {
-      url: '/all/:type',
-      templateUrl: 'templates/app-search/listing.tpl.html',
+      url: '/all/:type?page',
+      templateUrl: function (params) {
+        return 'templates/app-search/listings/' + params.type + '.tpl.html';
+      },
       controller: 'ListingController as vm'
     })
     .state('root.search', {
@@ -38,8 +40,10 @@ let config = function($stateProvider, $urlRouterProvider) {
       controller: 'SearchController as vm'
     })
     .state('root.item', {
-      url: '/item/:id',
-      templateUrl: 'templates/app-search/single.tpl.html',
+      url: '/:type/:id',
+      templateUrl: function (params) {
+        return 'templates/app-search/types/single-' + params.type + '.tpl.html';
+      },
       controller: 'ItemController as vm'
     })
   

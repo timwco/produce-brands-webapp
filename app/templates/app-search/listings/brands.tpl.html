@@ -1,0 +1,38 @@
+<h4>
+  All Brands - 
+  <span class="meta">Page {{ vm.current_page}} of {{ vm.pages }}</span>
+</h4>
+
+<div class="row top-pad">
+  <div class="columns small-12">
+    <table class="hover full-width listing-table">
+      <thead>
+        <tr>
+          <th ng-repeat="column in vm.brandColumns">{{ column | underscoreCap }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="item in vm.items">
+          <td>{{ item.name }}</td>
+          <td>{{ item.country }}</td>
+          <td>{{ item.state }}</td>
+          <td><a href="{{ item.image }}.png"><i class="fa fa-picture-o"></i></a></td>
+          <td>{{ item.description }}</td>
+          <td><a href="/#/producer/{{ item.producer_id }}">View</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="meta">Total Brands: {{ vm.entries | number }}</div>
+
+    <ul class="pagination" role="navigation">
+      <li class="pagination-previous" ng-show="vm.prev_page">
+        <a href="/#/all/brands?page={{ vm.prev_page }}">Previous</a>
+      </li>
+      <li class="pagination-next" ng-show="vm.next_page">
+        <a href="/#/all/brands?page={{ vm.next_page }}">Next</a>
+      </li>
+    </ul>
+
+
+  </div>
+</div>

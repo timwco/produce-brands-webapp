@@ -9,8 +9,9 @@ let SearchService = function($http, APP) {
   }
 
   // Get Listing Results
-  function getListing (type) {
-    return $http.get(APP.URL + type, APP.CONFIG);
+  function getListing (type, page) {
+    let url = APP.URL + type + '?page=' + page;
+    return $http.get(url, APP.CONFIG);
   }
 
 
