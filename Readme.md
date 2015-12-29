@@ -17,6 +17,4 @@
 ## Todo
 
 - Check `$contentLoaded` running multiple times
-- Add pagination
 - Add breadcrumbs
-- move filters

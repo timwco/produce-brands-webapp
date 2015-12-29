@@ -23,4 +23,5 @@ angular
   .service('MessageService', MessageService)
   .filter('moment', MomentFilter)
   .filter('underscoreCap', UnderscoreCapFilter)
+  .directive('errSrc', ErrorSrcDirective)
 ;
