@@ -13,12 +13,12 @@
       </thead>
       <tbody>
         <tr ng-repeat="item in vm.items">
-          <td>{{ item.name }}</td>
+          <td><a href="/#/brand/{{ item.id }}">{{ item.name }}</a></td>
           <td>{{ item.country }}</td>
           <td>{{ item.state }}</td>
-          <td><a href="{{ item.image }}.png"><i class="fa fa-picture-o"></i></a></td>
+          <td><a ng-click="vm.openImage(item.image)"><i class="fa fa-picture-o"></i></a></td>
           <td>{{ item.description }}</td>
-          <td><a href="/#/producer/{{ item.producer_id }}">View</a></td>
+          <td><a href="/#/producer/{{ item.producer_id }}">Producer Info</a></td>
         </tr>
       </tbody>
     </table>
@@ -36,3 +36,6 @@
 
   </div>
 </div>
+
+
+<div class="tiny reveal image-pop" id="modal" data-reveal></div>

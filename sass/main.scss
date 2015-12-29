@@ -37,16 +37,29 @@ h1.name { color: $orange; }
 }
 .results {
 }
+.image-pop {
+  img {
+    height: 300px;
+  }
+}
 
 
 // Single Page
+.item-page img { border-radius: 3px; }
+.single-title {
+  background: $grey;
+  color: white;
+  padding: 0 0 0 14px;
+  border-radius: 3px;
+  margin-bottom: 15px;
+}
 .item-meta {
   margin-left: 0;
-  margin-top: 25px;
+  margin-top: 10px;
   li {
     list-style: none;
     background: $grey;
-    border-radius: 2px;
+    border-radius: 3px;
     color: white;
     padding: 12px 20px;
     border-bottom: 1px solid white;

@@ -5353,13 +5353,26 @@ h1.name {
   .search-form input {
     width: 100%; }
 
+.image-pop img {
+  height: 300px; }
+
+.item-page img {
+  border-radius: 3px; }
+
+.single-title {
+  background: #41494d;
+  color: white;
+  padding: 0 0 0 14px;
+  border-radius: 3px;
+  margin-bottom: 15px; }
+
 .item-meta {
   margin-left: 0;
-  margin-top: 25px; }
+  margin-top: 10px; }
   .item-meta li {
     list-style: none;
     background: #41494d;
-    border-radius: 2px;
+    border-radius: 3px;
     color: white;
     padding: 12px 20px;
     border-bottom: 1px solid white; }

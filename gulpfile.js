@@ -114,7 +114,7 @@ gulp.task('watch', function() {
 });
 
 gulp.task('server', ['default'], function () {
-  return gulp.src('app')
+  return gulp.src(['app', '!app/images/**/*'])
     .pipe(server({
       livereload: true
     }));

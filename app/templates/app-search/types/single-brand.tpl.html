@@ -1,16 +1,28 @@
-<div class="row">
+<div class="row item-page">
   <div class="small-12 columns">
-    <h1>{{ vm.item.name }}</h1>
+    <h1 class="single-title">{{ vm.item.name }}</h1>
   </div>
 </div>
-<div class="row">
+<div class="row item-page">
   <div class="small-3 columns">
-    <img src="http://placehold.it/300x150">
+    <img ng-src="images/items/{{ vm.item.image }}.jpg">
     <ul class="item-meta">
-      <li><i class="fa fa-globe"></i> Country: {{ vm.item.country }}</li>
-      <li><i class="fa fa-map-marker"></i> State:  {{ vm.item.state }}</li>
-      <li><i class="fa fa-clock-o"></i> Added: {{ vm.item.created_at }}</li>
+      <li ng-show="vm.item.country">
+        <i class="fa fa-globe"></i> Country: {{ vm.item.country }}
+      </li>
+      <li ng-show="vm.item.state">
+        <i class="fa fa-map-marker"></i> State:  {{ vm.item.state }}
+      </li>
+      <li>
+        <i class="fa fa-clock-o"></i> Added: {{ vm.item.created_at | moment }}
+      </li>
     </ul>
+  </div>
+  <div class="small-9 columns">
+    <div class="description">    
+      <h5>Description</h5>
+      <p>{{ vm.item.description }}</p>
+    </div>
     <table class="hover full-width">
       <tbody>
         <tr>
@@ -29,12 +41,6 @@
         </tr>
       </tbody>
     </table>
-  </div>
-  <div class="small-9 columns">
-    <div class="description">    
-      <h5>Description</h5>
-      <p>{{ vm.item.description }}</p>
-    </div>
   </div>
 </div>
 

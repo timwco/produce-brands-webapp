@@ -1,8 +1,9 @@
 import angular from 'angular';
 
-// Import jQuery & Foundaiton
+// Import jQuery & Foundaiton & Moment
 import $ from 'jquery';
 import 'foundation';
+import moment from 'moment';
 
 // Custom Modules
 import './app.core/index';
@@ -25,6 +26,11 @@ angular
   .filter('underscoreCap', function () {
     return function (input) {
       return input.replace(/_/g, ' ').toUpperCase();
+    };
+  })
+  .filter('moment', function () {
+    return function (input) {
+      return moment(input).format('MM-DD-YYYY');
     };
   })
 ;

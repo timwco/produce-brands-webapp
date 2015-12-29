@@ -6,6 +6,7 @@ let ListingController = function(SearchService, $stateParams) {
   vm.next_page = 2;
   vm.pages = 0;
   vm.entries = 0;
+  vm.openImage = openImage;
 
   // Options
   vm.brandColumns = ['name', 'country', 'state', 'image', 'description', 'producer'];
@@ -33,6 +34,11 @@ let ListingController = function(SearchService, $stateParams) {
       vm.next_page = (next > res.data.total_pages) ? null : next;
 
     });
+  }
+
+  function openImage (id) {
+    let $modal = $('#modal'); 
+    $modal.html('<img src="images/items/' + id + '.jpg">').foundation('open');
   }
 
 };
