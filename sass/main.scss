@@ -39,6 +39,20 @@ h1.name { color: $orange; }
 }
 
 
+// Single Page
+.item-meta {
+  margin-left: 0;
+  margin-top: 25px;
+  li {
+    list-style: none;
+    background: $grey;
+    border-radius: 2px;
+    color: white;
+    padding: 12px 20px;
+    border-bottom: 1px solid white;
+  }
+}
+
 // Footer 
 footer {
   border-top: 1px solid lighten($grey, 50%);

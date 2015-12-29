@@ -168,19 +168,29 @@ var _controllersLayoutController2 = _interopRequireDefault(_controllersLayoutCon
 _angular2['default'].module('app.layout', []).controller('HomeController', _controllersHomeController2['default']).controller('LayoutController', _controllersLayoutController2['default']);
 
 },{"./controllers/home.controller":4,"./controllers/layout.controller":5,"angular":23}],7:[function(require,module,exports){
-"use strict";
+'use strict';
 
-Object.defineProperty(exports, "__esModule", {
+Object.defineProperty(exports, '__esModule', {
   value: true
 });
-var ItemController = function ItemController() {
+var ItemController = function ItemController(SearchService, $stateParams) {
 
   var vm = this;
+
+  vm.item = {};
+
+  activate();
+
+  function activate() {
+    SearchService.getSingle($stateParams.type, $stateParams.id).then(function (res) {
+      vm.item = res.data;
+    });
+  }
 };
 
-ItemController.$inject = [];
-exports["default"] = ItemController;
-module.exports = exports["default"];
+ItemController.$inject = ['SearchService', '$stateParams'];
+exports['default'] = ItemController;
+module.exports = exports['default'];
 
 },{}],8:[function(require,module,exports){
 'use strict';
@@ -291,6 +301,7 @@ var SearchService = function SearchService($http, APP) {
 
   this.search = search;
   this.getListing = getListing;
+  this.getSingle = getSingle;
 
   // Standard Query
   function search(q) {
@@ -303,6 +314,29 @@ var SearchService = function SearchService($http, APP) {
     var p = page ? page : 1;
     var url = APP.URL + type + '?page=' + p;
     return $http.get(url, APP.CONFIG);
+  }
+
+  // Get Single Result
+  function getSingle(type, id) {
+    type = pluralize(type);
+    var url = APP.URL + type + '/' + id;
+    return $http.get(url, APP.CONFIG);
+  }
+
+  // Pluralize type for Rails endpoint
+  function pluralize(type) {
+    switch (type) {
+      case 'brand':
+        type = 'brands';
+        break;
+      case 'producer':
+        type = 'producers';
+        break;
+      case 'commodity':
+        type = 'commodities';
+        break;
+    }
+    return type;
   }
 };
 SearchService.$inject = ['$http', 'APP'];

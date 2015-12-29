@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="small-12 columns">
+    <h1>{{ vm.item.name }}</h1>
+  </div>
+</div>
+<div class="row">
+  <div class="small-3 columns">
+    <img src="http://placehold.it/300x150">
+    <ul class="item-meta">
+      <li><i class="fa fa-globe"></i> Country: {{ vm.item.country }}</li>
+      <li><i class="fa fa-map-marker"></i> State:  {{ vm.item.state }}</li>
+      <li><i class="fa fa-clock-o"></i> Added: {{ vm.item.created_at }}</li>
+    </ul>
+    <table class="hover full-width">
+      <tbody>
+        <tr>
+          <td>Food Safety</td>
+          <td>
+            <i class="fa fa-check-square-o" ng-show="vm.item.food_safety"></i>
+            <i class="fa fa-square-o" ng-hide="vm.item.food_safety"></i>
+          </td>
+        </tr>
+        <tr>
+          <td>Organic</td>
+          <td>
+            <i class="fa fa-check-square-o" ng-show="vm.item.organic"></i>
+            <i class="fa fa-square-o" ng-hide="vm.item.organic"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="small-9 columns">
+    <div class="description">    
+      <h5>Description</h5>
+      <p>{{ vm.item.description }}</p>
+    </div>
+  </div>
+</div>
+
+<!-- name, country, state, organic, image, description, food_safety, producer_id, updated_at, created_at -->
