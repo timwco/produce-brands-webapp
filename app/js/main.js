@@ -230,19 +230,29 @@ exports['default'] = ListingController;
 module.exports = exports['default'];
 
 },{}],9:[function(require,module,exports){
-"use strict";
+'use strict';
 
-Object.defineProperty(exports, "__esModule", {
+Object.defineProperty(exports, '__esModule', {
   value: true
 });
-var SearchController = function SearchController() {
+var SearchController = function SearchController(SearchService) {
 
   var vm = this;
+
+  vm.search = search;
+  vm.results = [];
+
+  function search(query) {
+    SearchService.search(query).then(function (res) {
+      vm.results = res.data;
+      console.log(res);
+    });
+  }
 };
 
-SearchController.$inject = [];
-exports["default"] = SearchController;
-module.exports = exports["default"];
+SearchController.$inject = ['SearchService'];
+exports['default'] = SearchController;
+module.exports = exports['default'];
 
 },{}],10:[function(require,module,exports){
 'use strict';
@@ -279,12 +289,13 @@ Object.defineProperty(exports, '__esModule', {
 });
 var SearchService = function SearchService($http, APP) {
 
-  this.query = query;
+  this.search = search;
   this.getListing = getListing;
 
   // Standard Query
-  function query(q) {
-    return $http.get(APP.URL + 'brands', APP.CONFIG);
+  function search(q) {
+    var url = APP.URL + 'search?q=' + q;
+    return $http.get(url, APP.CONFIG);
   }
 
   // Get Listing Results

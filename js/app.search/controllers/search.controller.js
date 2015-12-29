@@ -1,10 +1,18 @@
-let SearchController = function() {
+let SearchController = function(SearchService) {
   
   let vm = this;
 
-  
+  vm.search = search;
+  vm.results = [];
+
+  function search (query) {
+    SearchService.search(query).then( (res) => {
+      vm.results = res.data;
+      console.log(res);
+    });
+  }
 
 };
 
-SearchController.$inject = [];
+SearchController.$inject = ['SearchService'];
 export default SearchController;

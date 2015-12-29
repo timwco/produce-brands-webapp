@@ -1,11 +1,12 @@
 let SearchService = function($http, APP) {
 
-  this.query = query;
+  this.search = search;
   this.getListing = getListing;
 
   // Standard Query
-  function query (q) {
-    return $http.get(APP.URL + 'brands', APP.CONFIG);
+  function search (q) {
+    let url = APP.URL + 'search?q=' + q;
+    return $http.get(url, APP.CONFIG);
   }
 
   // Get Listing Results

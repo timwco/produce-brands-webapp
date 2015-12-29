@@ -5328,6 +5328,9 @@ a:hover, a.focus {
 .full-width {
   width: 100%; }
 
+.align-right {
+  text-align: right; }
+
 h1.name {
   color: #f15b36; }
 
@@ -5340,6 +5343,15 @@ h1.name {
 
 .top-pad {
   padding-top: 15px; }
+
+.search-form {
+  position: relative; }
+  .search-form .search-icon {
+    position: absolute;
+    top: 12px;
+    right: 45px; }
+  .search-form input {
+    width: 100%; }
 
 footer {
   border-top: 1px solid #c2c8cb;
@@ -5359,8 +5371,12 @@ footer {
   color: white;
   margin-right: 10px; }
 
-.top-nav li {
+.menu .top-nav li {
   padding: 0 5px; }
+  .menu .top-nav li a {
+    background-color: #586369;
+    padding: 3px 8px 5px 8px;
+    border-radius: 3px; }
 
 .menu {
   background-color: #41494d;
@@ -5398,7 +5414,7 @@ footer {
     height: 5rem; }
   .menu .inline-list {
     float: left;
-    margin: 0 0 0 1.5rem; }
+    margin: 1px 0 0 1.5rem; }
   .menu a:hover {
     border-bottom: 2px solid #f15b36; } }
 
@@ -5410,7 +5426,7 @@ footer {
   margin-left: .2rem; }
 
 .menu .account-action a {
-  padding: 0.75rem 1rem; }
+  padding: 8px 15px 11px 15px; }
 
 .menu .account-action a.signup {
   font-weight: bold;

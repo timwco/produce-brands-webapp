@@ -1,1 +1,29 @@
-<h4>Search Page</h4>
+<div class="row">
+  <div class="small-12 columns">
+    <h4>Search</h4>
+    <form ng-submit="vm.search(query)" class="search-form">
+      <div class="row column">
+        <input type="text" placeholder="Search Term" ng-model="query">
+        <i class="fa fa-search search-icon"></i>
+      </div>
+    </form>
+    <div class="row results">
+      <div class="large-12 columns ">
+        <div class="search-results">
+          <div class="row" ng-repeat="item in vm.results">
+            <hr>
+            <div class=" large-9 columns">
+              <h5>{{ item.content }}</h5>
+              <p>Type: {{ item.searchable_type }}</p>
+            </div>
+            <div class=" large-3 columns align-right">
+              <a href="/#/{{ item.searchable_type | lowercase }}/{{ item.searchable_id }}"  class="button  expand medium">
+                <span>View Here</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
