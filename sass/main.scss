@@ -36,6 +36,8 @@ h1.name {
 .top-border { border-top: 1px solid lighten($grey, 50%); padding-top: 15px; }
 .top-pad { padding-top: 15px; }
 
+.bc-cont { margin-bottom: 25px; }
+
 // Spinner
 .fa-spinner {
   animation: spin 1s linear infinite;
