@@ -112,6 +112,24 @@ h1.name { color: $orange; }
   tbody tr:nth-child(even) { background: none; }
   tbody tr { border-bottom: 1px solid #f1f1f1; }
 }
+.producer-info { font-style: italic; font-size: 13px; }
+.commodities-list {
+  padding-top: 20px;
+  h6 {
+    border-bottom: 1px solid $grey;
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+    font-size: 20px;
+  }
+  a {
+    background-color: $grey;
+    color: white;
+    border-radius: 3px;
+    padding: 3px 8px 5px 8px;
+    margin-right: 8px;
+  }
+}
+
 
 // Footer 
 footer {

@@ -19,10 +19,6 @@
       <li>
         <i class="fa fa-clock-o"></i> Added: {{ vm.item.created_at | moment }}
       </li>
-      <li ng-show="vm.item.producer_id">
-        <i class="fa fa-external-link"></i>
-        <a href="/#/producer/{{ vm.item.producer_id }}">Producer Info</a>
-      </li>
     </ul>
   </div>
   <div class="small-9 columns">
@@ -48,6 +44,14 @@
         </tr>
       </tbody>
     </table>
+    <div class="producer-info" ng-show="vm.producer">
+      Produced By: 
+      <a href="/#/producer/{{ vm.producer.id }}">{{ vm.producer.name }} of {{ vm.producer.city }}, {{ vm.producer.state }}</a>
+    </div>
+    <div class="commodities-list" ng-show="vm.commodities">
+      <h6>Commodities Grown</h6>
+      <a href="/#/commodity/{{ c.id }}" ng-repeat="c in vm.commodities">{{ c.name }}</a>
+    </div>
   </div>
 </div>
 

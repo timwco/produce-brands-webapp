@@ -66,6 +66,14 @@
         </tr>
       </tbody>
     </table>
+    <div class="commodities-list" ng-show="vm.commodities">
+      <h6>Brands We Work With</h6>
+      <a href="/#/brand/{{ b.id }}" ng-repeat="b in vm.brands">{{ b.name }}</a>
+    </div>
+    <div class="commodities-list" ng-show="vm.commodities">
+      <h6>Commodities Grown</h6>
+      <a href="/#/commodity/{{ c.id }}" ng-repeat="c in vm.commodities">{{ c.name }}</a>
+    </div>
   </div>
 </div>
 

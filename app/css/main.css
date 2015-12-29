@@ -5424,6 +5424,24 @@ h1.name {
 .item-page tbody tr {
   border-bottom: 1px solid #f1f1f1; }
 
+.producer-info {
+  font-style: italic;
+  font-size: 13px; }
+
+.commodities-list {
+  padding-top: 20px; }
+  .commodities-list h6 {
+    border-bottom: 1px solid #41494d;
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+    font-size: 20px; }
+  .commodities-list a {
+    background-color: #41494d;
+    color: white;
+    border-radius: 3px;
+    padding: 3px 8px 5px 8px;
+    margin-right: 8px; }
+
 footer {
   border-top: 1px solid #c2c8cb;
   padding: 10px 0 0 0;

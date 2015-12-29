@@ -36,7 +36,7 @@ let ListingController = function(SearchService, $stateParams, $timeout) {
       $timeout( function () {
         vm.loading = false; // clear loading bar
         vm.items = res.data.items;
-      }, 1500);
+      }, 900);
 
     });
   }
