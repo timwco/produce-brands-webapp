@@ -5326,10 +5326,13 @@ small {
   background: #f15b36;
   border-radius: 3px; }
 
+.button.grey {
+  background-color: #41494d; }
+
 a {
   color: #f15b36; }
 
-a:hover, a.focus {
+a:hover, a:focus {
   color: #f8a995; }
 
 .full-width {
@@ -5453,6 +5456,59 @@ h1.name {
     border-radius: 3px;
     padding: 3px 8px 5px 8px;
     margin-right: 8px; }
+
+.price_card {
+  width: 100%;
+  border: 2px solid #41494d;
+  border-radius: 3px;
+  overflow: auto; }
+  .price_card .header {
+    color: white;
+    background: #41494d;
+    border-bottom: 2px solid #41494d; }
+  .price_card .price {
+    width: 100%;
+    font-size: 60px;
+    font-weight: 300;
+    display: block;
+    text-align: center;
+    padding: 30px 0 10px; }
+  .price_card .name {
+    float: none;
+    width: 100%;
+    font-size: 15px;
+    font-weight: 700;
+    display: block;
+    text-align: center;
+    padding: 0 0 30px; }
+  .price_card .features {
+    list-style: none;
+    text-align: center;
+    color: #8a8a8a;
+    margin: 0;
+    padding: 0; }
+  .price_card .features li {
+    margin: 0 35px;
+    padding: 20px 15px; }
+  .price_card .features li:not(:last-child) {
+    border: 1px solid #586369;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0; }
+  .price_card button {
+    color: white;
+    background: #41494d;
+    border: 0;
+    border-radius: 5px;
+    height: 40px;
+    width: 200px;
+    display: block;
+    font-weight: 700;
+    font-size: 15px;
+    text-transform: uppercase;
+    margin: 20px auto 35px; }
+    .price_card button a {
+      color: white; }
 
 footer {
   border-top: 1px solid #c2c8cb;

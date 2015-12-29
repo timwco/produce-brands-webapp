@@ -15,11 +15,11 @@ var config = function config($stateProvider, $urlRouterProvider) {
     controller: 'LayoutController as vm'
   }).state('root.landing', {
     url: '/',
-    templateUrl: 'templates/app-layout/start.tpl.html',
+    templateUrl: 'templates/app-layout/landing.tpl.html',
     controller: 'HomeController as vm'
   }).state('root.start', {
     url: '/start',
-    templateUrl: 'templates/app-layout/home.tpl.html',
+    templateUrl: 'templates/app-layout/start.tpl.html',
     controller: 'HomeController as vm'
   })
 
@@ -236,20 +236,29 @@ exports['default'] = MessageService;
 module.exports = exports['default'];
 
 },{}],9:[function(require,module,exports){
-"use strict";
+'use strict';
 
-Object.defineProperty(exports, "__esModule", {
+Object.defineProperty(exports, '__esModule', {
   value: true
 });
-var HomeController = function HomeController() {
+var HomeController = function HomeController(UserService, $state) {
 
   var vm = this;
+
+  activate();
+
+  function activate() {
+    var user = UserService.currentUser();
+    if (user) {
+      $state.go('root.start');
+    }
+  }
 };
 
-HomeController.$inject = [];
+HomeController.$inject = ['UserService', '$state'];
 
-exports["default"] = HomeController;
-module.exports = exports["default"];
+exports['default'] = HomeController;
+module.exports = exports['default'];
 
 },{}],10:[function(require,module,exports){
 'use strict';
@@ -654,7 +663,7 @@ var UserService = function UserService($http, $cookies, $state, $rootScope, APP)
     if (!user) {
       // Logic needs to be better
       if (!$state.is('root.register') && !$state.is('root.login') && !$state.is('root.landing')) {
-        return $state.go('root.login', { c: 1 });
+        return $state.go('root.landing');
       }
     } else {
       $rootScope.$broadcast('user:updated', user);
@@ -665,6 +674,7 @@ var UserService = function UserService($http, $cookies, $state, $rootScope, APP)
   // Logout
   this.logout = function () {
     $cookies.remove('produce-user');
+    $rootScope.$broadcast('user:updated', null);
     $state.go('root.login', { c: 2 });
   };
 };

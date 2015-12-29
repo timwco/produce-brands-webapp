@@ -26,7 +26,7 @@ let UserService = function($http, $cookies, $state, $rootScope, APP) {
     if (!user) {  
       // Logic needs to be better
       if (!$state.is('root.register') && !$state.is('root.login') && !$state.is('root.landing')) {
-        return $state.go('root.login', { c: 1 });
+        return $state.go('root.landing');
       }
     } else {    
       $rootScope.$broadcast('user:updated', user);
@@ -37,6 +37,7 @@ let UserService = function($http, $cookies, $state, $rootScope, APP) {
   // Logout
   this.logout = () => {
     $cookies.remove('produce-user');
+    $rootScope.$broadcast('user:updated', null);
     $state.go('root.login', { c: 2 });
   };
 
