@@ -17,5 +17,5 @@
 ## Todo
 
 - Check `$contentLoaded` running multiple times
-- Add breadcrumbs
-- Error checking (especially for login/register)
+- Forgot Password / User Page
+- Ability to Add/Edit/Delete Brands, Commodities & Producers

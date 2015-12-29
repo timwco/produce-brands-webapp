@@ -5344,6 +5344,13 @@ h1.name {
 .top-pad {
   padding-top: 15px; }
 
+.breadcrumb-container {
+  margin-top: 35px; }
+  .breadcrumb-container .breadcrumbs {
+    margin-bottom: 0; }
+    .breadcrumb-container .breadcrumbs a {
+      color: #f15b36; }
+
 .search-form {
   position: relative; }
   .search-form .search-icon {
@@ -5394,7 +5401,7 @@ footer {
     font-size: 12px; }
 
 .pageContent {
-  padding: 35px 0 10px 0; }
+  padding: 0 0 10px 0; }
 
 .flash-message-container {
   margin: 15px 0; }
