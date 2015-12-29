@@ -14,13 +14,23 @@ $grey: #41494d;
 
 // Elements
 body { color: $grey; }
+small { font-size: 12px; font-style: italic; margin: 10px 0; display: block; }
 .button, .button:hover, .button:focus { background: $orange; border-radius: 3px; }
 a { color: $orange; }
 a:hover, a.focus { color: lighten($orange, 20%); }
 .full-width { width: 100%; }
 .align-right { text-align: right; }
 
-h1.name { color: $orange; }
+h1.name { 
+  color: $orange;
+  span {
+    color: white;
+    font-size: 12px;
+    font-style: italic;
+    vertical-align: middle;
+    padding-left: 5px;
+  }
+}
 .top-bar li > a, .top-bar ul li > a { color: #2199e8; }
 .top-border { border-top: 1px solid lighten($grey, 50%); padding-top: 15px; }
 .top-pad { padding-top: 15px; }

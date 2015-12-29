@@ -69,7 +69,8 @@ var production = '';
 
 exports['default'] = {
   URL: window.location.href.indexOf("localhost") ? development : production,
-  CONFIG: { headers: {} }
+  CONFIG: { headers: {} },
+  VERSION: 0.1
 };
 module.exports = exports['default'];
 
@@ -79,7 +80,7 @@ module.exports = exports['default'];
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-var ErrorSrcDirective = function ErrorSrcDirective() {
+var VerifySrcDirective = function VerifySrcDirective() {
 
   return {
     link: function link(scope, element, attrs) {
@@ -90,8 +91,8 @@ var ErrorSrcDirective = function ErrorSrcDirective() {
   };
 };
 
-ErrorSrcDirective.$inject = [];
-exports['default'] = ErrorSrcDirective;
+VerifySrcDirective.$inject = [];
+exports['default'] = VerifySrcDirective;
 module.exports = exports['default'];
 
 },{}],4:[function(require,module,exports){
@@ -197,13 +198,13 @@ var _constantsAppConstant2 = _interopRequireDefault(_constantsAppConstant);
 
 // Directives
 
-var _directivesErrorsrcDirective = require('./directives/errorsrc.directive');
+var _directivesVerifySrcDirective = require('./directives/verify-src.directive');
 
-var _directivesErrorsrcDirective2 = _interopRequireDefault(_directivesErrorsrcDirective);
+var _directivesVerifySrcDirective2 = _interopRequireDefault(_directivesVerifySrcDirective);
 
-_angular2['default'].module('app.core', ['ui.router', 'flash']).config(_config2['default']).constant('APP', _constantsAppConstant2['default']).service('MessageService', _servicesMessageService2['default']).filter('moment', _filtersMomentFilter2['default']).filter('underscoreCap', _filtersUnderscorecapFilter2['default']).filter('addHTTP', _filtersAddHTTPFilter2['default']).directive('errSrc', _directivesErrorsrcDirective2['default']);
+_angular2['default'].module('app.core', ['ui.router', 'flash']).config(_config2['default']).constant('APP', _constantsAppConstant2['default']).service('MessageService', _servicesMessageService2['default']).filter('moment', _filtersMomentFilter2['default']).filter('underscoreCap', _filtersUnderscorecapFilter2['default']).filter('addHTTP', _filtersAddHTTPFilter2['default']).directive('verifySrc', _directivesVerifySrcDirective2['default']);
 
-},{"./config":1,"./constants/app.constant":2,"./directives/errorsrc.directive":3,"./filters/addHTTP.filter":4,"./filters/moment.filter":5,"./filters/underscorecap.filter":6,"./services/message.service":8,"angular":27,"angular-flash-alert":24,"angular-ui-router":25}],8:[function(require,module,exports){
+},{"./config":1,"./constants/app.constant":2,"./directives/verify-src.directive":3,"./filters/addHTTP.filter":4,"./filters/moment.filter":5,"./filters/underscorecap.filter":6,"./services/message.service":8,"angular":27,"angular-flash-alert":24,"angular-ui-router":25}],8:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -252,12 +253,13 @@ module.exports = exports["default"];
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-var LayoutController = function LayoutController(UserService, $scope) {
+var LayoutController = function LayoutController(UserService, $scope, APP) {
 
   var vm = this;
 
   vm.logout = logout;
   vm.user = null;
+  vm.version = APP.VERSION;
 
   function logout() {
     UserService.logout();
@@ -267,7 +269,7 @@ var LayoutController = function LayoutController(UserService, $scope) {
     vm.user = args;
   });
 };
-LayoutController.$inject = ['UserService', '$scope'];
+LayoutController.$inject = ['UserService', '$scope', 'APP'];
 exports['default'] = LayoutController;
 module.exports = exports['default'];
 

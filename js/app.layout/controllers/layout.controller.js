@@ -1,9 +1,10 @@
-let LayoutController = function (UserService, $scope) {
+let LayoutController = function (UserService, $scope, APP) {
 
   let vm = this;
 
   vm.logout = logout;
   vm.user = null;
+  vm.version = APP.VERSION;
 
   function logout () {
     UserService.logout();
@@ -14,5 +15,5 @@ let LayoutController = function (UserService, $scope) {
   });
 
 };
-LayoutController.$inject = ['UserService', '$scope'];
+LayoutController.$inject = ['UserService', '$scope', 'APP'];
 export default LayoutController;

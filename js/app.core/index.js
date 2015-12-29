@@ -15,7 +15,7 @@ import AddHTTPFilter from './filters/addHTTP.filter';
 import APP from './constants/app.constant';
 
 // Directives
-import ErrorSrcDirective from './directives/errorsrc.directive';
+import VerifySrcDirective from './directives/verify-src.directive';
 
 angular
   .module('app.core', ['ui.router', 'flash'])
@@ -25,5 +25,5 @@ angular
   .filter('moment', MomentFilter)
   .filter('underscoreCap', UnderscoreCapFilter)
   .filter('addHTTP', AddHTTPFilter)
-  .directive('errSrc', ErrorSrcDirective)
+  .directive('verifySrc', VerifySrcDirective)
 ;

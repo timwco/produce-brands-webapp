@@ -5316,6 +5316,12 @@ button.close {
 body {
   color: #41494d; }
 
+small {
+  font-size: 12px;
+  font-style: italic;
+  margin: 10px 0;
+  display: block; }
+
 .button, .button:hover, .button:focus {
   background: #f15b36;
   border-radius: 3px; }
@@ -5334,6 +5340,12 @@ a:hover, a.focus {
 
 h1.name {
   color: #f15b36; }
+  h1.name span {
+    color: white;
+    font-size: 12px;
+    font-style: italic;
+    vertical-align: middle;
+    padding-left: 5px; }
 
 .top-bar li > a, .top-bar ul li > a {
   color: #2199e8; }

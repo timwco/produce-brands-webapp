@@ -4,5 +4,6 @@ let production = '';
 
 export default {
   URL: (window.location.href.indexOf("localhost")) ? development : production,
-  CONFIG: { headers: {} }
+  CONFIG: { headers: {} },
+  VERSION: 0.1
 };

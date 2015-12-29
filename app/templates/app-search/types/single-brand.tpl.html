@@ -8,7 +8,7 @@
 </div>
 <div class="row item-page">
   <div class="small-3 columns">
-    <img ng-src="images/items/{{ vm.item.image }}.jpg">
+    <img ng-src="images/items/{{ vm.item.image }}.jpg" verify-src>
     <ul class="item-meta">
       <li ng-show="vm.item.country">
         <i class="fa fa-globe"></i> Country: {{ vm.item.country }}
@@ -44,7 +44,7 @@
         </tr>
       </tbody>
     </table>
-    <div class="producer-info" ng-show="vm.producer">
+    <div class="producer-info" ng-show="vm.producer.name">
       Produced By: 
       <a href="/#/producer/{{ vm.producer.id }}">{{ vm.producer.name }} of {{ vm.producer.city }}, {{ vm.producer.state }}</a>
     </div>

@@ -1,4 +1,4 @@
-let ErrorSrcDirective = function() {
+let VerifySrcDirective = function() {
   
   return {
     link: function(scope, element, attrs) {
@@ -10,5 +10,5 @@ let ErrorSrcDirective = function() {
 
 };
 
-ErrorSrcDirective.$inject = [];
-export default ErrorSrcDirective;
+VerifySrcDirective.$inject = [];
+export default VerifySrcDirective;
