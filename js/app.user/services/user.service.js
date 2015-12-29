@@ -12,7 +12,6 @@ let UserService = function($http, $cookies, $state, $rootScope, APP) {
 
   // Store User
   this.store = (user) => {
-    console.log('storing', user);
     $cookies.putObject('produce-user', user);
   };
 

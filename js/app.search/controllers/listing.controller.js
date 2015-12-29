@@ -19,9 +19,7 @@ let ListingController = function(SearchService, $stateParams) {
     // Check for Fetch Page Data
     let type = $stateParams.type;
     let page = $stateParams.page;
-    console.log($stateParams);
     SearchService.getListing(type, page).then( (res) => {
-      console.log(res);
 
       let next = res.data.current_page + 1;
       let prev = res.data.current_page - 1;

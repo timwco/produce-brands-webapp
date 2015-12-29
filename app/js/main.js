@@ -321,9 +321,7 @@ var ListingController = function ListingController(SearchService, $stateParams) 
     // Check for Fetch Page Data
     var type = $stateParams.type;
     var page = $stateParams.page;
-    console.log($stateParams);
     SearchService.getListing(type, page).then(function (res) {
-      console.log(res);
 
       var next = res.data.current_page + 1;
       var prev = res.data.current_page - 1;
@@ -369,7 +367,6 @@ var SearchController = function SearchController(SearchService) {
   function search(query) {
     SearchService.search(query).then(function (res) {
       vm.results = res.data;
-      console.log(res);
     });
   }
 };
@@ -463,7 +460,7 @@ module.exports = exports['default'];
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-var AuthController = function AuthController(UserService, Flash, $stateParams, MessageService, $state) {
+var AuthController = function AuthController(UserService, Flash, $stateParams, MessageService, $state, $timeout) {
 
   var vm = this;
 
@@ -489,7 +486,10 @@ var AuthController = function AuthController(UserService, Flash, $stateParams, M
 
   function login(user) {
     UserService.login(user).then(function (res) {
-      authSuccess(res.data);
+      Flash.create('success', 'Thanks! Logging you in now...');
+      $timeout(function () {
+        authSuccess(res.data);
+      }, 2000);
     }, function (res) {
       Flash.create('danger', res.data.errors);
       Flash.pause();
@@ -498,7 +498,10 @@ var AuthController = function AuthController(UserService, Flash, $stateParams, M
 
   function register(user) {
     UserService.register(user).then(function (res) {
-      authSuccess(res.data);
+      Flash.create('success', 'Thanks! Logging you in now...');
+      $timeout(function () {
+        authSuccess(res.data);
+      }, 2000);
     }, function (res) {
       var msg = res.data.errors.join(", ");
       Flash.create('danger', msg);
@@ -512,7 +515,7 @@ var AuthController = function AuthController(UserService, Flash, $stateParams, M
   }
 };
 
-AuthController.$inject = ['UserService', 'Flash', '$stateParams', 'MessageService', '$state'];
+AuthController.$inject = ['UserService', 'Flash', '$stateParams', 'MessageService', '$state', '$timeout'];
 
 exports['default'] = AuthController;
 module.exports = exports['default'];
@@ -558,7 +561,6 @@ var UserService = function UserService($http, $cookies, $state, $rootScope, APP)
 
   // Store User
   this.store = function (user) {
-    console.log('storing', user);
     $cookies.putObject('produce-user', user);
   };
 

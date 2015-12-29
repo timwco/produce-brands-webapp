@@ -8,7 +8,6 @@ let SearchController = function(SearchService) {
   function search (query) {
     SearchService.search(query).then( (res) => {
       vm.results = res.data;
-      console.log(res);
     });
   }
 
