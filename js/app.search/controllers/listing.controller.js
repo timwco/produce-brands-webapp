@@ -9,6 +9,8 @@ let ListingController = function(SearchService, $stateParams) {
 
   // Options
   vm.brandColumns = ['name', 'country', 'state', 'image', 'description', 'producer'];
+  vm.producerColumns = ['name', 'city', 'state', 'social'];
+  vm.commodityColumns = ['name', 'description'];
 
   activate();
 

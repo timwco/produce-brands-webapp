@@ -5322,7 +5322,7 @@ body {
 a {
   color: #f15b36; }
 
-a:hover {
+a:hover, a.focus {
   color: #f8a995; }
 
 .full-width {

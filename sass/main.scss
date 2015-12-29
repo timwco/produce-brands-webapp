@@ -16,7 +16,7 @@ $grey: #41494d;
 body { color: $grey; }
 .button, .button:hover, .button:focus { background: $orange; }
 a { color: $orange; }
-a:hover { color: lighten($orange, 20%); }
+a:hover, a.focus { color: lighten($orange, 20%); }
 .full-width { width: 100%; }
 
 h1.name { color: $orange; }

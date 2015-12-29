@@ -199,6 +199,8 @@ var ListingController = function ListingController(SearchService, $stateParams) 
 
   // Options
   vm.brandColumns = ['name', 'country', 'state', 'image', 'description', 'producer'];
+  vm.producerColumns = ['name', 'city', 'state', 'social'];
+  vm.commodityColumns = ['name', 'description'];
 
   activate();
 
@@ -287,7 +289,8 @@ var SearchService = function SearchService($http, APP) {
 
   // Get Listing Results
   function getListing(type, page) {
-    var url = APP.URL + type + '?page=' + page;
+    var p = page ? page : 1;
+    var url = APP.URL + type + '?page=' + p;
     return $http.get(url, APP.CONFIG);
   }
 };

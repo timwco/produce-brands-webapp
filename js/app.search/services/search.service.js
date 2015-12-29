@@ -10,7 +10,8 @@ let SearchService = function($http, APP) {
 
   // Get Listing Results
   function getListing (type, page) {
-    let url = APP.URL + type + '?page=' + page;
+    let p = page ? page : 1;
+    let url = APP.URL + type + '?page=' + p;
     return $http.get(url, APP.CONFIG);
   }
 
