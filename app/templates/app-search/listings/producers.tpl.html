@@ -13,7 +13,7 @@
       </thead>
       <tbody>
         <tr ng-repeat="item in vm.items">
-          <td>{{ item.name }}</td>
+          <td><a href="/#/producer/{{ item.id }}">{{ item.name }}</a></td>
           <td>{{ item.city }}</td>
           <td>{{ item.state }}</td>
           <td>

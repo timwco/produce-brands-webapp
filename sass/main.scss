@@ -64,6 +64,13 @@ h1.name { color: $orange; }
     padding: 12px 20px;
     border-bottom: 1px solid white;
   }
+  i {
+    margin-right: 5px;
+  }
+}
+.item-page {
+  tbody tr:nth-child(even) { background: none; }
+  tbody tr { border-bottom: 1px solid #f1f1f1; }
 }
 
 // Footer 

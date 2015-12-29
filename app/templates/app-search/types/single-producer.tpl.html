@@ -1,1 +1,72 @@
-<p>single producer</p>
+<div class="row item-page">
+  <div class="small-12 columns">
+    <h1 class="single-title">{{ vm.item.name }}</h1>
+  </div>
+</div>
+<div class="row item-page">
+  <div class="small-3 columns">
+    <img ng-src="images/items/{{ vm.item.logo }}.jpg">
+    <ul class="item-meta">
+      <li ng-show="vm.item.facebook">
+        <i class="fa fa-facebook-square"></i>
+        <a href="{{ vm.item.facebook }}" target="_blank">Facebook</a>
+      </li>
+      <li ng-show="vm.item.twitter">
+        <i class="fa fa-twitter-square"></i>
+        <a href="{{ vm.item.twitter }}" target="_blank">Twitter</a>
+      </li>
+      <li ng-show="vm.item.website">
+        <i class="fa fa-globe"></i>
+        <a href="{{ vm.item.website }}" target="_blank">Website</a>
+      </li>
+      <li>
+        <i class="fa fa-clock-o"></i> Added: {{ vm.item.created_at | moment }}
+      </li>
+    </ul>
+  </div>
+  <div class="small-9 columns">
+    <div class="description">    
+      <h5>About</h5>
+      <p>{{ vm.item.description }}</p>
+    </div>
+    <table class="hover full-width">
+      <tbody>
+        <tr ng-show="vm.item.contact">
+          <td>Contact Person</td>
+          <td>{{ vm.item.contact }}</td>
+        </tr>
+        <tr ng-show="vm.item.state">
+          <td>Address</td>
+          <td>
+            {{ vm.item.street }} <br>
+            {{ vm.item.city}}, {{ vm.item.state}} {{ vm.item.zip }}
+          </td>
+        </tr>
+        <tr ng-show="vm.item.email">
+          <td>Email</td>
+          <td>{{ vm.item.email }}</td>
+        </tr>
+        <tr ng-show="vm.item.phone">
+          <td>Phone</td>
+          <td>{{ vm.item.phone }}</td>
+        </tr>
+        <tr ng-show="vm.item.fax">
+          <td>Fax</td>
+          <td>{{ vm.item.fax }}</td>
+        </tr>
+        <tr>
+          <td>Traceble</td>
+          <td>
+            <i class="fa fa-check-square-o" ng-show="vm.item.traceable"></i>
+            <i class="fa fa-square-o" ng-hide="vm.item.traceable"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!--  fax -->
+
+<!-- name, street, city, state, zip, website, phone, email, facebook, contact, logo, fax, twitter, traceable, created_at -->

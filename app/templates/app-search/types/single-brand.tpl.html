@@ -16,6 +16,10 @@
       <li>
         <i class="fa fa-clock-o"></i> Added: {{ vm.item.created_at | moment }}
       </li>
+      <li ng-show="vm.item.producer_id">
+        <i class="fa fa-external-link"></i>
+        <a href="/#/producer/{{ vm.item.producer_id }}">Producer Info</a>
+      </li>
     </ul>
   </div>
   <div class="small-9 columns">
