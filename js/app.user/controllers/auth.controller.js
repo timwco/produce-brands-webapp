@@ -11,7 +11,7 @@ let AuthController = function(UserService, Flash, $stateParams, MessageService, 
 
     // First Check for user authed, then route away
     let user = UserService.currentUser();
-    if (user) { $state.go('root.home'); }
+    if (user) { $state.go('root.start'); }
 
     // Second Check for Auth Message
     if ($stateParams.c) {
@@ -45,7 +45,7 @@ let AuthController = function(UserService, Flash, $stateParams, MessageService, 
 
   function authSuccess (user) {
     UserService.store(user);
-    $state.go('root.home');
+    $state.go('root.start');
   }
 
 };

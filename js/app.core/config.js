@@ -8,8 +8,13 @@ let config = function($stateProvider, $urlRouterProvider) {
       templateUrl: 'templates/app-layout/layout.tpl.html',
       controller: 'LayoutController as vm'
     })
-    .state('root.home', {
+    .state('root.landing', {
       url: '/',
+      templateUrl: 'templates/app-layout/start.tpl.html',
+      controller: 'HomeController as vm'
+    })
+    .state('root.start', {
+      url: '/start',
       templateUrl: 'templates/app-layout/home.tpl.html',
       controller: 'HomeController as vm'
     })

@@ -13,8 +13,12 @@ var config = function config($stateProvider, $urlRouterProvider) {
     abstract: true,
     templateUrl: 'templates/app-layout/layout.tpl.html',
     controller: 'LayoutController as vm'
-  }).state('root.home', {
+  }).state('root.landing', {
     url: '/',
+    templateUrl: 'templates/app-layout/start.tpl.html',
+    controller: 'HomeController as vm'
+  }).state('root.start', {
+    url: '/start',
     templateUrl: 'templates/app-layout/home.tpl.html',
     controller: 'HomeController as vm'
   })
@@ -549,7 +553,7 @@ var AuthController = function AuthController(UserService, Flash, $stateParams, M
     // First Check for user authed, then route away
     var user = UserService.currentUser();
     if (user) {
-      $state.go('root.home');
+      $state.go('root.start');
     }
 
     // Second Check for Auth Message
@@ -586,7 +590,7 @@ var AuthController = function AuthController(UserService, Flash, $stateParams, M
 
   function authSuccess(user) {
     UserService.store(user);
-    $state.go('root.home');
+    $state.go('root.start');
   }
 };
 
@@ -649,7 +653,7 @@ var UserService = function UserService($http, $cookies, $state, $rootScope, APP)
     var user = $cookies.getObject('produce-user');
     if (!user) {
       // Logic needs to be better
-      if (!$state.is('root.register') && !$state.is('root.login')) {
+      if (!$state.is('root.register') && !$state.is('root.login') && !$state.is('root.landing')) {
         return $state.go('root.login', { c: 1 });
       }
     } else {

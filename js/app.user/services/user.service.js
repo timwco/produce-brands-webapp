@@ -25,7 +25,7 @@ let UserService = function($http, $cookies, $state, $rootScope, APP) {
     let user = $cookies.getObject('produce-user');
     if (!user) {  
       // Logic needs to be better
-      if (!$state.is('root.register') && !$state.is('root.login')) {
+      if (!$state.is('root.register') && !$state.is('root.login') && !$state.is('root.landing')) {
         return $state.go('root.login', { c: 1 });
       }
     } else {    
