@@ -21,14 +21,23 @@ let AuthController = function(UserService, Flash, $stateParams, MessageService, 
   }
 
   function login (user) {
-    UserService.login(user).then( (res) => {
+    UserService.login(user)
+    .then( (res) => {
       authSuccess(res.data);
+    }, (res) => {
+      Flash.create('danger', res.data.errors);
+      Flash.pause();
     });
   }
 
   function register (user) {
-    UserService.register(user).then( (res) => {
+    UserService.register(user)
+    .then( (res) => {
       authSuccess(res.data);
+    }, (res) => {
+      let msg = res.data.errors.join(", ");
+      Flash.create('danger', msg);
+      Flash.pause();
     });
   }
 

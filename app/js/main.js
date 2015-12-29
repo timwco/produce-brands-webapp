@@ -490,12 +490,19 @@ var AuthController = function AuthController(UserService, Flash, $stateParams, M
   function login(user) {
     UserService.login(user).then(function (res) {
       authSuccess(res.data);
+    }, function (res) {
+      Flash.create('danger', res.data.errors);
+      Flash.pause();
     });
   }
 
   function register(user) {
     UserService.register(user).then(function (res) {
       authSuccess(res.data);
+    }, function (res) {
+      var msg = res.data.errors.join(", ");
+      Flash.create('danger', msg);
+      Flash.pause();
     });
   }
 
@@ -628,7 +635,7 @@ _angular2['default'].module('app', ['app.core', 'app.layout', 'app.search', 'app
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-var run = function run($rootScope, UserService) {
+var run = function run($rootScope, UserService, Flash) {
 
   $rootScope.$on('$viewContentLoaded', function (event) {
     // When content loads, run the Foundation Object
@@ -636,10 +643,16 @@ var run = function run($rootScope, UserService) {
 
     // Check Login - Update Nav Bar
     UserService.checkAuth();
+
+    // Dismiss Flash Message Still visible
+    var $flash = document.querySelector('.alert');
+    if ($flash) {
+      Flash.dismiss();
+    }
   });
 };
 
-run.$inject = ['$rootScope', 'UserService'];
+run.$inject = ['$rootScope', 'UserService', 'Flash'];
 exports['default'] = run;
 module.exports = exports['default'];
 
