@@ -5395,7 +5395,15 @@ h1.name {
   color: white;
   padding: 0 0 0 14px;
   border-radius: 3px;
-  margin-bottom: 15px; }
+  margin-bottom: 15px;
+  position: relative; }
+  .single-title span.type {
+    position: absolute;
+    color: #707d84;
+    right: 20px;
+    top: 14px;
+    font-size: 25px;
+    font-style: italic; }
 
 .item-meta {
   margin-left: 0;

@@ -9,6 +9,7 @@ import MessageService from './services/message.service';
 // Filters
 import UnderscoreCapFilter from './filters/underscorecap.filter';
 import MomentFilter from './filters/moment.filter';
+import AddHTTPFilter from './filters/addHTTP.filter';
 
 // Import Constants
 import APP from './constants/app.constant';
@@ -23,5 +24,6 @@ angular
   .service('MessageService', MessageService)
   .filter('moment', MomentFilter)
   .filter('underscoreCap', UnderscoreCapFilter)
+  .filter('addHTTP', AddHTTPFilter)
   .directive('errSrc', ErrorSrcDirective)
 ;

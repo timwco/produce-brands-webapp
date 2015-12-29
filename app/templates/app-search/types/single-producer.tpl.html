@@ -1,6 +1,9 @@
 <div class="row item-page">
   <div class="small-12 columns">
-    <h1 class="single-title">{{ vm.item.name }}</h1>
+    <h1 class="single-title">
+      {{ vm.item.name }}
+      <span class="type">Producer</span>
+    </h1>
   </div>
 </div>
 <div class="row item-page">
@@ -17,7 +20,7 @@
       </li>
       <li ng-show="vm.item.website">
         <i class="fa fa-globe"></i>
-        <a href="{{ vm.item.website }}" target="_blank">Website</a>
+        <a href="{{ vm.item.website | addHTTP }}" target="_blank">Website</a>
       </li>
       <li>
         <i class="fa fa-clock-o"></i> Added: {{ vm.item.created_at | moment }}

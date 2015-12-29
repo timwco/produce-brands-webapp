@@ -6,7 +6,7 @@
 <div class="row" ng-show="vm.loading">
   <div class="columns small-12">
     <div class="loading-all">
-      <i class="fa fa-spinner"></i> Loading all brands...
+      <i class="fa fa-spinner"></i> Retrieving Producers...
     </div>
   </div>
 </div>
@@ -31,7 +31,7 @@
             <a ng-show="item.twitter" href="{{ item.twitter }}" target="_blank">
               <i class="fa fa-twitter-square"></i>
             </a>
-            <a ng-show="item.website" href="{{ item.website }}" target="_blank">
+            <a ng-show="item.website" href="{{ item.website | addHTTP }}" target="_blank">
               <i class="fa fa-globe"></i>
             </a>
           </td>

@@ -83,6 +83,15 @@ h1.name { color: $orange; }
   padding: 0 0 0 14px;
   border-radius: 3px;
   margin-bottom: 15px;
+  position: relative;
+  span.type {
+    position: absolute;
+    color: lighten($grey, 20%);
+    right: 20px;
+    top: 14px;
+    font-size: 25px;
+    font-style: italic;
+  }
 }
 .item-meta {
   margin-left: 0;
