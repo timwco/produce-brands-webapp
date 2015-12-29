@@ -2,16 +2,17 @@ let UserService = function($http, $cookies, $state, $rootScope, APP) {
   
   // Login
   this.login = (user) => {
-    return $http.post(APP.URL, user);
+    return $http.post(APP.URL + 'users', user);
   };
 
   // Register
   this.register = (user) => {
-    return $http.post(APP.URL + 'new', user);
+    return $http.post(APP.URL + 'users/new', user);
   };
 
   // Store User
   this.store = (user) => {
+    console.log('storing', user);
     $cookies.putObject('produce-user', user);
   };
 
@@ -28,9 +29,10 @@ let UserService = function($http, $cookies, $state, $rootScope, APP) {
       if (!$state.is('root.register') && !$state.is('root.login')) {
         return $state.go('root.login', { c: 1 });
       }
+    } else {    
+      $rootScope.$broadcast('user:updated', user);
+      APP.CONFIG.headers['X-AUTH-TOKEN'] = user.auth_token;
     }
-    $rootScope.$broadcast('user:updated', user);
-    APP.CONFIG.headers['X-AUTH-TOKEN'] = user.auth_token;
   };
 
   // Logout
