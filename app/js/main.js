@@ -100,10 +100,17 @@ module.exports = exports['default'];
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _moment = require('moment');
+
+var _moment2 = _interopRequireDefault(_moment);
+
 var momentFilter = function momentFilter() {
 
   return function (input) {
-    return moment(input).format('MM-DD-YYYY');
+    return (0, _moment2['default'])(input).format('MM-DD-YYYY');
   };
 };
 
@@ -111,7 +118,7 @@ momentFilter.$inject = [];
 exports['default'] = momentFilter;
 module.exports = exports['default'];
 
-},{}],5:[function(require,module,exports){
+},{"moment":29}],5:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -332,7 +339,13 @@ var ListingController = function ListingController(SearchService, $stateParams) 
 
   function openImage(id) {
     var $modal = $('#modal');
-    $modal.html('<img src="images/items/' + id + '.jpg">').foundation('open');
+    var url = '';
+    if (id) {
+      url = 'images/items/' + id + '.jpg';
+    } else {
+      url = 'images/notfound.jpg';
+    }
+    $modal.html('<img src="' + url + '">').foundation('open');
   }
 };
 
@@ -587,10 +600,6 @@ var _jquery2 = _interopRequireDefault(_jquery);
 
 require('foundation');
 
-var _moment = require('moment');
-
-var _moment2 = _interopRequireDefault(_moment);
-
 // Custom Modules
 
 require('./app.core/index');
@@ -611,7 +620,7 @@ var _utilsRunJs2 = _interopRequireDefault(_utilsRunJs);
 // loading foundation after templates load
 _angular2['default'].module('app', ['app.core', 'app.layout', 'app.search', 'app.user']).run(_utilsRunJs2['default']);
 
-},{"./app.core/index":6,"./app.layout/index":10,"./app.search/index":14,"./app.user/index":17,"./utils/run.js":20,"angular":26,"foundation":27,"jquery":28,"moment":29}],20:[function(require,module,exports){
+},{"./app.core/index":6,"./app.layout/index":10,"./app.search/index":14,"./app.user/index":17,"./utils/run.js":20,"angular":26,"foundation":27,"jquery":28}],20:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {

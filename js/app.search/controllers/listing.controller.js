@@ -37,8 +37,14 @@ let ListingController = function(SearchService, $stateParams) {
   }
 
   function openImage (id) {
-    let $modal = $('#modal'); 
-    $modal.html('<img src="images/items/' + id + '.jpg">').foundation('open');
+    let $modal = $('#modal');
+    let url = '';
+    if (id) {
+      url = 'images/items/' + id + '.jpg';
+    } else {
+      url = 'images/notfound.jpg';
+    }
+    $modal.html('<img src="' + url + '">').foundation('open');
   }
 
 };

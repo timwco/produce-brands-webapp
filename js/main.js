@@ -3,7 +3,6 @@ import angular from 'angular';
 // Import jQuery & Foundaiton & Moment
 import $ from 'jquery';
 import 'foundation';
-import moment from 'moment';
 
 // Custom Modules
 import './app.core/index';

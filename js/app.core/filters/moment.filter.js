@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 let momentFilter = function() {
   
   return function (input) {
