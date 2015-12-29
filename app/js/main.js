@@ -300,7 +300,7 @@ module.exports = exports['default'];
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-var ListingController = function ListingController(SearchService, $stateParams) {
+var ListingController = function ListingController(SearchService, $stateParams, $timeout) {
 
   var vm = this;
   vm.items = [];
@@ -309,6 +309,7 @@ var ListingController = function ListingController(SearchService, $stateParams) 
   vm.pages = 0;
   vm.entries = 0;
   vm.openImage = openImage;
+  vm.loading = false;
 
   // Options
   vm.brandColumns = ['name', 'country', 'state', 'image', 'description', 'producer'];
@@ -318,6 +319,9 @@ var ListingController = function ListingController(SearchService, $stateParams) 
   activate();
 
   function activate() {
+    // Show loading bar
+    vm.loading = true;
+
     // Check for Fetch Page Data
     var type = $stateParams.type;
     var page = $stateParams.page;
@@ -328,10 +332,13 @@ var ListingController = function ListingController(SearchService, $stateParams) 
 
       vm.entries = res.data.total_entries;
       vm.pages = res.data.total_pages;
-      vm.items = res.data.items;
       vm.current_page = res.data.current_page;
       vm.prev_page = prev === 0 ? null : prev;
       vm.next_page = next > res.data.total_pages ? null : next;
+      $timeout(function () {
+        vm.loading = false; // clear loading bar
+        vm.items = res.data.items;
+      }, 1500);
     });
   }
 
@@ -347,7 +354,7 @@ var ListingController = function ListingController(SearchService, $stateParams) 
   }
 };
 
-ListingController.$inject = ['SearchService', '$stateParams'];
+ListingController.$inject = ['SearchService', '$stateParams', '$timeout'];
 exports['default'] = ListingController;
 module.exports = exports['default'];
 
@@ -357,21 +364,42 @@ module.exports = exports['default'];
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-var SearchController = function SearchController(SearchService) {
+var SearchController = function SearchController(SearchService, $timeout) {
 
   var vm = this;
 
   vm.search = search;
   vm.results = [];
+  vm.noresults = false;
+  vm.searching = false;
+  vm.count = 0;
 
   function search(query) {
     SearchService.search(query).then(function (res) {
-      vm.results = res.data;
+      console.log(res);
+      showSearch();
+      $timeout(function () {
+        vm.searching = false;
+        if (res.data.length > 0) {
+          vm.noresults = false;
+          vm.results = res.data;
+          vm.count = res.data.length;
+        } else {
+          vm.noresults = true;
+        }
+      }, 1500);
     });
+  }
+
+  function showSearch() {
+    vm.searching = true;
+    vm.noresults = false;
+    vm.count = 0;
+    vm.results = [];
   }
 };
 
-SearchController.$inject = ['SearchService'];
+SearchController.$inject = ['SearchService', '$timeout'];
 exports['default'] = SearchController;
 module.exports = exports['default'];
 

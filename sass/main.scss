@@ -14,7 +14,7 @@ $grey: #41494d;
 
 // Elements
 body { color: $grey; }
-.button, .button:hover, .button:focus { background: $orange; }
+.button, .button:hover, .button:focus { background: $orange; border-radius: 3px; }
 a { color: $orange; }
 a:hover, a.focus { color: lighten($orange, 20%); }
 .full-width { width: 100%; }
@@ -24,6 +24,16 @@ h1.name { color: $orange; }
 .top-bar li > a, .top-bar ul li > a { color: #2199e8; }
 .top-border { border-top: 1px solid lighten($grey, 50%); padding-top: 15px; }
 .top-pad { padding-top: 15px; }
+
+// Spinner
+.fa-spinner {
+  animation: spin 1s linear infinite;
+  margin-right: 5px;
+}
+@keyframes spin {
+  from {transform:rotate(0deg);}
+  to {transform:rotate(360deg);}
+}
 
 // Breadcrumb Container
 .breadcrumb-container {
@@ -45,7 +55,18 @@ h1.name { color: $orange; }
   }
   input { width: 100%; }
 }
-.results {
+.row.result-block {
+  padding-top: 20px;  
+  background-color: lighten($grey, 70%);
+  margin: 0 0 10px 0;
+  width: 97%;
+  border-radius: 3px;
+  box-shadow: 4px 6px 8px -4px rgba(153,153,153,1);
+}
+.result-count {
+  padding: 0 40px 8px 0;
+  font-style: italic;
+  text-align: right;
 }
 .image-pop {
   img {

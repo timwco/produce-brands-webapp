@@ -18,4 +18,5 @@
 
 - Check `$contentLoaded` running multiple times
 - Forgot Password / User Page
+- Search Pagination
 - Ability to Add/Edit/Delete Brands, Commodities & Producers

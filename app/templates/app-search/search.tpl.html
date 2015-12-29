@@ -10,9 +10,11 @@
     <div class="row results">
       <div class="large-12 columns ">
         <div class="search-results">
-          <div class="row" ng-repeat="item in vm.results">
-            <hr>
-            <div class=" large-9 columns">
+          <div class="searching" ng-show="vm.searching"><i class="fa fa-spinner"></i> Searching... </div>
+          <div class="no-results" ng-show="vm.noresults">Sorry, no results found.</div>
+          <div class="result-count" ng-show="vm.count">{{ vm.count }} results found.</div>
+          <div class="row result-block" ng-repeat="item in vm.results">
+            <div class="large-9 columns">
               <h5>{{ item.content }}</h5>
               <p>Type: {{ item.searchable_type }}</p>
             </div>
