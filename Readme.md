@@ -16,7 +16,4 @@
 
 ## Todo
 
-- Check `$contentLoaded` running multiple times
-- Forgot Password / User Page
-- Search Pagination
-- Ability to Add/Edit/Delete Brands, Commodities & Producers
+- [Listed Here (Private)](https://trello.com/b/D0Nv6Y9F/todo-s)
