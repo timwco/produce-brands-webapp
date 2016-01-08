@@ -1,5 +1,7 @@
 ## Produce Brands Database (Front End)
 
+[![Codeship Status](https://codeship.com/projects/94ceac00-97e2-0133-de51-66b8883e9f8d/status?branch=master)](https://codeship.com/projects/125922)
+
 
 ## Usage
 
