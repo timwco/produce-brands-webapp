@@ -69,10 +69,10 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 });
 var development = 'http://localhost:3000/';
-var production = '';
+var production = 'http://api.producebrands.com/';
 
 exports['default'] = {
-  URL: window.location.href.indexOf("localhost") ? development : production,
+  URL: window.location.href.indexOf("localhost") > 0 ? development : production,
   CONFIG: { headers: {} },
   VERSION: 0.1
 };
@@ -205,6 +205,8 @@ var _constantsAppConstant2 = _interopRequireDefault(_constantsAppConstant);
 var _directivesVerifySrcDirective = require('./directives/verify-src.directive');
 
 var _directivesVerifySrcDirective2 = _interopRequireDefault(_directivesVerifySrcDirective);
+
+console.log(_constantsAppConstant2['default']);
 
 _angular2['default'].module('app.core', ['ui.router', 'flash']).config(_config2['default']).constant('APP', _constantsAppConstant2['default']).service('MessageService', _servicesMessageService2['default']).filter('moment', _filtersMomentFilter2['default']).filter('underscoreCap', _filtersUnderscorecapFilter2['default']).filter('addHTTP', _filtersAddHTTPFilter2['default']).directive('verifySrc', _directivesVerifySrcDirective2['default']);
 
