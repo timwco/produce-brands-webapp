@@ -6,7 +6,7 @@
 - `npm install`
 - `gulp start`
 
-## App Message Codes
+## App Message Codes (Shown in Alerts)
 
 | Code   | Description |
 | ------ | ----------- |
