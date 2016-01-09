@@ -21,6 +21,10 @@ var config = function config($stateProvider, $urlRouterProvider) {
     url: '/start',
     templateUrl: 'templates/app-layout/start.tpl.html',
     controller: 'HomeController as vm'
+  }).state('root.apply', {
+    url: '/apply',
+    templateUrl: 'templates/app-layout/apply.tpl.html',
+    controller: 'HomeController as vm'
   })
 
   // User States
@@ -241,9 +245,10 @@ module.exports = exports['default'];
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-var HomeController = function HomeController(UserService, $state) {
+var HomeController = function HomeController(UserService, $state, Flash) {
 
   var vm = this;
+  vm.apply = apply;
 
   activate();
 
@@ -253,9 +258,18 @@ var HomeController = function HomeController(UserService, $state) {
       $state.go('root.start');
     }
   }
+
+  function apply(user) {
+    if (!user || !user.full_name || !user.company || !user.reason) {
+      return Flash.create('warning', 'Error: All fields are required.');
+    }
+    UserService.apply(user).then(function (res) {
+      Flash.create('success', 'Application Recieved. We will be in touch! Thanks!');
+    });
+  }
 };
 
-HomeController.$inject = ['UserService', '$state'];
+HomeController.$inject = ['UserService', '$state', 'Flash'];
 
 exports['default'] = HomeController;
 module.exports = exports['default'];
@@ -585,6 +599,10 @@ var AuthController = function AuthController(UserService, Flash, $stateParams, M
   }
 
   function register(user) {
+    if (user.code !== '4482918') {
+      Flash.create('danger', 'Sorry, that is not a valid invitation code.');
+      return;
+    }
     UserService.register(user).then(function (res) {
       Flash.create('success', 'Thanks! Logging you in now...');
       $timeout(function () {
@@ -637,6 +655,11 @@ Object.defineProperty(exports, '__esModule', {
 });
 var UserService = function UserService($http, $cookies, $state, $rootScope, APP) {
 
+  // Apply
+  this.apply = function (user) {
+    return $http.post(APP.URL + 'apply', user);
+  };
+
   // Login
   this.login = function (user) {
     return $http.post(APP.URL + 'users', user);
@@ -662,7 +685,7 @@ var UserService = function UserService($http, $cookies, $state, $rootScope, APP)
     var user = $cookies.getObject('produce-user');
     if (!user) {
       // Logic needs to be better
-      if (!$state.is('root.register') && !$state.is('root.login') && !$state.is('root.landing')) {
+      if (!$state.is('root.register') && !$state.is('root.login') && !$state.is('root.landing') && !$state.is('root.apply')) {
         return $state.go('root.landing');
       }
     } else {

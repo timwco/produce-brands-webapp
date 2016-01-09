@@ -5322,6 +5322,9 @@ small {
   margin: 10px 0;
   display: block; }
 
+.smaller {
+  font-size: 11px; }
+
 .button, .button:hover, .button:focus {
   background: #f15b36;
   border-radius: 3px; }

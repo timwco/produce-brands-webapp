@@ -1,11 +1,21 @@
 <h3 class="bottom-pad top-pad">Sign Up</h3>
-<div class="row">
-  <form ng-submit="vm.register(user)">
+<form ng-submit="vm.register(user)">
+  <div class="row">
+    <div class="large-5 columns">
+      <p><a href="/#/login">Have An Account? Log In Here.</a></p>
+      <p>Currently we are in beta and only allowing a few select users in at a time. If you have an invitation code, enter it below.
+        <br> If not, you can apply <a href="/#/apply">here.</a></p>
+      <input type="text" placeholder="Invitation Code" ng-model="user.code">
+    </div>
+  </div>
+  <hr>
+  <p class="smaller">Enter your info below. <i>All Fields Required</i></p>
+  <div class="row">
     <div class="large-6 columns">
       <div class="row column log-in-form">
         <input type="text" placeholder="First Name" ng-model="user.first_name">
         <input type="text" placeholder="Last Name" ng-model="user.last_name">
-        <input type="text" placeholder="Company" ng-model="user.company">   
+        <input type="text" placeholder="Company" ng-model="user.company">
       </div>
     </div>
     <div class="large-6 columns">
@@ -13,14 +23,9 @@
         <input type="text" placeholder="Email Address" ng-model="user.email">
         <input ng-init="showPassword = 'password'" type="{{ showPassword }}" placeholder="Password" ng-model="user.password">
         <input id="show-password" type="checkbox" ng-model="showPassword" ng-true-value="'text'" ng-false-value="'password'">
-        <label for="show-password">Show password</label>   
+        <label for="show-password">Show password</label>
+        <p><button class="button expanded">Register User</button></p>
       </div>
     </div>
-    <div class="large-6 large-centered columns">
-      <input type="text" placeholder="Invitation Code" ng-model="user.code">
-      <p><button class="button expanded">Register User</button></p>
-      <p class="text-center"><a href="/#/login">Have An Account? Log In Here.</a></p>
-    </div>
-  </form>
-
-</div>
+  </div>
+</form>

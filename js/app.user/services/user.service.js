@@ -1,5 +1,10 @@
 let UserService = function($http, $cookies, $state, $rootScope, APP) {
-  
+
+  // Apply
+  this.apply = (user) => {
+    return $http.post(APP.URL + 'apply', user);
+  };
+
   // Login
   this.login = (user) => {
     return $http.post(APP.URL + 'users', user);
@@ -23,12 +28,12 @@ let UserService = function($http, $cookies, $state, $rootScope, APP) {
   // Check Login
   this.checkAuth = () => {
     let user = $cookies.getObject('produce-user');
-    if (!user) {  
+    if (!user) {
       // Logic needs to be better
-      if (!$state.is('root.register') && !$state.is('root.login') && !$state.is('root.landing')) {
+      if (!$state.is('root.register') && !$state.is('root.login') && !$state.is('root.landing') && !$state.is('root.apply')) {
         return $state.go('root.landing');
       }
-    } else {    
+    } else {
       $rootScope.$broadcast('user:updated', user);
       APP.CONFIG.headers['X-AUTH-TOKEN'] = user.auth_token;
     }

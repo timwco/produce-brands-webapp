@@ -15,6 +15,7 @@ $grey: #41494d;
 // Elements
 body { color: $grey; }
 small { font-size: 12px; font-style: italic; margin: 10px 0; display: block; }
+.smaller { font-size: 11px; }
 .button, .button:hover, .button:focus { background: $orange; border-radius: 3px; }
 .button.grey { background-color: $grey; }
 a { color: $orange; }

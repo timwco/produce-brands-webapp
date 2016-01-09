@@ -18,6 +18,11 @@ let config = function($stateProvider, $urlRouterProvider) {
       templateUrl: 'templates/app-layout/start.tpl.html',
       controller: 'HomeController as vm'
     })
+    .state('root.apply', {
+      url: '/apply',
+      templateUrl: 'templates/app-layout/apply.tpl.html',
+      controller: 'HomeController as vm'
+    })
 
     // User States
     .state('root.login', {
