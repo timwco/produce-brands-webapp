@@ -1,5 +1,5 @@
 // Define URL's (add trailing slash)
-let development = 'http://localhost:3000/';
+let development = 'http://localhost:5000/';
 let production = 'http://api.producebrands.com/';
 
 export default {

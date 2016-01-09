@@ -1,4 +1,4 @@
-let HomeController = function(UserService, $state, Flash) {
+let HomeController = function(UserService, $state, Flash, $scope) {
   
   let vm = this;
   vm.apply = apply;
@@ -11,16 +11,17 @@ let HomeController = function(UserService, $state, Flash) {
   }
 
   function apply (user) {
-    if (!user || !user.full_name || !user.company || !user.reason) {
+    if (!user || !user.full_name || !user.company || !user.comment) {
       return Flash.create('warning', 'Error: All fields are required.');
     }
     UserService.apply(user).then( (res) => {
       Flash.create('success', 'Application Recieved. We will be in touch! Thanks!');
+      $scope.user = {};
     });
   }
 
 };
 
-HomeController.$inject = ['UserService', '$state', 'Flash'];
+HomeController.$inject = ['UserService', '$state', 'Flash', '$scope'];
 
 export default HomeController;

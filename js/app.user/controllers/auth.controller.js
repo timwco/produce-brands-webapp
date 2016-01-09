@@ -32,10 +32,6 @@ let AuthController = function(UserService, Flash, $stateParams, MessageService, 
   }
 
   function register (user) {
-    if (user.code !== '4482918') {
-      Flash.create('danger', 'Sorry, that is not a valid invitation code.');
-      return;
-    }
     UserService.register(user)
     .then( (res) => {
       Flash.create('success', 'Thanks! Logging you in now...');

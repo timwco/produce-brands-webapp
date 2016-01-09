@@ -72,7 +72,7 @@ module.exports = exports['default'];
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-var development = 'http://localhost:3000/';
+var development = 'http://localhost:5000/';
 var production = 'http://api.producebrands.com/';
 
 exports['default'] = {
@@ -245,7 +245,7 @@ module.exports = exports['default'];
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-var HomeController = function HomeController(UserService, $state, Flash) {
+var HomeController = function HomeController(UserService, $state, Flash, $scope) {
 
   var vm = this;
   vm.apply = apply;
@@ -260,16 +260,17 @@ var HomeController = function HomeController(UserService, $state, Flash) {
   }
 
   function apply(user) {
-    if (!user || !user.full_name || !user.company || !user.reason) {
+    if (!user || !user.full_name || !user.company || !user.comment) {
       return Flash.create('warning', 'Error: All fields are required.');
     }
     UserService.apply(user).then(function (res) {
       Flash.create('success', 'Application Recieved. We will be in touch! Thanks!');
+      $scope.user = {};
     });
   }
 };
 
-HomeController.$inject = ['UserService', '$state', 'Flash'];
+HomeController.$inject = ['UserService', '$state', 'Flash', '$scope'];
 
 exports['default'] = HomeController;
 module.exports = exports['default'];
@@ -599,10 +600,6 @@ var AuthController = function AuthController(UserService, Flash, $stateParams, M
   }
 
   function register(user) {
-    if (user.code !== '4482918') {
-      Flash.create('danger', 'Sorry, that is not a valid invitation code.');
-      return;
-    }
     UserService.register(user).then(function (res) {
       Flash.create('success', 'Thanks! Logging you in now...');
       $timeout(function () {
