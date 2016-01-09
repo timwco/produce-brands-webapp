@@ -206,8 +206,6 @@ var _directivesVerifySrcDirective = require('./directives/verify-src.directive')
 
 var _directivesVerifySrcDirective2 = _interopRequireDefault(_directivesVerifySrcDirective);
 
-console.log(_constantsAppConstant2['default']);
-
 _angular2['default'].module('app.core', ['ui.router', 'flash']).config(_config2['default']).constant('APP', _constantsAppConstant2['default']).service('MessageService', _servicesMessageService2['default']).filter('moment', _filtersMomentFilter2['default']).filter('underscoreCap', _filtersUnderscorecapFilter2['default']).filter('addHTTP', _filtersAddHTTPFilter2['default']).directive('verifySrc', _directivesVerifySrcDirective2['default']);
 
 },{"./config":1,"./constants/app.constant":2,"./directives/verify-src.directive":3,"./filters/addHTTP.filter":4,"./filters/moment.filter":5,"./filters/underscorecap.filter":6,"./services/message.service":8,"angular":27,"angular-flash-alert":24,"angular-ui-router":25}],8:[function(require,module,exports){

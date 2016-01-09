@@ -13,7 +13,6 @@ import AddHTTPFilter from './filters/addHTTP.filter';
 
 // Import Constants
 import APP from './constants/app.constant';
-console.log(APP);
 
 // Directives
 import VerifySrcDirective from './directives/verify-src.directive';
