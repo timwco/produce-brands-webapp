@@ -5411,6 +5411,9 @@ h1.name {
 .image-pop img {
   height: 300px; }
 
+.cName {
+  text-transform: capitalize; }
+
 .item-page img {
   border-radius: 3px; }
 
