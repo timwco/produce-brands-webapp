@@ -1,2 +1,21 @@
 <div class="bc-cont" ng-include="'templates/includes/breadcrumbs.tpl.html'"></div>
-<p>Coming Soon...</p>
+<div class="row item-page commodity-page">
+  <div class="small-12 columns">
+    <h1 class="single-title">{{ vm.item.name }}</h1>
+  </div>
+</div>
+<div class="row item-page">
+  <div class="small-3 columns">
+    <img ng-src="images/items/{{ vm.item.image }}.jpg" verify-src>
+    <h5>Nutritional Info</h5>
+  </div>
+  <div class="small-9 columns">
+    <div class="description">    
+      <p>{{ vm.item.description }}</p>
+      <div class="commodities-list" ng-show="vm.brands">
+        <h6>Brands of {{ vm.item.name | capitalize }}</h6>
+        <a href="/#/brand/{{ b.id }}" ng-repeat="b in vm.brands">{{ b.name }}</a>
+      </div>
+    </div>
+  </div>
+</div>

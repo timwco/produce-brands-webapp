@@ -22,7 +22,7 @@
       </thead>
       <tbody>
         <tr ng-repeat="item in vm.items">
-          <td class="cName">{{ item.name }}</td>
+          <td class="cName"><a href="/#/commodity/{{ item.id }}">{{ item.name }}</a></td>
           <td>{{ item.description }}</td>
         </tr>
       </tbody>

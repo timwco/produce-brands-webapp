@@ -10,6 +10,7 @@ import MessageService from './services/message.service';
 import UnderscoreCapFilter from './filters/underscorecap.filter';
 import MomentFilter from './filters/moment.filter';
 import AddHTTPFilter from './filters/addHTTP.filter';
+import CapitalizeFilter from './filters/capitalize.filter';
 
 // Import Constants
 import APP from './constants/app.constant';
@@ -25,5 +26,6 @@ angular
   .filter('moment', MomentFilter)
   .filter('underscoreCap', UnderscoreCapFilter)
   .filter('addHTTP', AddHTTPFilter)
+  .filter('capitalize', CapitalizeFilter)
   .directive('verifySrc', VerifySrcDirective)
 ;

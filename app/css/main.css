@@ -5467,7 +5467,12 @@ h1.name {
     color: white;
     border-radius: 3px;
     padding: 3px 8px 5px 8px;
-    margin-right: 8px; }
+    margin-right: 8px;
+    margin-bottom: 5px;
+    display: inline-block; }
+
+.commodity-page .single-title {
+  text-transform: capitalize; }
 
 .price_card {
   width: 100%;
