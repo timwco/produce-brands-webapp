@@ -43,7 +43,7 @@ let SearchService = function($http, APP) {
 
 
   // Get Nutrients
-  function getNutrients () {
+  function getNutrients (code) {
     let url = APP.URL + 'usda/nutrients';
     return $http.get(url, APP.CONFIG);
   }
