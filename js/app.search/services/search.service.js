@@ -1,8 +1,9 @@
 let SearchService = function($http, APP) {
 
-  this.search     = search;
-  this.getListing = getListing;
-  this.getSingle  = getSingle;
+  this.search       = search;
+  this.getListing   = getListing;
+  this.getSingle    = getSingle;
+  this.getNutrients = getNutrients;
 
   // Standard Query
   function search (q) {
@@ -38,6 +39,13 @@ let SearchService = function($http, APP) {
       break;
     }
     return type;
+  }
+
+
+  // Get Nutrients
+  function getNutrients () {
+    let url = APP.URL + 'usda/nutrients';
+    return $http.get(url, APP.CONFIG);
   }
 
 
