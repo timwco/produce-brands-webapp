@@ -5,11 +5,11 @@
   </div>
 </div>
 <div class="row item-page">
-  <div class="small-3 columns">
+  <div class="large-3 columns">
     <img ng-src="images/items/{{ vm.item.image }}.jpg" verify-src>
-    <h5>Nutritional Info</h5>
+    <div nutrition-label name="{{ vm.item.name }}" code="{{ vm.item.ndbno }}"></div>
   </div>
-  <div class="small-9 columns">
+  <div class="large-9 columns">
     <div class="description">    
       <p>{{ vm.item.description }}</p>
       <div class="commodities-list" ng-show="vm.brands">

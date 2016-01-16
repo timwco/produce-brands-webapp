@@ -1,6 +1,4 @@
 import _ from 'underscore';
-import 'nutrition-label';
-import $ from 'jquery';
 
 let ItemController = function(SearchService, $stateParams) {
   
@@ -26,13 +24,7 @@ let ItemController = function(SearchService, $stateParams) {
       if (res.data.brands) { vm.brands = res.data.brands; }
     });
   }
-
-  SearchService.getNutrients().then( (res) => {
-    console.log(res);
-    $('#some').nutritionLabel();
-  });
   
-
 };
 
 ItemController.$inject = ['SearchService', '$stateParams'];

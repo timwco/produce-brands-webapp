@@ -88,6 +88,93 @@ module.exports = exports['default'];
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+require('nutrition-label');
+
+var _underscore = require('underscore');
+
+var _underscore2 = _interopRequireDefault(_underscore);
+
+// Value by Name
+function valByName(list, query) {
+  return _underscore2['default'].find(list, { name: query }).value;
+}
+
+var NutritionDirective = function NutritionDirective(SearchService) {
+
+  return {
+    scope: {
+      vm: '='
+    },
+    link: function link(scope, element, attrs) {
+
+      // let commodity = scope.vm.item.name;
+      // let commodity_code = scope.vm.item.code;
+
+      console.log(scope);
+      // console.log(commodity, commodity_code);
+
+      SearchService.getNutrients().then(function (res) {
+
+        // Get the nutrients
+        var nutrients = res.data.nutrients.report.food.nutrients;
+
+        // Get each value of the commodities nutrition
+        var c = {};
+        c.calories = valByName(nutrients, 'Energy');
+        c.fat = valByName(nutrients, 'Total lipid (fat)');
+        c.saturated = valByName(nutrients, 'Fatty acids, total saturated');
+        c.mono = valByName(nutrients, 'Fatty acids, total monounsaturated');
+        c.poly = valByName(nutrients, 'Fatty acids, total polyunsaturated');
+        c.trans = valByName(nutrients, 'Fatty acids, total trans');
+        c.cholesterol = valByName(nutrients, 'Cholesterol');
+        c.sodium = valByName(nutrients, 'Sodium, Na');
+        c.carbs = valByName(nutrients, 'Carbohydrate, by difference');
+        c.fiber = valByName(nutrients, 'Fiber, total dietary');
+        c.sugars = valByName(nutrients, 'Sugars, total');
+        c.protein = valByName(nutrients, 'Protein');
+
+        $(element).nutritionLabel({
+          valueServingSizeUnit: '100 Grams',
+
+          valueCalories: c.calories,
+          valueFatCalories: 430,
+          valueTotalFat: c.fat,
+          valueMonoFat: c.mono,
+          valuePolyFat: c.poly,
+          valueSatFat: c.saturated,
+          valueTransFat: c.trans,
+          valueCholesterol: c.cholesterol,
+          valueSodium: c.sodium,
+          valueTotalCarb: c.carbs,
+          valueFibers: c.fiber,
+          valueSugars: c.sugars,
+          valueProteins: c.protein,
+
+          showVitaminA: false,
+          showVitaminC: false,
+          showCalcium: false,
+          showIron: false,
+          showFatCalories: false,
+          showIngredients: false
+        });
+      });
+    }
+  };
+};
+
+NutritionDirective.$inject = ['SearchService'];
+exports['default'] = NutritionDirective;
+module.exports = exports['default'];
+
+},{"nutrition-label":33,"underscore":34}],4:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 var VerifySrcDirective = function VerifySrcDirective() {
 
   return {
@@ -103,7 +190,7 @@ VerifySrcDirective.$inject = [];
 exports['default'] = VerifySrcDirective;
 module.exports = exports['default'];
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -120,7 +207,7 @@ addHTTPFilter.$inject = [];
 exports["default"] = addHTTPFilter;
 module.exports = exports["default"];
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -140,7 +227,7 @@ capitalizeFilter.$inject = [];
 exports['default'] = capitalizeFilter;
 module.exports = exports['default'];
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -164,7 +251,7 @@ momentFilter.$inject = [];
 exports['default'] = momentFilter;
 module.exports = exports['default'];
 
-},{"moment":31}],7:[function(require,module,exports){
+},{"moment":32}],8:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -181,7 +268,7 @@ underscoreCap.$inject = [];
 exports['default'] = underscoreCap;
 module.exports = exports['default'];
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -234,9 +321,13 @@ var _directivesVerifySrcDirective = require('./directives/verify-src.directive')
 
 var _directivesVerifySrcDirective2 = _interopRequireDefault(_directivesVerifySrcDirective);
 
-_angular2['default'].module('app.core', ['ui.router', 'flash']).config(_config2['default']).constant('APP', _constantsAppConstant2['default']).service('MessageService', _servicesMessageService2['default']).filter('moment', _filtersMomentFilter2['default']).filter('underscoreCap', _filtersUnderscorecapFilter2['default']).filter('addHTTP', _filtersAddHTTPFilter2['default']).filter('capitalize', _filtersCapitalizeFilter2['default']).directive('verifySrc', _directivesVerifySrcDirective2['default']);
+var _directivesNutritionDirective = require('./directives/nutrition.directive');
 
-},{"./config":1,"./constants/app.constant":2,"./directives/verify-src.directive":3,"./filters/addHTTP.filter":4,"./filters/capitalize.filter":5,"./filters/moment.filter":6,"./filters/underscorecap.filter":7,"./services/message.service":9,"angular":28,"angular-flash-alert":25,"angular-ui-router":26}],9:[function(require,module,exports){
+var _directivesNutritionDirective2 = _interopRequireDefault(_directivesNutritionDirective);
+
+_angular2['default'].module('app.core', ['ui.router', 'flash']).config(_config2['default']).constant('APP', _constantsAppConstant2['default']).service('MessageService', _servicesMessageService2['default']).filter('moment', _filtersMomentFilter2['default']).filter('underscoreCap', _filtersUnderscorecapFilter2['default']).filter('addHTTP', _filtersAddHTTPFilter2['default']).filter('capitalize', _filtersCapitalizeFilter2['default']).directive('verifySrc', _directivesVerifySrcDirective2['default']).directive('nutritionLabel', _directivesNutritionDirective2['default']);
+
+},{"./config":1,"./constants/app.constant":2,"./directives/nutrition.directive":3,"./directives/verify-src.directive":4,"./filters/addHTTP.filter":5,"./filters/capitalize.filter":6,"./filters/moment.filter":7,"./filters/underscorecap.filter":8,"./services/message.service":10,"angular":29,"angular-flash-alert":26,"angular-ui-router":27}],10:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -263,7 +354,7 @@ MessageService.$inject = [];
 exports['default'] = MessageService;
 module.exports = exports['default'];
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -299,7 +390,7 @@ HomeController.$inject = ['UserService', '$state', 'Flash', '$scope'];
 exports['default'] = HomeController;
 module.exports = exports['default'];
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -325,7 +416,7 @@ LayoutController.$inject = ['UserService', '$scope', 'APP'];
 exports['default'] = LayoutController;
 module.exports = exports['default'];
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -344,7 +435,7 @@ var _controllersLayoutController2 = _interopRequireDefault(_controllersLayoutCon
 
 _angular2['default'].module('app.layout', []).controller('HomeController', _controllersHomeController2['default']).controller('LayoutController', _controllersLayoutController2['default']);
 
-},{"./controllers/home.controller":10,"./controllers/layout.controller":11,"angular":28}],13:[function(require,module,exports){
+},{"./controllers/home.controller":11,"./controllers/layout.controller":12,"angular":29}],14:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -356,12 +447,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 var _underscore = require('underscore');
 
 var _underscore2 = _interopRequireDefault(_underscore);
-
-require('nutrition-label');
-
-var _jquery = require('jquery');
-
-var _jquery2 = _interopRequireDefault(_jquery);
 
 var ItemController = function ItemController(SearchService, $stateParams) {
 
@@ -393,18 +478,13 @@ var ItemController = function ItemController(SearchService, $stateParams) {
       }
     });
   }
-
-  SearchService.getNutrients().then(function (res) {
-    console.log(res);
-    (0, _jquery2['default'])('#some').nutritionLabel();
-  });
 };
 
 ItemController.$inject = ['SearchService', '$stateParams'];
 exports['default'] = ItemController;
 module.exports = exports['default'];
 
-},{"jquery":30,"nutrition-label":32,"underscore":33}],14:[function(require,module,exports){
+},{"underscore":34}],15:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -468,7 +548,7 @@ ListingController.$inject = ['SearchService', '$stateParams', '$timeout'];
 exports['default'] = ListingController;
 module.exports = exports['default'];
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -513,7 +593,7 @@ SearchController.$inject = ['SearchService', '$timeout'];
 exports['default'] = SearchController;
 module.exports = exports['default'];
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -540,7 +620,7 @@ var _controllersListingController2 = _interopRequireDefault(_controllersListingC
 
 _angular2['default'].module('app.search', []).service('SearchService', _servicesSearchService2['default']).controller('SearchController', _controllersSearchController2['default']).controller('ItemController', _controllersItemController2['default']).controller('ListingController', _controllersListingController2['default']);
 
-},{"./controllers/item.controller":13,"./controllers/listing.controller":14,"./controllers/search.controller":15,"./services/search.service":17,"angular":28}],17:[function(require,module,exports){
+},{"./controllers/item.controller":14,"./controllers/listing.controller":15,"./controllers/search.controller":16,"./services/search.service":18,"angular":29}],18:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -599,7 +679,7 @@ SearchService.$inject = ['$http', 'APP'];
 exports['default'] = SearchService;
 module.exports = exports['default'];
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -665,7 +745,7 @@ AuthController.$inject = ['UserService', 'Flash', '$stateParams', 'MessageServic
 exports['default'] = AuthController;
 module.exports = exports['default'];
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -686,7 +766,7 @@ var _controllersAuthController2 = _interopRequireDefault(_controllersAuthControl
 
 _angular2['default'].module('app.user', ['ngCookies']).service('UserService', _servicesUserService2['default']).controller('AuthController', _controllersAuthController2['default']);
 
-},{"./controllers/auth.controller":18,"./services/user.service":20,"angular":28,"angular-cookies":24}],20:[function(require,module,exports){
+},{"./controllers/auth.controller":19,"./services/user.service":21,"angular":29,"angular-cookies":25}],21:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -745,7 +825,7 @@ UserService.$inject = ['$http', '$cookies', '$state', '$rootScope', 'APP'];
 exports['default'] = UserService;
 module.exports = exports['default'];
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -782,7 +862,7 @@ var _utilsRunJs2 = _interopRequireDefault(_utilsRunJs);
 // loading foundation after templates load
 _angular2['default'].module('app', ['app.core', 'app.layout', 'app.search', 'app.user']).run(_utilsRunJs2['default']);
 
-},{"./app.core/index":8,"./app.layout/index":12,"./app.search/index":16,"./app.user/index":19,"./utils/run.js":22,"angular":28,"foundation":29,"jquery":30}],22:[function(require,module,exports){
+},{"./app.core/index":9,"./app.layout/index":13,"./app.search/index":17,"./app.user/index":20,"./utils/run.js":23,"angular":29,"foundation":30,"jquery":31}],23:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -809,7 +889,7 @@ run.$inject = ['$rootScope', 'UserService', 'Flash'];
 exports['default'] = run;
 module.exports = exports['default'];
 
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 /**
  * @license AngularJS v1.4.8
  * (c) 2010-2015 Google, Inc. http://angularjs.org
@@ -1132,11 +1212,11 @@ angular.module('ngCookies').provider('$$cookieWriter', function $$CookieWriterPr
 
 })(window, window.angular);
 
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 require('./angular-cookies');
 module.exports = 'ngCookies';
 
-},{"./angular-cookies":23}],25:[function(require,module,exports){
+},{"./angular-cookies":24}],26:[function(require,module,exports){
 /*! angular-flash - v1.0.0 - 2015-03-19
 * https://github.com/sachinchoolur/angular-flash
 * Copyright (c) 2015 Sachin; Licensed MIT */
@@ -1227,7 +1307,7 @@ module.exports = 'ngCookies';
         }
     ]);
 }());
-},{}],26:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 /**
  * State-based routing for AngularJS
  * @version v0.2.15
@@ -5598,7 +5678,7 @@ angular.module('ui.router.state')
   .filter('isState', $IsStateFilter)
   .filter('includedByState', $IncludedByStateFilter);
 })(window, window.angular);
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 /**
  * @license AngularJS v1.4.8
  * (c) 2010-2015 Google, Inc. http://angularjs.org
@@ -34617,11 +34697,11 @@ $provide.value("$locale", {
 })(window, document);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-},{}],28:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 require('./angular');
 module.exports = angular;
 
-},{"./angular":27}],29:[function(require,module,exports){
+},{"./angular":28}],30:[function(require,module,exports){
 (function (global){
 ; var __browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 !function($) {
@@ -42092,7 +42172,7 @@ Foundation.plugin(ResponsiveToggle, 'ResponsiveToggle');
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],30:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 (function (global){
 ; var __browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 /*!
@@ -51312,7 +51392,7 @@ return jQuery;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{}],31:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 //! moment.js
 //! version : 2.10.6
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
@@ -54508,7 +54588,7 @@ return jQuery;
     return _moment;
 
 }));
-},{}],32:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 /*
  ******************************************************************************************************************+
  * NUTRITIONIX.com                                                                                                 |
@@ -54527,7 +54607,7 @@ return jQuery;
  ******************************************************************************************************************+
 */
 ;(function($){$.fn.nutritionLabel=function(option,settings){if(typeof option==="object"){settings=option;init(settings,$(this))}else{if(typeof option==="string"&&option!==""){if(option==="destroy"){new NutritionLabel().destroy($(this))}else{if(option==="hide"){new NutritionLabel().hide($(this))}else{if(option==="show"){new NutritionLabel().show($(this))}else{var values=[];var elements=this.each(function(){var data=$(this).data("_nutritionLabel");if(data){if($.fn.nutritionLabel.defaultSettings[option]!==undefined){if(settings!==undefined){data.settings[option]=settings;init(data.settings,$(this))}else{values.push(data.settings[option])}}}else{if($.fn.nutritionLabel.defaultSettings[option]!==undefined){if(settings!==undefined){$.fn.nutritionLabel.defaultSettings[option]=settings;init(null,$(this))}}}});if(values.length===1){return values[0]}return values.length>0?values:elements}}}}else{if(typeof option==="undefined"||option===""){init(settings,$(this))}}}};$.fn.nutritionLabel.defaultSettings={width:260,allowCustomWidth:false,widthCustom:"auto",allowNoBorder:false,allowFDARounding:false,hideNotAppicableValues:false,brandName:"Brand where this item belongs to",scrollLongIngredients:false,scrollHeightComparison:100,scrollHeightPixel:95,decimalPlacesForNutrition:1,decimalPlacesForDailyValues:0,decimalPlacesForQuantityTextbox:1,scrollLongItemName:true,scrollLongItemNamePixel:36,showBottomLink:false,urlBottomLink:"http://www.nutritionix.com",nameBottomLink:"Nutritionix",valueServingUnitQuantity:1,valueServingSizeUnit:"",showServingUnitQuantityTextbox:true,itemName:"Item / Ingredient Name",showServingUnitQuantity:true,hideTextboxArrows:false,originalServingUnitQuantity:0,nutritionValueMultiplier:1,totalContainerQuantity:1,calorieIntake:2000,dailyValueTotalFat:65,dailyValueSatFat:20,dailyValueCholesterol:300,dailyValueSodium:2400,dailyValueCarb:300,dailyValueFiber:25,showCalories:true,showFatCalories:true,showTotalFat:true,showSatFat:true,showTransFat:true,showPolyFat:true,showMonoFat:true,showCholesterol:true,showSodium:true,showTotalCarb:true,showFibers:true,showSugars:true,showProteins:true,showVitaminA:true,showVitaminC:true,showCalcium:true,showIron:true,showAmountPerServing:true,showServingsPerContainer:false,showItemName:true,showBrandName:false,showIngredients:true,showCalorieDiet:false,showCustomFooter:false,showDisclaimer:false,scrollDisclaimerHeightComparison:100,scrollDisclaimer:95,valueDisclaimer:"Please note that these nutrition values are estimated based on our standard serving portions. As food servings may have a slight variance each time you visit, please expect these values to be with in 10% +/- of your actual meal. If you have any questions about our nutrition calculator, please contact Nutritionix.",ingredientLabel:"INGREDIENTS:",valueCustomFooter:"",naCalories:false,naFatCalories:false,naTotalFat:false,naSatFat:false,naTransFat:false,naPolyFat:false,naMonoFat:false,naCholesterol:false,naSodium:false,naTotalCarb:false,naFibers:false,naSugars:false,naProteins:false,naVitaminA:false,naVitaminC:false,naCalcium:false,naIron:false,valueServingWeightGrams:0,valueServingPerContainer:1,valueCalories:0,valueFatCalories:0,valueTotalFat:0,valueSatFat:0,valueTransFat:0,valuePolyFat:0,valueMonoFat:0,valueCholesterol:0,valueSodium:0,valueTotalCarb:0,valueFibers:0,valueSugars:0,valueProteins:0,valueVitaminA:0,valueVitaminC:0,valueCalcium:0,valueIron:0,unitCalories:"",unitFatCalories:"",unitTotalFat:"g",unitSatFat:"g",unitTransFat:"g",unitPolyFat:"g",unitMonoFat:"g",unitCholesterol:"mg",unitSodium:"mg",unitTotalCarb:"g",unitFibers:"g",unitSugars:"g",unitProteins:"g",unitVitaminA:"%",unitVitaminC:"%",unitCalcium:"%",unitIron:"%",valueCol1CalorieDiet:2000,valueCol2CalorieDiet:2500,valueCol1DietaryTotalFat:0,valueCol2DietaryTotalFat:0,valueCol1DietarySatFat:0,valueCol2DietarySatFat:0,valueCol1DietaryCholesterol:0,valueCol2DietaryCholesterol:0,valueCol1DietarySodium:0,valueCol2DietarySodium:0,valueCol1DietaryTotalCarb:0,valueCol2DietaryTotalCarb:0,valueCol1Dietary:0,valueCol2Dietary:0,textNutritionFacts:"Nutrition Facts",textDailyValues:"Daily Value",textServingSize:"Serving Size:",textServingsPerContainer:"Servings Per Container",textAmountPerServing:"Amount Per Serving",textCalories:"Calories",textFatCalories:"Calories from Fat",textTotalFat:"Total Fat",textSatFat:"Saturated Fat",textTransFat:"<i>Trans</i> Fat",textPolyFat:"Polyunsaturated Fat",textMonoFat:"Monounsaturated Fat",textCholesterol:"Cholesterol",textSodium:"Sodium",textTotalCarb:"Total Carbohydrates",textFibers:"Dietary Fiber",textSugars:"Sugars",textProteins:"Protein",textVitaminA:"Vitamin A",textVitaminC:"Vitamin C",textCalcium:"Calcium",textIron:"Iron",ingredientList:"None",textPercentDailyPart1:"Percent Daily Values are based on a",textPercentDailyPart2:"calorie diet"};function NutritionLabel(settings,$elem){this.nutritionLabel=null;this.settings=settings;this.$elem=$elem;return this}function cleanSettings(settings){var numericIndex=["width","scrollHeightComparison","scrollHeightPixel","decimalPlacesForNutrition","decimalPlacesForDailyValues","calorieIntake","dailyValueTotalFat","dailyValueSatFat","dailyValueCholesterol","dailyValueSodium","dailyValueCarb","dailyValueFiber","valueServingSize","valueServingWeightGrams","valueServingPerContainer","valueCalories","valueFatCalories","valueTotalFat","valueSatFat","valueTransFat","valuePolyFat","valueMonoFat","valueCholesterol","valueSodium","valueTotalCarb","valueFibers","valueSugars","valueProteins","valueVitaminA","valueVitaminC","valueCalcium","valueIron","valueCol1CalorieDiet","valueCol2CalorieDiet","valueCol1DietaryTotalFat","valueCol2DietaryTotalFat","valueCol1DietarySatFat","valueCol2DietarySatFat","valueCol1DietaryCholesterol","valueCol2DietaryCholesterol","valueCol1DietarySodium","valueCol2DietarySodium","valueCol1DietaryTotalCarb","valueCol2DietaryTotalCarb","valueCol1Dietary","valueCol2Dietary","valueServingUnitQuantity","scrollLongItemNamePixel, decimalPlacesForQuantityTextbox"];$.each(settings,function(index,value){if(jQuery.inArray(index,numericIndex)!==-1){settings[index]=parseFloat(settings[index]);if(isNaN(settings[index])||settings[index]===undefined){settings[index]=0}}});if(settings.valueServingUnitQuantity<0){settings.valueServingUnitQuantity=0}return settings}function UpdateNutritionValueWithMultiplier(settings){var nutritionIndex=["valueCalories","valueFatCalories","valueTotalFat","valueSatFat","valueTransFat","valuePolyFat","valueMonoFat","valueCholesterol","valueSodium","valueTotalCarb","valueFibers","valueSugars","valueProteins","valueVitaminA","valueVitaminC","valueCalcium","valueIron","valueServingWeightGrams"];$.each(settings,function(index,value){if(jQuery.inArray(index,nutritionIndex)!==-1){settings[index]=parseFloat(settings[index]);if(isNaN(settings[index])||settings[index]===undefined){settings[index]=0}settings[index]=parseFloat(settings[index])*parseFloat(settings.valueServingUnitQuantity)*parseFloat(settings.nutritionValueMultiplier)}});if(parseFloat(settings.valueServingUnitQuantity)==0){settings.valueServingPerContainer=0}else{if(!isNaN(settings.valueServingPerContainer)&&settings.valueServingPerContainer!=undefined){settings.valueServingPerContainer=parseFloat(settings.totalContainerQuantity)/parseFloat(settings.valueServingUnitQuantity)}}return settings}function init(settings,$elem){var $settings=$.extend({},$.fn.nutritionLabel.defaultSettings,settings||{});$settings.totalContainerQuantity=parseFloat($settings.valueServingPerContainer)*parseFloat($settings.valueServingUnitQuantity);var $originalCleanSettings=cleanSettings($.extend({},$.fn.nutritionLabel.defaultSettings,settings||{}));$originalCleanSettings.totalContainerQuantity=parseFloat($originalCleanSettings.valueServingPerContainer)*parseFloat($originalCleanSettings.valueServingUnitQuantity);$settings=cleanSettings($settings);$originalCleanSettings=cleanSettings($originalCleanSettings);$settings.nutritionValueMultiplier=$settings.valueServingUnitQuantity<=0?1:1/$settings.valueServingUnitQuantity;var $updatedsettings=UpdateNutritionValueWithMultiplier($settings);$settings.originalServingUnitQuantity=$updatedsettings.valueServingUnitQuantity;if($updatedsettings.valueServingUnitQuantity<=0){$originalCleanSettings.valueServingUnitQuantity=1;$updatedsettings=UpdateNutritionValueWithMultiplier($originalCleanSettings);$updatedsettings.valueServingUnitQuantity=1}var nutritionLabel=new NutritionLabel($updatedsettings,$elem);$elem.html(nutritionLabel.generate());if($settings.showIngredients&&$settings.scrollLongIngredients){updateScrollingFeature($elem,$settings)}if($settings.showDisclaimer){updateScrollingFeatureDisclaimer($elem,$settings)}notApplicableHover($elem);if($settings.scrollLongItemName){addScrollToItemDiv($elem,$settings)}if($settings.showServingUnitQuantityTextbox){$("#"+$elem.attr("id")).delegate(".unitQuantityUp","click",function(e){e.preventDefault();$settingsHolder=$.extend({},$.fn.nutritionLabel.defaultSettings,settings||{});$settingsHolder.totalContainerQuantity=$settings.totalContainerQuantity;$settingsHolder.originalServingUnitQuantity=$settings.originalServingUnitQuantity;$settingsHolder.nutritionValueMultiplier=$settingsHolder.valueServingUnitQuantity<=0?1:1/$settingsHolder.valueServingUnitQuantity;changeQuantityByArrow($(this),1,$settingsHolder,nutritionLabel,$elem)});$("#"+$elem.attr("id")).delegate(".unitQuantityDown","click",function(e){e.preventDefault();$settingsHolder=$.extend({},$.fn.nutritionLabel.defaultSettings,settings||{});$settingsHolder.originalServingUnitQuantity=$settings.originalServingUnitQuantity;$settingsHolder.totalContainerQuantity=$settings.totalContainerQuantity;$settingsHolder.nutritionValueMultiplier=$settingsHolder.valueServingUnitQuantity<=0?1:1/$settingsHolder.valueServingUnitQuantity;changeQuantityByArrow($(this),-1,$settingsHolder,nutritionLabel,$elem)});$("#"+$elem.attr("id")).delegate(".unitQuantityBox","change",function(e){e.preventDefault();$settingsHolder=$.extend({},$.fn.nutritionLabel.defaultSettings,settings||{});$settingsHolder.originalServingUnitQuantity=$settings.originalServingUnitQuantity;$settingsHolder.totalContainerQuantity=$settings.totalContainerQuantity;$settingsHolder.nutritionValueMultiplier=$settingsHolder.valueServingUnitQuantity<=0?1:1/$settingsHolder.valueServingUnitQuantity;changeQuantityTextbox($(this),$settingsHolder,nutritionLabel,$elem)});$("#"+$elem.attr("id")).delegate(".unitQuantityBox","keydown",function(e){if(e.keyCode==13){e.preventDefault();$settingsHolder=$.extend({},$.fn.nutritionLabel.defaultSettings,settings||{});$settingsHolder.originalServingUnitQuantity=$settings.originalServingUnitQuantity;$settingsHolder.totalContainerQuantity=$settings.totalContainerQuantity;$settingsHolder.nutritionValueMultiplier=$settingsHolder.valueServingUnitQuantity<=0?1:1/$settingsHolder.valueServingUnitQuantity;changeQuantityTextbox($(this),$settingsHolder,nutritionLabel,$elem)}})}$elem.data("_nutritionLabel",nutritionLabel)}function addScrollToItemDiv($elem,$settings){if($("#"+$elem.attr("id")+" .name.inline").val()!=undefined){if($("#"+$elem.attr("id")+" .name.inline").height()>(parseInt($settings.scrollLongItemNamePixel)+1)){$("# "+$elem.attr("id")+" .name.inline").css({"margin-left":"3.90em",height:parseInt($settings.scrollLongItemNamePixel)+"px","overflow-y":"auto"})}}else{if($("#"+$elem.attr("id")+" .name").height()>(parseInt($settings.scrollLongItemNamePixel)+1)){$("#"+$elem.attr("id")+" .name").css({height:parseInt($settings.scrollLongItemNamePixel)+"px","overflow-y":"auto"})}}}function notApplicableHover($elem){if($elem.attr("id")!==undefined&&$elem.attr("id")!==""){$("#"+$elem.attr("id")+" .notApplicable").hover(function(){$("#"+$elem.attr("id")+" .naTooltip").css({top:$(this).position().top+"px",left:$(this).position().left+10+"px"}).show()},function(){$("#"+$elem.attr("id")+" .naTooltip").hide()})}else{$("#"+$elem.attr("id")+" .notApplicable").hover(function(){$(".naTooltip").css({top:$(this).position().top+"px",left:$(this).position().left+10+"px"}).show()},function(){$(".naTooltip").hide()})}}function updateScrollingFeature($elem,$settings){if($elem.attr("id")!==undefined&&$elem.attr("id")!==""){$ingredientListParent=$("#"+$elem.attr("id")+" #ingredientList").parent()}else{$ingredientListParent=$("#ingredientList").parent()}if($ingredientListParent.innerHeight()>$settings.scrollHeightComparison){$ingredientListParent.addClass("scroll").css({height:$settings.scrollHeightPixel+"px"})}}function updateScrollingFeatureDisclaimer($elem,$settings){if($elem.attr("id")!==undefined&&$elem.attr("id")!==""){$disclaimerParent=$("#"+$elem.attr("id")+" #calcDisclaimerText").parent()}else{$disclaimerParent=$("#calcDisclaimerText").parent()}if($disclaimerParent.innerHeight()>$settings.scrollDisclaimerHeightComparison){$disclaimerParent.addClass("scroll").css({height:$settings.scrollDisclaimer+"px"})}}function changeQuantityTextbox($thisTextbox,$originalSettings,nutritionLabel,$elem){var textBoxValue=parseFloat($thisTextbox.val());textBoxValue=isNaN(textBoxValue)?1:textBoxValue;$thisTextbox.val(textBoxValue.toFixed(1));$originalSettings.valueServingUnitQuantity=textBoxValue;$originalSettings=UpdateNutritionValueWithMultiplier($originalSettings);nutritionLabel=new NutritionLabel($originalSettings,$elem);$elem.html(nutritionLabel.generate());if($originalSettings.showIngredients&&$originalSettings.scrollLongIngredients){updateScrollingFeature($elem,$originalSettings)}if($originalSettings.showDisclaimer){updateScrollingFeatureDisclaimer($elem,$originalSettings)}notApplicableHover($elem);if($originalSettings.scrollLongItemName){addScrollToItemDiv($elem,$originalSettings)}}function changeQuantityByArrow($thisQuantity,changeValueBy,$settings,nutritionLabel,$elem){var currentQuantity=parseFloat($thisQuantity.parent().parent().find("input.unitQuantityBox").val());if(isNaN(currentQuantity)){currentQuantity=1}if(currentQuantity<=1&&changeValueBy==-1){changeValueBy=-0.5;currentQuantity+=changeValueBy}else{if(currentQuantity<1&&changeValueBy==1){changeValueBy=0.5;currentQuantity+=changeValueBy}else{if(currentQuantity<=2&&currentQuantity>1&&changeValueBy==-1){currentQuantity=1}else{currentQuantity+=changeValueBy}}}if(currentQuantity<0){currentQuantity=0}$thisQuantity.parent().parent().find("input.unitQuantityBox").val(currentQuantity.toFixed(1));$settings.valueServingUnitQuantity=currentQuantity;$settings=UpdateNutritionValueWithMultiplier($settings);nutritionLabel=new NutritionLabel($settings,$elem);$elem.html(nutritionLabel.generate());if($settings.showIngredients&&$settings.scrollLongIngredients){updateScrollingFeature($elem,$settings)}if($settings.showDisclaimer){updateScrollingFeatureDisclaimer($elem,$settings)}notApplicableHover($elem);if($settings.scrollLongItemName){addScrollToItemDiv($elem,$settings)}}function roundToNearestNum(input,nearest){if(nearest<0){return Math.round(input*nearest)/nearest}else{return Math.round(input/nearest)*nearest}}function roundCalories(toRound,decimalPlace){toRound=roundCaloriesRule(toRound);if(toRound>0){toRound=parseFloat(toRound.toFixed(decimalPlace))}return toRound}function roundFat(toRound,decimalPlace){toRound=roundFatRule(toRound);if(toRound>0){toRound=parseFloat(toRound.toFixed(decimalPlace))}return toRound}function roundSodium(toRound,decimalPlace){toRound=roundSodiumRule(toRound);if(toRound>0){toRound=parseFloat(toRound.toFixed(decimalPlace))}return toRound}function roundCholesterol(toRound,decimalPlace){var normalVersion=true;var roundResult=roundCholesterolRule(toRound);if(roundResult===false){normalVersion=false}else{toRound=roundResult}if(normalVersion){if(toRound>0){toRound=parseFloat(toRound.toFixed(decimalPlace))}}else{toRound="< 5"}return toRound}function roundCarbFiberSugarProtein(toRound,decimalPlace){var normalVersion=true;var roundResult=roundCarbFiberSugarProteinRule(toRound);if(roundResult===false){normalVersion=false}else{toRound=roundResult}if(normalVersion){if(toRound>0){toRound=parseFloat(toRound.toFixed(decimalPlace))}}else{toRound="< 1"}return toRound}function roundCaloriesRule(toRound){if(toRound<5){return 0}else{if(toRound<=50){return roundToNearestNum(toRound,5)}else{return roundToNearestNum(toRound,10)}}}function roundFatRule(toRound){if(toRound<0.5){return 0}else{if(toRound<5){return roundToNearestNum(toRound,0.5)}else{return roundToNearestNum(toRound,1)}}}function roundSodiumRule(toRound){if(toRound<5){return 0}else{if(toRound<=140){return roundToNearestNum(toRound,5)}else{return roundToNearestNum(toRound,10)}}}function roundCholesterolRule(toRound){if(toRound<2){return 0}else{if(toRound<=5){return false}else{return roundToNearestNum(toRound,5)}}}function roundCarbFiberSugarProteinRule(toRound){if(toRound<0.5){return 0}else{if(toRound<1){return false}else{return roundToNearestNum(toRound,1)}}}function roundVitaminsCalciumIron(toRound){if(toRound>0){if(toRound<10){return roundToNearestNum(toRound,2)}else{if(toRound<50){return roundToNearestNum(toRound,5)}else{return roundToNearestNum(toRound,10)}}}else{return 0}}NutritionLabel.prototype={generate:function(){var $this=this;if($this.nutritionLabel){return $this.nutritionLabel}if($this.settings.hideNotAppicableValues){$this.settings.showCalories=$this.settings.naCalories?false:$this.settings.showCalories;$this.settings.showFatCalories=$this.settings.naFatCalories?false:$this.settings.showFatCalories;$this.settings.showTotalFat=$this.settings.naTotalFat?false:$this.settings.showTotalFat;$this.settings.showSatFat=$this.settings.naSatFat?false:$this.settings.showSatFat;$this.settings.showTransFat=$this.settings.naTransFat?false:$this.settings.showTransFat;$this.settings.showPolyFat=$this.settings.naPolyFat?false:$this.settings.showPolyFat;$this.settings.showMonoFat=$this.settings.naMonoFat?false:$this.settings.showMonoFat;$this.settings.showCholesterol=$this.settings.naCholesterol?false:$this.settings.showCholesterol;$this.settings.showSodium=$this.settings.naSodium?false:$this.settings.showSodium;$this.settings.showTotalCarb=$this.settings.naTotalCarb?false:$this.settings.showTotalCarb;$this.settings.showFibers=$this.settings.naFibers?false:$this.settings.showFibers;$this.settings.showSugars=$this.settings.naSugars?false:$this.settings.showSugars;$this.settings.showProteins=$this.settings.naProteins?false:$this.settings.showProteins;$this.settings.showVitaminA=$this.settings.naVitaminA?false:$this.settings.showVitaminA;$this.settings.showVitaminC=$this.settings.naVitaminC?false:$this.settings.showVitaminC;$this.settings.showCalcium=$this.settings.naCalcium?false:$this.settings.showCalcium;$this.settings.showIron=$this.settings.naIron?false:$this.settings.showIron}for(x=1;x<9;x++){var tab="";for(y=1;y<=x;y++){tab+="\t"}eval("var tab"+x+' = "'+tab+'";')}var naValue='<font class="notApplicable">-&nbsp;</font>';var calorieIntakeMod=(parseFloat($this.settings.calorieIntake)/2000).toFixed(2);var borderCSS="";if($this.settings.allowNoBorder){borderCSS="border: 0;"}var nutritionLabel="";if(!$this.settings.allowCustomWidth){nutritionLabel+='<div itemprop="nutrition" itemscope itemtype="http://schema.org/NutritionInformation"';nutritionLabel+=' class="nutritionLabel" style="'+borderCSS+" width: "+$this.settings.width+'px;">\n'}else{nutritionLabel+='<div itemprop="nutrition" itemscope itemtype="http://schema.org/NutritionInformation"';nutritionLabel+=' class="nutritionLabel" style="'+borderCSS+" width: "+$this.settings.widthCustom+';">\n'}nutritionLabel+=tab1+'<div class="title">'+$this.settings.textNutritionFacts+"</div>\n";if($this.settings.showItemName){var tabTemp=tab1;var itemNameClass="";if($this.settings.showServingUnitQuantityTextbox){if(($this.settings.valueServingSizeUnit==null||$this.settings.valueServingSizeUnit=="")||($this.settings.valueServingSizeUnit!==""&&$this.settings.valueServingSizeUnit!==null&&$this.settings.originalServingUnitQuantity<=0)){nutritionLabel+=tab1+'<div class="cf">\n';nutritionLabel+=tab2+'<div class="rel servingSizeField">\n';var textboxClass="unitQuantityBox";if(!$this.settings.hideTextboxArrows){nutritionLabel+=tab3+'<div class="setter">\n';nutritionLabel+=tab4+'<a href="Increase the quantity" class="unitQuantityUp" rel="nofollow"></a>\n';nutritionLabel+=tab4+'<a href="Decrease the quantity" class="unitQuantityDown" rel="nofollow"></a>\n';nutritionLabel+=tab3+'</div><!-- closing class="setter" -->\n'}else{textboxClass="unitQuantityBox arrowsAreHidden"}nutritionLabel+=tab3+'<input type="text" value="'+parseFloat($this.settings.valueServingUnitQuantity.toFixed($this.settings.decimalPlacesForQuantityTextbox))+'" ';nutritionLabel+='class="'+textboxClass+'">\n';nutritionLabel+=tab2+'</div><!-- closing class="servingSizeField" -->\n';tabTemp=tab2;var itemNameClass="inline"}}nutritionLabel+=tabTemp+'<div class="name '+itemNameClass+'">';nutritionLabel+=$this.settings.itemName;if($this.settings.showBrandName&&$this.settings.brandName!=null&&$this.settings.brandName!=""){nutritionLabel+=" - "+$this.settings.brandName}nutritionLabel+="</div>\n";if($this.settings.showServingUnitQuantityTextbox){if(($this.settings.valueServingSizeUnit==null||$this.settings.valueServingSizeUnit=="")||($this.settings.valueServingSizeUnit!==""&&$this.settings.valueServingSizeUnit!==null&&$this.settings.originalServingUnitQuantity<=0)){nutritionLabel+=tab1+'</div><!-- closing class="cf" -->\n'}}}var servingSizeIsHidden=false;var servingContainerIsHidden=false;var servingSizeTextClass="";if($this.settings.showServingUnitQuantity){nutritionLabel+=tab1+'<div class="serving">\n';if($this.settings.originalServingUnitQuantity>0){nutritionLabel+=tab2+'<div class="cf">\n';nutritionLabel+=tab3+'<div class="servingSizeText fl">'+$this.settings.textServingSize+"</div>\n";nutritionLabel+=$this.settings.showServingUnitQuantityTextbox?"":tab3+'<div class="servingUnitQuantity fl">'+parseFloat($this.settings.originalServingUnitQuantity.toFixed($this.settings.decimalPlacesForNutrition))+"</div>\n";var unitAddedClass="";var gramsAddedClass="";if($this.settings.valueServingSizeUnit!==""&&$this.settings.valueServingSizeUnit!==null){if($this.settings.showServingUnitQuantityTextbox&&$this.settings.valueServingSizeUnit!=null&&$this.settings.valueServingSizeUnit!=""){unitAddedClass="unitHasTextbox";gramsAddedClass="gramsHasTextbox";nutritionLabel+=tab3+'<div class="rel servingSizeField fl">\n';var textboxClass="unitQuantityBox";if(!$this.settings.hideTextboxArrows){nutritionLabel+=tab4+'<div class="setter">\n';nutritionLabel+=tab5+'<a href="Increase the quantity" class="unitQuantityUp" rel="nofollow"></a>\n';nutritionLabel+=tab5+'<a href="Decrease the quantity" class="unitQuantityDown" rel="nofollow"></a>\n';nutritionLabel+=tab4+'</div><!-- closing class="setter" -->\n'}else{textboxClass="unitQuantityBox arrowsAreHidden"}nutritionLabel+=tab4+'<input type="text" value="'+parseFloat($this.settings.valueServingUnitQuantity.toFixed($this.settings.decimalPlacesForQuantityTextbox))+'" ';nutritionLabel+='class="'+textboxClass+'">\n';nutritionLabel+=tab3+'</div><!-- closing class="servingSizeField" -->\n'}else{if($this.settings.originalServingUnitQuantity>0&&$this.settings.showServingUnitQuantityTextbox){nutritionLabel+=tab3+'<div class="servingUnitQuantity">'+parseFloat($this.settings.originalServingUnitQuantity.toFixed($this.settings.decimalPlacesForNutrition))+"</div>\n"}}nutritionLabel+=tab3+'<div class="servingUnit fl '+unitAddedClass+'">'+$this.settings.valueServingSizeUnit+"</div>\n"}else{if($this.settings.originalServingUnitQuantity>0&&$this.settings.showServingUnitQuantityTextbox){nutritionLabel+=tab3+'<div class="servingUnitQuantity fl">'+parseFloat($this.settings.originalServingUnitQuantity.toFixed($this.settings.decimalPlacesForNutrition))+"</div>\n"}}if($this.settings.valueServingWeightGrams>0){nutritionLabel+=tab3+'<div class="servingWeightGrams fl '+gramsAddedClass+'">(<span itemprop="servingSize">'+parseFloat($this.settings.valueServingWeightGrams.toFixed($this.settings.decimalPlacesForNutrition))+"g</span>)</div>\n"}nutritionLabel+=tab2+'</div><!-- closing class="cf" -->\n'}else{servingSizeIsHidden=true}if($this.settings.showServingsPerContainer){if($this.settings.valueServingPerContainer>0){nutritionLabel+=tab2+"<div>"+$this.settings.textServingsPerContainer+" ";nutritionLabel+=parseFloat($this.settings.valueServingPerContainer.toFixed($this.settings.decimalPlacesForNutrition));nutritionLabel+="</div>\n"}else{servingContainerIsHidden=true}}else{servingContainerIsHidden=true}nutritionLabel+=tab1+'</div><!-- closing class="serving" -->\n'}if((!$this.settings.showItemName&&!$this.settings.showServingUnitQuantity)||(!$this.settings.showItemName&&servingSizeIsHidden&&servingContainerIsHidden)){nutritionLabel+=tab1+'<div class="headerSpacer"></div>\n'}nutritionLabel+=tab1+'<div class="bar1"></div>\n';if($this.settings.showAmountPerServing){nutritionLabel+=tab1+'<div class="line m">';nutritionLabel+="<b>"+$this.settings.textAmountPerServing+"</b>";nutritionLabel+="</div>\n"}nutritionLabel+=tab1+'<div class="line">\n';if($this.settings.showFatCalories){nutritionLabel+=tab2+'<div class="fr">';nutritionLabel+=$this.settings.textFatCalories+" ";nutritionLabel+=$this.settings.naFatCalories?naValue:($this.settings.allowFDARounding?roundCalories($this.settings.valueFatCalories,$this.settings.decimalPlacesForNutrition):parseFloat($this.settings.valueFatCalories.toFixed($this.settings.decimalPlacesForNutrition)))+$this.settings.unitFatCalories;nutritionLabel+="</div>\n"}if($this.settings.showCalories){nutritionLabel+=tab2+"<div>";nutritionLabel+="<b>"+$this.settings.textCalories+'</b> <span itemprop="calories">';nutritionLabel+=$this.settings.naCalories?naValue:($this.settings.allowFDARounding?roundCalories($this.settings.valueCalories,$this.settings.decimalPlacesForNutrition):parseFloat($this.settings.valueCalories.toFixed($this.settings.decimalPlacesForNutrition)))+$this.settings.unitCalories;nutritionLabel+="</span></div>\n"}else{if($this.settings.showFatCalories){nutritionLabel+=tab2+"<div>&nbsp;</div>\n"}}nutritionLabel+=tab1+"</div>\n";nutritionLabel+=tab1+'<div class="bar2"></div>\n';nutritionLabel+=tab1+'<div class="line ar">';nutritionLabel+="<b>% "+$this.settings.textDailyValues+"<sup>*</sup></b>";nutritionLabel+="</div>\n";if($this.settings.showTotalFat){nutritionLabel+=tab1+'<div class="line">\n';nutritionLabel+=tab2+'<div class="dv">';nutritionLabel+=$this.settings.naTotalFat?naValue:"<b>"+parseFloat(parseFloat((($this.settings.allowFDARounding?roundFatRule($this.settings.valueTotalFat):$this.settings.valueTotalFat)/($this.settings.dailyValueTotalFat*calorieIntakeMod))*100).toFixed($this.settings.decimalPlacesForDailyValues))+"</b>%";nutritionLabel+="</div>\n";nutritionLabel+=tab2+"<b>"+$this.settings.textTotalFat+'</b> <span itemprop="fatContent">';nutritionLabel+=($this.settings.naTotalFat?naValue:($this.settings.allowFDARounding?roundFat($this.settings.valueTotalFat,$this.settings.decimalPlacesForNutrition):parseFloat($this.settings.valueTotalFat.toFixed($this.settings.decimalPlacesForNutrition)))+$this.settings.unitTotalFat)+"\n";nutritionLabel+=tab1+"</span></div>\n"}if($this.settings.showSatFat){nutritionLabel+=tab1+'<div class="line indent">\n';nutritionLabel+=tab2+'<div class="dv">';nutritionLabel+=$this.settings.naSatFat?naValue:"<b>"+parseFloat(parseFloat((($this.settings.allowFDARounding?roundFatRule($this.settings.valueSatFat):$this.settings.valueSatFat)/($this.settings.dailyValueSatFat*calorieIntakeMod))*100).toFixed($this.settings.decimalPlacesForDailyValues))+"</b>%";nutritionLabel+="</div>\n";nutritionLabel+=tab2+$this.settings.textSatFat+' <span itemprop="saturatedFatContent">';nutritionLabel+=($this.settings.naSatFat?naValue:($this.settings.allowFDARounding?roundFat($this.settings.valueSatFat,$this.settings.decimalPlacesForNutrition):parseFloat($this.settings.valueSatFat.toFixed($this.settings.decimalPlacesForNutrition)))+$this.settings.unitSatFat)+"\n";nutritionLabel+=tab1+"</span></div>\n"}if($this.settings.showTransFat){nutritionLabel+=tab1+'<div class="line indent">\n';nutritionLabel+=tab2+$this.settings.textTransFat+' <span itemprop="transFatContent">';nutritionLabel+=($this.settings.naTransFat?naValue:($this.settings.allowFDARounding?roundFat($this.settings.valueTransFat,$this.settings.decimalPlacesForNutrition):parseFloat($this.settings.valueTransFat.toFixed($this.settings.decimalPlacesForNutrition)))+$this.settings.unitTransFat)+"\n";nutritionLabel+=tab1+"</span></div>\n"}if($this.settings.showPolyFat){nutritionLabel+=tab1+'<div class="line indent">';nutritionLabel+=$this.settings.textPolyFat+" ";nutritionLabel+=$this.settings.naPolyFat?naValue:($this.settings.allowFDARounding?roundFat($this.settings.valuePolyFat,$this.settings.decimalPlacesForNutrition):parseFloat($this.settings.valuePolyFat.toFixed($this.settings.decimalPlacesForNutrition)))+$this.settings.unitPolyFat;nutritionLabel+="</div>\n"}if($this.settings.showMonoFat){nutritionLabel+=tab1+'<div class="line indent">';nutritionLabel+=$this.settings.textMonoFat+" ";nutritionLabel+=$this.settings.naMonoFat?naValue:($this.settings.allowFDARounding?roundFat($this.settings.valueMonoFat,$this.settings.decimalPlacesForNutrition):parseFloat($this.settings.valueMonoFat.toFixed($this.settings.decimalPlacesForNutrition)))+$this.settings.unitMonoFat;nutritionLabel+=tab1+"</div>\n"}if($this.settings.showCholesterol){nutritionLabel+=tab1+'<div class="line">\n';nutritionLabel+=tab2+'<div class="dv">';nutritionLabel+=$this.settings.naCholesterol?naValue:"<b>"+parseFloat(parseFloat((($this.settings.allowFDARounding?roundCholesterolRule($this.settings.valueCholesterol):$this.settings.valueCholesterol)/($this.settings.dailyValueCholesterol*calorieIntakeMod))*100).toFixed($this.settings.decimalPlacesForDailyValues))+"</b>%";nutritionLabel+="</div>\n";nutritionLabel+=tab2+"<b>"+$this.settings.textCholesterol+'</b> <span itemprop="cholesterolContent">';nutritionLabel+=($this.settings.naCholesterol?naValue:($this.settings.allowFDARounding?roundCholesterol($this.settings.valueCholesterol,$this.settings.decimalPlacesForNutrition):parseFloat($this.settings.valueCholesterol.toFixed($this.settings.decimalPlacesForNutrition)))+$this.settings.unitCholesterol)+"\n";nutritionLabel+=tab1+"</span></div>\n"}if($this.settings.showSodium){nutritionLabel+=tab1+'<div class="line">\n';nutritionLabel+=tab2+'<div class="dv">';nutritionLabel+=$this.settings.naSodium?naValue:"<b>"+parseFloat(parseFloat((($this.settings.allowFDARounding?roundSodiumRule($this.settings.valueSodium):$this.settings.valueSodium)/($this.settings.dailyValueSodium*calorieIntakeMod))*100).toFixed($this.settings.decimalPlacesForDailyValues))+"</b>%";nutritionLabel+="</div>\n";nutritionLabel+=tab2+"<b>"+$this.settings.textSodium+'</b> <span itemprop="sodiumContent">';nutritionLabel+=($this.settings.naSodium?naValue:($this.settings.allowFDARounding?roundSodium($this.settings.valueSodium,$this.settings.decimalPlacesForNutrition):parseFloat($this.settings.valueSodium.toFixed($this.settings.decimalPlacesForNutrition)))+$this.settings.unitSodium)+"\n";nutritionLabel+=tab1+"</div>\n"}if($this.settings.showTotalCarb){nutritionLabel+=tab1+'<div class="line">\n';nutritionLabel+=tab2+'<div class="dv">';nutritionLabel+=$this.settings.naTotalCarb?naValue:"<b>"+parseFloat(parseFloat((($this.settings.allowFDARounding?roundCarbFiberSugarProteinRule($this.settings.valueTotalCarb):$this.settings.valueTotalCarb)/($this.settings.dailyValueCarb*calorieIntakeMod))*100).toFixed($this.settings.decimalPlacesForDailyValues))+"</b>%";nutritionLabel+="</div>\n";nutritionLabel+=tab2+"<b>"+$this.settings.textTotalCarb+'</b> <span itemprop="carbohydrateContent">';nutritionLabel+=($this.settings.naTotalCarb?naValue:($this.settings.allowFDARounding?roundCarbFiberSugarProtein($this.settings.valueTotalCarb,$this.settings.decimalPlacesForNutrition):parseFloat($this.settings.valueTotalCarb.toFixed($this.settings.decimalPlacesForNutrition)))+$this.settings.unitTotalCarb)+"\n";nutritionLabel+=tab1+"</span></div>\n"}if($this.settings.showFibers){nutritionLabel+=tab1+'<div class="line indent">\n';nutritionLabel+=tab2+'<div class="dv">';nutritionLabel+=$this.settings.naFibers?naValue:"<b>"+parseFloat(parseFloat((($this.settings.allowFDARounding?roundCarbFiberSugarProteinRule($this.settings.valueFibers):$this.settings.valueFibers)/($this.settings.dailyValueFiber*calorieIntakeMod))*100).toFixed($this.settings.decimalPlacesForDailyValues))+"</b>%";nutritionLabel+="</div>\n";nutritionLabel+=tab2+$this.settings.textFibers+' <span itemprop="fiberContent">';nutritionLabel+=($this.settings.naFibers?naValue:($this.settings.allowFDARounding?roundCarbFiberSugarProtein($this.settings.valueFibers,$this.settings.decimalPlacesForNutrition):parseFloat($this.settings.valueFibers.toFixed($this.settings.decimalPlacesForNutrition)))+$this.settings.unitFibers)+"\n";nutritionLabel+=tab1+"</span></div>\n"}if($this.settings.showSugars){nutritionLabel+=tab1+'<div class="line indent">';nutritionLabel+=$this.settings.textSugars+' <span itemprop="sugarContent">';nutritionLabel+=$this.settings.naSugars?naValue:($this.settings.allowFDARounding?roundCarbFiberSugarProtein($this.settings.valueSugars,$this.settings.decimalPlacesForNutrition):parseFloat($this.settings.valueSugars.toFixed($this.settings.decimalPlacesForNutrition)))+$this.settings.unitSugars;nutritionLabel+="</span></div>\n"}if($this.settings.showProteins){nutritionLabel+=tab1+'<div class="line">';nutritionLabel+="<b>"+$this.settings.textProteins+'</b> <span itemprop="proteinContent">';nutritionLabel+=$this.settings.naProteins?naValue:($this.settings.allowFDARounding?roundCarbFiberSugarProtein($this.settings.valueProteins,$this.settings.decimalPlacesForNutrition):parseFloat($this.settings.valueProteins.toFixed($this.settings.decimalPlacesForNutrition)))+$this.settings.unitProteins;nutritionLabel+="</span></div>\n"}nutritionLabel+=tab1+'<div class="bar1"></div>\n';if($this.settings.showVitaminA){nutritionLabel+=tab1+'<div class="line vitaminA">\n';nutritionLabel+=tab2+'<div class="dv">';nutritionLabel+=$this.settings.naVitaminA?naValue:($this.settings.allowFDARounding?roundVitaminsCalciumIron($this.settings.valueVitaminA):parseFloat($this.settings.valueVitaminA.toFixed($this.settings.decimalPlacesForNutrition)))+$this.settings.unitVitaminA;nutritionLabel+="</div>\n";nutritionLabel+=tab2+$this.settings.textVitaminA+"\n";nutritionLabel+=tab1+"</div>\n"}if($this.settings.showVitaminC){nutritionLabel+=tab1+'<div class="line vitaminC">\n';nutritionLabel+=tab2+'<div class="dv">';nutritionLabel+=$this.settings.naVitaminC?naValue:($this.settings.allowFDARounding?roundVitaminsCalciumIron($this.settings.valueVitaminC):parseFloat($this.settings.valueVitaminC.toFixed($this.settings.decimalPlacesForNutrition)))+$this.settings.unitVitaminC;nutritionLabel+="</div>\n";nutritionLabel+=tab2+$this.settings.textVitaminC+"\n";nutritionLabel+=tab1+"</div>\n"}if($this.settings.showCalcium){nutritionLabel+=tab1+'<div class="line calcium">\n';nutritionLabel+=tab2+'<div class="dv">';nutritionLabel+=$this.settings.naCalcium?naValue:($this.settings.allowFDARounding?roundVitaminsCalciumIron($this.settings.valueCalcium):parseFloat($this.settings.valueCalcium.toFixed($this.settings.decimalPlacesForNutrition)))+$this.settings.unitCalcium;nutritionLabel+="</div>\n";nutritionLabel+=tab2+$this.settings.textCalcium+"\n";nutritionLabel+=tab1+"</div>\n"}if($this.settings.showIron){nutritionLabel+=tab1+'<div class="line iron">\n';nutritionLabel+=tab2+'<div class="dv">';nutritionLabel+=$this.settings.naIron?naValue:($this.settings.allowFDARounding?roundVitaminsCalciumIron($this.settings.valueIron):parseFloat($this.settings.valueIron.toFixed($this.settings.decimalPlacesForNutrition)))+$this.settings.unitIron;nutritionLabel+="</div>\n";nutritionLabel+=tab2+$this.settings.textIron+"\n";nutritionLabel+=tab1+"</div>\n"}nutritionLabel+=tab1+'<div class="dvCalorieDiet line">\n';nutritionLabel+=tab2+'<div class="calorieNote">\n';nutritionLabel+=tab3+'<span class="star">*</span> '+$this.settings.textPercentDailyPart1+" "+$this.settings.calorieIntake+" "+$this.settings.textPercentDailyPart2+".\n";if($this.settings.showIngredients){nutritionLabel+=tab3+"<br />\n";nutritionLabel+=tab3+'<div class="ingredientListDiv">\n';nutritionLabel+=tab4+'<b class="active" id="ingredientList">'+$this.settings.ingredientLabel+"</b>\n";nutritionLabel+=tab4+$this.settings.ingredientList+"\n";nutritionLabel+=tab3+'</div><!-- closing class="ingredientListDiv" -->\n'}if($this.settings.showDisclaimer){nutritionLabel+=tab3+"<br/>";nutritionLabel+=tab3+'<div id="calcDisclaimer">\n';nutritionLabel+=tab4+'<span id="calcDisclaimerText">'+$this.settings.valueDisclaimer+"</span>\n";nutritionLabel+=tab3+"</div>\n";nutritionLabel+=tab3+"<br/>"}nutritionLabel+=tab2+'</div><!-- closing class="calorieNote" -->\n';if($this.settings.showCalorieDiet){nutritionLabel+=tab2+'<table class="tblCalorieDiet">\n';nutritionLabel+=tab3+"<thead>\n";nutritionLabel+=tab4+"<tr>\n";nutritionLabel+=tab5+"<th>&nbsp;</th>\n";nutritionLabel+=tab5+"<th>Calories</th>\n";nutritionLabel+=tab5+"<th>"+$this.settings.valueCol1CalorieDiet+"</th>\n";nutritionLabel+=tab5+"<th>"+$this.settings.valueCol2CalorieDiet+"</th>\n";nutritionLabel+=tab4+"</tr>\n";nutritionLabel+=tab3+"</thead>\n";nutritionLabel+=tab3+"<tbody>\n";nutritionLabel+=tab4+"<tr>\n";nutritionLabel+=tab5+"<td>Total Fat</td>\n";nutritionLabel+=tab5+"<td>Less than</td>\n";nutritionLabel+=tab5+"<td>"+$this.settings.valueCol1DietaryTotalFat+"g</td>\n";nutritionLabel+=tab5+"<td>"+$this.settings.valueCol2DietaryTotalFat+"g</td>\n";nutritionLabel+=tab4+"</tr>\n";nutritionLabel+=tab4+"<tr>\n";nutritionLabel+=tab5+"<td>&nbsp;&nbsp; Saturated Fat</td>\n";nutritionLabel+=tab5+"<td>Less than</td>\n";nutritionLabel+=tab5+"<td>"+$this.settings.valueCol1DietarySatFat+"g</td>\n";nutritionLabel+=tab5+"<td>"+$this.settings.valueCol2DietarySatFat+"g</td>\n";nutritionLabel+=tab4+"</tr>\n";nutritionLabel+=tab4+"<tr>\n";nutritionLabel+=tab5+"<td>Cholesterol</td>\n";nutritionLabel+=tab5+"<td>Less than</td>\n";nutritionLabel+=tab5+"<td>"+$this.settings.valueCol1DietaryCholesterol+"mg</td>\n";nutritionLabel+=tab5+"<td>"+$this.settings.valueCol2DietaryCholesterol+"mg</td>\n";nutritionLabel+=tab4+"</tr>\n";nutritionLabel+=tab4+"<tr>\n";nutritionLabel+=tab5+"<td>Sodium</td>\n";nutritionLabel+=tab5+"<td>Less than</td>\n";nutritionLabel+=tab5+"<td>"+$this.settings.valueCol1DietarySodium+"mg</td>\n";nutritionLabel+=tab5+"<td>"+$this.settings.valueCol2DietarySodium+"mg</td>\n";nutritionLabel+=tab4+"</tr>\n";nutritionLabel+=tab4+"<tr>\n";nutritionLabel+=tab5+"<td>Total Carbohydrate</td>\n";nutritionLabel+=tab5+"<td>&nbsp;</td>\n";nutritionLabel+=tab5+"<td>"+$this.settings.valueCol1DietaryTotalCarb+"g</td>\n";nutritionLabel+=tab5+"<td>"+$this.settings.valueCol2DietaryTotalCarb+"g</td>\n";nutritionLabel+=tab4+"</tr>\n";nutritionLabel+=tab4+"<tr>\n";nutritionLabel+=tab5+"<td>&nbsp;&nbsp; Dietary</td>\n";nutritionLabel+=tab5+"<td>&nbsp;</td>\n";nutritionLabel+=tab5+"<td>"+$this.settings.valueCol1Dietary+"g</td>\n";nutritionLabel+=tab5+"<td>"+$this.settings.valueCol2Dietary+"g</td>\n";nutritionLabel+=tab4+"</tr>\n";nutritionLabel+=tab3+"</tbody>\n";nutritionLabel+=tab2+"</table>\n"}nutritionLabel+=tab1+'</div><!-- closing class="dvCalorieDiet line" -->\n';if($this.settings.showBottomLink){nutritionLabel+=tab1+'<div class="spaceAbove"></div>\n';nutritionLabel+=tab1+'<a href="'+$this.settings.urlBottomLink+'" target="_newSite" class="homeLinkPrint">'+$this.settings.nameBottomLink+"</a>\n";nutritionLabel+=tab1+'<div class="spaceBelow"></div>\n'}if($this.settings.showCustomFooter){nutritionLabel+=tab1+'<div class="customFooter">'+$this.settings.valueCustomFooter+"</div>\n"}nutritionLabel+='</div><!-- closing class="nutritionLabel" -->\n';nutritionLabel+='<div class="naTooltip">Data not available</div>\n';return nutritionLabel}}})(jQuery);
-},{}],33:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -56077,7 +56157,7 @@ return jQuery;
   }
 }.call(this));
 
-},{}]},{},[21])
+},{}]},{},[22])
 
 
 //# sourceMappingURL=main.js.map

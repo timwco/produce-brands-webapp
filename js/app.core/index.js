@@ -17,6 +17,7 @@ import APP from './constants/app.constant';
 
 // Directives
 import VerifySrcDirective from './directives/verify-src.directive';
+import NutritionDirective from './directives/nutrition.directive';
 
 angular
   .module('app.core', ['ui.router', 'flash'])
@@ -28,4 +29,5 @@ angular
   .filter('addHTTP', AddHTTPFilter)
   .filter('capitalize', CapitalizeFilter)
   .directive('verifySrc', VerifySrcDirective)
+  .directive('nutritionLabel', NutritionDirective)
 ;
