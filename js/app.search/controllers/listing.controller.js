@@ -45,7 +45,7 @@ let ListingController = function(SearchService, $stateParams, $timeout) {
     let $modal = $('#modal');
     let url = '';
     if (id) {
-      url = 'images/items/' + id + '.jpg';
+      url = 'http://static.producebrands.com/db/images/' + id;
     } else {
       url = 'images/notfound.jpg';
     }

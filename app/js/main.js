@@ -539,7 +539,7 @@ var ListingController = function ListingController(SearchService, $stateParams, 
     var $modal = $('#modal');
     var url = '';
     if (id) {
-      url = 'images/items/' + id + '.jpg';
+      url = 'http://static.producebrands.com/db/images/' + id;
     } else {
       url = 'images/notfound.jpg';
     }
