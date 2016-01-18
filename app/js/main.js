@@ -105,62 +105,65 @@ function valByName(list, query) {
 var NutritionDirective = function NutritionDirective(SearchService) {
 
   return {
-    scope: { code: '=', name: '=' },
+    scope: { name: '=', nutrition: '=' },
     link: function link(scope, element, attrs) {
 
       // Wait till the binding runs
-      scope.$watch('code', function (newValue, oldValue, s) {
-        if (scope.code !== undefined && scope.name !== undefined) {
-          runSearch(scope.code, scope.name);
+      scope.$watch('nutrition', function (newValue, oldValue, s) {
+        if (scope.nutrition !== undefined && scope.name !== undefined) {
+          runSearch(scope.nutrition, scope.name);
         }
       });
 
       // Function to create the nutrient label
-      function runSearch(code, name) {
+      function runSearch(nutrition, name) {
 
-        SearchService.getNutrients(code).then(function (res) {
+        // Get the nutrients
 
-          // Get the nutrients
-          var nutrients = res.data.nutrients.report.food.nutrients;
+        if (!nutrition.report) {
+          element.html('<p><em>Sorry, the nutritional info for this item could not be found.</em></p><p><em>We are currently working to resolve this issue</em></p>');
+          return;
+        }
 
-          // Get each value of the commodities nutrition
-          var c = {};
-          c.calories = valByName(nutrients, 'Energy');
-          c.fat = valByName(nutrients, 'Total lipid (fat)');
-          c.saturated = valByName(nutrients, 'Fatty acids, total saturated');
-          c.mono = valByName(nutrients, 'Fatty acids, total monounsaturated');
-          c.poly = valByName(nutrients, 'Fatty acids, total polyunsaturated');
-          c.trans = valByName(nutrients, 'Fatty acids, total trans');
-          c.cholesterol = valByName(nutrients, 'Cholesterol');
-          c.sodium = valByName(nutrients, 'Sodium, Na');
-          c.carbs = valByName(nutrients, 'Carbohydrate, by difference');
-          c.fiber = valByName(nutrients, 'Fiber, total dietary');
-          c.sugars = valByName(nutrients, 'Sugars, total');
-          c.protein = valByName(nutrients, 'Protein');
+        var nutrients = nutrition.report.food.nutrients;
 
-          $(element).nutritionLabel({
-            valueServingSizeUnit: '100 Grams',
+        // Get each value of the commodities nutrition
+        var c = {};
+        c.calories = valByName(nutrients, 'Energy');
+        c.fat = valByName(nutrients, 'Total lipid (fat)');
+        c.saturated = valByName(nutrients, 'Fatty acids, total saturated');
+        c.mono = valByName(nutrients, 'Fatty acids, total monounsaturated');
+        c.poly = valByName(nutrients, 'Fatty acids, total polyunsaturated');
+        c.trans = valByName(nutrients, 'Fatty acids, total trans');
+        c.cholesterol = valByName(nutrients, 'Cholesterol');
+        c.sodium = valByName(nutrients, 'Sodium, Na');
+        c.carbs = valByName(nutrients, 'Carbohydrate, by difference');
+        c.fiber = valByName(nutrients, 'Fiber, total dietary');
+        c.sugars = valByName(nutrients, 'Sugars, total');
+        c.protein = valByName(nutrients, 'Protein');
 
-            // valueCalories : c.calories,
-            // valueTotalFat : c.fat,
-            // valueMonoFat : c.mono,
-            // valuePolyFat : c.poly,
-            // valueSatFat : c.saturated,
-            // valueTransFat : c.trans,
-            // valueCholesterol : c.cholesterol,
-            // valueSodium : c.sodium,
-            // valueTotalCarb : c.carbs,
-            // valueFibers : c.fiber,
-            // valueSugars : c.sugars,
-            // valueProteins : c.protein,
+        $(element).nutritionLabel({
+          valueServingSizeUnit: '100 Grams',
 
-            showVitaminA: false,
-            showVitaminC: false,
-            showCalcium: false,
-            showIron: false,
-            showFatCalories: false,
-            showIngredients: false
-          });
+          valueCalories: c.calories,
+          valueTotalFat: c.fat,
+          valueMonoFat: c.mono,
+          valuePolyFat: c.poly,
+          valueSatFat: c.saturated,
+          valueTransFat: c.trans,
+          valueCholesterol: c.cholesterol,
+          valueSodium: c.sodium,
+          valueTotalCarb: c.carbs,
+          valueFibers: c.fiber,
+          valueSugars: c.sugars,
+          valueProteins: c.protein,
+
+          showVitaminA: false,
+          showVitaminC: false,
+          showCalcium: false,
+          showIron: false,
+          showFatCalories: false,
+          showIngredients: false
         });
       }
     }
@@ -465,7 +468,6 @@ var ItemController = function ItemController(SearchService, $stateParams) {
     SearchService.getSingle($stateParams.type, $stateParams.id).then(function (res) {
       console.log(res);
       vm.item = res.data.item;
-
       // Extra fields
       if (res.data.producer) {
         vm.producer = res.data.producer;
@@ -477,6 +479,9 @@ var ItemController = function ItemController(SearchService, $stateParams) {
       }
       if (res.data.brands) {
         vm.brands = res.data.brands;
+      }
+      if (res.data.nutrition) {
+        vm.nutrition = JSON.parse(res.data.nutrition.data);
       }
     });
   }

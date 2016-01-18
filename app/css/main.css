@@ -5648,6 +5648,14 @@ footer {
   font-size: 13px;
   margin-bottom: 0; }
 
+blockquote {
+  font-style: italic;
+  border-left: none;
+  background-color: #586369;
+  border-radius: 3px;
+  color: white;
+  padding: 12px 15px; }
+
 .meta {
   vertical-align: middle;
   text-align: right;

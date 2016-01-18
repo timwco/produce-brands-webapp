@@ -7,11 +7,11 @@
 <div class="row item-page">
   <div class="large-3 columns">
     <img ng-src="http://static.producebrands.com/db/images/{{ vm.item.image }}" verify-src>
-    (Correct Labels Coming Soon...)
-    <div nutrition-label name="vm.item.name" code="vm.item.ndbno"></div>
+    <div nutrition-label name="vm.item.name" nutrition="vm.nutrition"></div>
   </div>
   <div class="large-9 columns">
-    <div class="description">    
+    <div class="description">
+      <blockquote>Please Note: Nutritional values will vary by variety, growing location and method prepared. These are a guideline and more specific information can be found at <a href="http://ndb.nal.usda.gov/" target="_blank">here</a>.</blockquote>   
       <p>{{ vm.item.description }}</p>
       <div class="commodities-list" ng-show="vm.brands">
         <h6>Brands of {{ vm.item.name | capitalize }}</h6>

@@ -325,6 +325,15 @@ footer {
 
 }
 
+blockquote {
+    font-style: italic;
+    border-left: none;
+    background-color: lighten($grey, 10%);
+    border-radius: 3px;
+    color: white;
+    padding: 12px 15px;
+}
+
 // Listing Table
 .listing-table {
 }
