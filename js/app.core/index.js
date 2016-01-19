@@ -1,6 +1,8 @@
 import angular from 'angular';
 import 'angular-ui-router';
 import 'angular-flash-alert';
+import 'angular-loading-bar';
+import 'angular-animate';
 import config from './config';
 
 // Services
@@ -20,7 +22,7 @@ import VerifySrcDirective from './directives/verify-src.directive';
 import NutritionDirective from './directives/nutrition.directive';
 
 angular
-  .module('app.core', ['ui.router', 'flash'])
+  .module('app.core', ['ui.router', 'flash', 'angular-loading-bar', 'ngAnimate'])
   .config(config)
   .constant('APP', APP)
   .service('MessageService', MessageService)
