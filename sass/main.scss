@@ -7,10 +7,19 @@
 @include foundation-everything;
 
 @import "flash";
+//@import "animate";
 
 // Colors
 $orange: #f15b36;
 $grey: #41494d;
+$green: #5ac15e;
+
+// Loading Bar
+@import "loading";
+#loading-bar .bar { background: $green; height: 5px; }
+#loading-bar .peg { box-shadow: darken($green, 20%) 1px 0 6px 1px; top: 3px; }
+#loading-bar-spinner { top: 93%; }
+#loading-bar-spinner .spinner-icon { border-top-color: $green; border-left-color: $green; width: 25px; height: 25px; }
 
 // Elements
 body { color: $grey; }
@@ -350,6 +359,7 @@ blockquote {
     background: $grey;
   }
 }
+
 
 @import "nutrition";
 .nutritionLabel .name, .servingSizeField { display: none; }

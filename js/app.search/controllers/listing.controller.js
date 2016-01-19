@@ -1,4 +1,4 @@
-let ListingController = function(SearchService, $stateParams, $timeout) {
+let ListingController = function(SearchService, $stateParams) {
   
   let vm = this;
   vm.items = [];
@@ -7,7 +7,6 @@ let ListingController = function(SearchService, $stateParams, $timeout) {
   vm.pages = 0;
   vm.entries = 0;
   vm.openImage = openImage;
-  vm.loading = false;
 
   // Options
   vm.brandColumns = ['name', 'country', 'state', 'image', 'description', 'producer'];
@@ -17,8 +16,6 @@ let ListingController = function(SearchService, $stateParams, $timeout) {
   activate();
 
   function activate () {
-    // Show loading bar
-    vm.loading = true;
 
     // Check for Fetch Page Data
     let type = $stateParams.type;
@@ -33,10 +30,7 @@ let ListingController = function(SearchService, $stateParams, $timeout) {
       vm.current_page = res.data.current_page;
       vm.prev_page = (prev === 0) ? null : prev;
       vm.next_page = (next > res.data.total_pages) ? null : next;
-      $timeout( function () {
-        vm.loading = false; // clear loading bar
-        vm.items = res.data.items;
-      }, 900);
+      vm.items = res.data.items;
 
     });
   }
@@ -54,5 +48,5 @@ let ListingController = function(SearchService, $stateParams, $timeout) {
 
 };
 
-ListingController.$inject = ['SearchService', '$stateParams', '$timeout'];
+ListingController.$inject = ['SearchService', '$stateParams'];
 export default ListingController;
