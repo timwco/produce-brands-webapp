@@ -1,4 +1,4 @@
-let AuthController = function(UserService, Flash, $stateParams, MessageService, $state, $timeout) {
+let AuthController = function(UserService, Flash, $stateParams, MessageService, $state) {
   
   let vm = this;
 
@@ -23,8 +23,7 @@ let AuthController = function(UserService, Flash, $stateParams, MessageService, 
   function login (user) {
     UserService.login(user)
     .then( (res) => {
-      Flash.create('success', 'Thanks! Logging you in now...');
-      $timeout( () => { authSuccess(res.data); }, 2000);
+      authSuccess(res.data);
     }, (res) => {
       Flash.create('danger', res.data.errors);
       Flash.pause();
@@ -34,8 +33,7 @@ let AuthController = function(UserService, Flash, $stateParams, MessageService, 
   function register (user) {
     UserService.register(user)
     .then( (res) => {
-      Flash.create('success', 'Thanks! Logging you in now...');
-      $timeout( () => { authSuccess(res.data); }, 2000);
+      authSuccess(res.data);
     }, (res) => {
       let msg = res.data.errors.join(", ");
       Flash.create('danger', msg);
@@ -50,6 +48,6 @@ let AuthController = function(UserService, Flash, $stateParams, MessageService, 
 
 };
 
-AuthController.$inject = ['UserService', 'Flash', '$stateParams', 'MessageService', '$state', '$timeout'];
+AuthController.$inject = ['UserService', 'Flash', '$stateParams', 'MessageService', '$state'];
 
 export default AuthController;

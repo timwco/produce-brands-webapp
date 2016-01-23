@@ -46,6 +46,11 @@ let UserService = function($http, $cookies, $state, $rootScope, APP) {
     $state.go('root.login', { c: 2 });
   };
 
+  // Update Email
+  this.updateEmail = (email) => {
+    return $http.put(APP.URL + 'users', {email: email}, APP.CONFIG);
+  };
+
 };
 
 UserService.$inject = ['$http', '$cookies', '$state', '$rootScope', 'APP'];
