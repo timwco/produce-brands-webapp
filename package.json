@@ -44,6 +44,7 @@
     "angular-loading-bar": "0.8.0",
     "angular-ui-router": "0.2.15",
     "font-awesome": "^4.4.0",
+    "gravatar": "1.4.0",
     "jquery": "^2.1.4",
     "moment": "^2.10.6",
     "normalize.css": "^3.0.3",

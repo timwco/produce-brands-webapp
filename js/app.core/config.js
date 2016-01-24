@@ -35,6 +35,11 @@ let config = function($stateProvider, $urlRouterProvider) {
       templateUrl: 'templates/app-user/register.tpl.html',
       controller: 'AuthController as vm'
     })
+    .state('root.profile', {
+      url: '/profile?c',
+      templateUrl: 'templates/app-user/profile.tpl.html',
+      controller: 'ProfileController as vm'
+    })
 
     // Search & Listing States
     .state('root.all', {

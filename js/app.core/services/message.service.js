@@ -1,21 +1,26 @@
-let MessageService = function() {
+let MessageService = function(Flash) {
   
-  this.code = (num) => {
-    let msg = '';
+  this.checkCode = (num) => {
+    let msgObj = {};
+
     switch (Number(num)) {
       case 1:
-        msg = 'You need to login or register first.';
+        msgObj = { text: 'You need to login or register first.', type: 'warning'} ;
       break;
       case 2:
-        msg = 'You have been successfully logged out. Thanks!';
+        msgObj = { text: 'You have been successfully logged out. Thanks!', type: 'success'};
+      break;
+      case 3:
+        msgObj = { text: 'Your account has been updated.', type: 'success'};
       break;
     }
 
-    return msg;
-
+    if (Object.keys(msgObj).length > 0) {
+      Flash.create(msgObj.type, msgObj.text);
+    }
   };
 
 };
 
-MessageService.$inject = [];
+MessageService.$inject = ['Flash'];
 export default MessageService;

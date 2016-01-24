@@ -1,0 +1,37 @@
+<div class="row item-page">
+  <div class="small-12 columns">
+    <h1 class="single-title">
+      {{ vm.user.first_name }} {{ vm.user.last_name }}
+      <span class="type">Profile</span>
+    </h1>
+  </div>
+</div>
+<div class="row item-page">
+  <div class="small-3 columns">
+    <img ng-src="{{ vm.profilePic }}" verify-src>
+    <ul class="item-meta">
+      <li ng-show="vm.user.company"><i class="fa fa-building"></i> {{ vm.user.company }}</li>
+      <li ng-show="vm.user.email"><i class="fa fa-envelope"></i> {{ vm.user.email }}</li>
+    </ul>
+    <small>Note: Your image is generated from <a href="https://en.gravatar.com/">Gravatar</a>. If you wish to update this, please update it there or change your email to an associated account.</small>
+  </div>
+  <div class="small-9 columns">
+    <div class="favorites">
+      <h3>Favorites</h3>
+      <p>You currently don't have any favorites.</p>
+    </div>
+    <div class="description">    
+      <h3>Update Email</h3>
+      <form ng-submit="vm.updateEmail(email)">
+        <input type="email" placeholder="{{ vm.user.email }}" ng-model="email">
+        <button class="button">Update</button>
+      </form>
+      <h3>Update Password</h3>
+      <form ng-submit="vm.updatePassword(password, password2)">
+        <input type="password" placeholder="Enter New Password" ng-model="password">
+        <input type="password" placeholder="Enter New Password Again" ng-model="password2">
+        <button class="button">Update</button>
+      </form>
+    </div>
+  </div>
+</div>
