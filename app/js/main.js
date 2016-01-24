@@ -37,7 +37,7 @@ var config = function config($stateProvider, $urlRouterProvider) {
     templateUrl: 'templates/app-user/register.tpl.html',
     controller: 'AuthController as vm'
   }).state('root.profile', {
-    url: '/profile',
+    url: '/profile?c',
     templateUrl: 'templates/app-user/profile.tpl.html',
     controller: 'ProfileController as vm'
   })
@@ -346,24 +346,30 @@ _angular2['default'].module('app.core', ['ui.router', 'flash', 'angular-loading-
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-var MessageService = function MessageService() {
+var MessageService = function MessageService(Flash) {
 
-  this.code = function (num) {
-    var msg = '';
+  this.checkCode = function (num) {
+    var msgObj = {};
+
     switch (Number(num)) {
       case 1:
-        msg = 'You need to login or register first.';
+        msgObj = { text: 'You need to login or register first.', type: 'warning' };
         break;
       case 2:
-        msg = 'You have been successfully logged out. Thanks!';
+        msgObj = { text: 'You have been successfully logged out. Thanks!', type: 'success' };
+        break;
+      case 3:
+        msgObj = { text: 'Your account has been updated.', type: 'success' };
         break;
     }
 
-    return msg;
+    if (Object.keys(msgObj).length > 0) {
+      Flash.create(msgObj.type, msgObj.text);
+    }
   };
 };
 
-MessageService.$inject = [];
+MessageService.$inject = ['Flash'];
 exports['default'] = MessageService;
 module.exports = exports['default'];
 
@@ -712,10 +718,7 @@ var AuthController = function AuthController(UserService, Flash, $stateParams, M
     }
 
     // Second Check for Auth Message
-    if ($stateParams.c) {
-      var msg = MessageService.code($stateParams.c);
-      Flash.create('warning', msg);
-    }
+    MessageService.checkCode($stateParams.c);
   }
 
   function login(user) {
@@ -761,29 +764,50 @@ var _gravatar = require('gravatar');
 
 var _gravatar2 = _interopRequireDefault(_gravatar);
 
-var ProfileController = function ProfileController(UserService) {
+var ProfileController = function ProfileController(UserService, Flash, $state, MessageService, $stateParams) {
 
   var vm = this;
   vm.updateEmail = updateEmail;
+  vm.updatePassword = updatePassword;
 
   activate();
 
   function activate() {
+    // Check for messages
+    MessageService.checkCode($stateParams.c);
+
+    // Get User info
     var user = UserService.currentUser();
     vm.user = user;
-    console.log(user);
-    // vm.profilePic = gravatar.url(user.email, {s: '300', r: 'pg', d: '404'});
-    vm.profilePic = _gravatar2['default'].url('freedom@producebrands.com', { s: '300', r: 'pg', d: 'mm' });
+    vm.profilePic = _gravatar2['default'].url(user.email, { s: '300', r: 'pg', d: 'mm' });
   }
 
   function updateEmail(email) {
-    UserService.updateEmail(email).then(function (res) {
-      console.log(res);
+    UserService.updateUser({ email: email }).then(function (res) {
+      UserService.store(res.data);
+      $state.go($state.current, { c: 3 }, { reload: true });
+    }, function (res) {
+      var msg = res.data.errors.join(", ");
+      Flash.create('danger', msg);
+      Flash.pause();
+    });
+  }
+
+  function updatePassword(password, password2) {
+    if (password !== password2) {
+      return Flash.create('danger', 'Sorry, your passwords need to match!');
+    }
+    UserService.updateUser({ password: password }).then(function (res) {
+      $state.go($state.current, { c: 3 }, { reload: true });
+    }, function (res) {
+      var msg = res.data.errors.join(", ");
+      Flash.create('danger', msg);
+      Flash.pause();
     });
   }
 };
 
-ProfileController.$inject = ['UserService'];
+ProfileController.$inject = ['UserService', 'Flash', '$state', 'MessageService', '$stateParams'];
 exports['default'] = ProfileController;
 module.exports = exports['default'];
 
@@ -867,8 +891,8 @@ var UserService = function UserService($http, $cookies, $state, $rootScope, APP)
   };
 
   // Update Email
-  this.updateEmail = function (email) {
-    return $http.put(APP.URL + 'users', { email: email }, APP.CONFIG);
+  this.updateUser = function (obj) {
+    return $http.put(APP.URL + 'users', obj, APP.CONFIG);
   };
 };
 

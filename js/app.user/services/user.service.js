@@ -47,8 +47,8 @@ let UserService = function($http, $cookies, $state, $rootScope, APP) {
   };
 
   // Update Email
-  this.updateEmail = (email) => {
-    return $http.put(APP.URL + 'users', {email: email}, APP.CONFIG);
+  this.updateUser = (obj) => {
+    return $http.put(APP.URL + 'users', obj, APP.CONFIG);
   };
 
 };

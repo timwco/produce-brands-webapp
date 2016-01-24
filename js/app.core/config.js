@@ -36,7 +36,7 @@ let config = function($stateProvider, $urlRouterProvider) {
       controller: 'AuthController as vm'
     })
     .state('root.profile', {
-      url: '/profile',
+      url: '/profile?c',
       templateUrl: 'templates/app-user/profile.tpl.html',
       controller: 'ProfileController as vm'
     })

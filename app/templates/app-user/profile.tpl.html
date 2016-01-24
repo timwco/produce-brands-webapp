@@ -23,14 +23,14 @@
     <div class="description">    
       <h3>Update Email</h3>
       <form ng-submit="vm.updateEmail(email)">
-        <input type="email" placeholder="Enter New Email" ng-model="email">
-        <button class="button">Change Email</button>
+        <input type="email" placeholder="{{ vm.user.email }}" ng-model="email">
+        <button class="button">Update</button>
       </form>
       <h3>Update Password</h3>
-      <form>
-        <input type="password" placeholder="Enter New Password">
-        <input type="password" placeholder="Enter New Password Again">
-        <button class="button">Change Password</button>
+      <form ng-submit="vm.updatePassword(password, password2)">
+        <input type="password" placeholder="Enter New Password" ng-model="password">
+        <input type="password" placeholder="Enter New Password Again" ng-model="password2">
+        <button class="button">Update</button>
       </form>
     </div>
   </div>

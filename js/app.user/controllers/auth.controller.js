@@ -14,10 +14,7 @@ let AuthController = function(UserService, Flash, $stateParams, MessageService, 
     if (user) { $state.go('root.start'); }
 
     // Second Check for Auth Message
-    if ($stateParams.c) {
-      let msg = MessageService.code($stateParams.c);
-      Flash.create('warning', msg);
-    }
+    MessageService.checkCode($stateParams.c);
   }
 
   function login (user) {
