@@ -1,6 +1,6 @@
 let run = function($rootScope, UserService, Flash) {
-  
-  
+
+
   $rootScope.$on('$viewContentLoaded', function (event) {
     // When content loads, run the Foundation Object
     $(document).foundation();

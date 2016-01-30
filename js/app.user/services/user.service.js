@@ -30,9 +30,9 @@ let UserService = function($http, $cookies, $state, $rootScope, APP) {
     let user = $cookies.getObject('produce-user');
     if (!user) {
       // Logic needs to be better
-      if (!$state.is('root.register') && !$state.is('root.login') && !$state.is('root.landing') && !$state.is('root.apply')) {
-        return $state.go('root.landing');
-      }
+      // if (!$state.is('root.register') && !$state.is('root.login') && !$state.is('root.landing') && !$state.is('root.apply')) {
+      //   return $state.go('root.landing');
+      // }
     } else {
       $rootScope.$broadcast('user:updated', user);
       APP.CONFIG.headers['X-AUTH-TOKEN'] = user.auth_token;

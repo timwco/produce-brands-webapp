@@ -4,7 +4,7 @@
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-var config = function config($stateProvider, $urlRouterProvider) {
+var config = function config($stateProvider, $urlRouterProvider, $locationProvider) {
 
   $stateProvider
 
@@ -62,9 +62,11 @@ var config = function config($stateProvider, $urlRouterProvider) {
   }); // End $stateProvider
 
   $urlRouterProvider.otherwise('/');
+
+  $locationProvider.html5Mode(true);
 };
 
-config.$inject = ['$stateProvider', '$urlRouterProvider'];
+config.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];
 
 exports['default'] = config;
 module.exports = exports['default'];
@@ -874,13 +876,13 @@ var UserService = function UserService($http, $cookies, $state, $rootScope, APP)
     var user = $cookies.getObject('produce-user');
     if (!user) {
       // Logic needs to be better
-      if (!$state.is('root.register') && !$state.is('root.login') && !$state.is('root.landing') && !$state.is('root.apply')) {
-        return $state.go('root.landing');
-      }
+      // if (!$state.is('root.register') && !$state.is('root.login') && !$state.is('root.landing') && !$state.is('root.apply')) {
+      //   return $state.go('root.landing');
+      // }
     } else {
-      $rootScope.$broadcast('user:updated', user);
-      APP.CONFIG.headers['X-AUTH-TOKEN'] = user.auth_token;
-    }
+        $rootScope.$broadcast('user:updated', user);
+        APP.CONFIG.headers['X-AUTH-TOKEN'] = user.auth_token;
+      }
   };
 
   // Logout

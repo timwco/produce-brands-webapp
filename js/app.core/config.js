@@ -1,5 +1,5 @@
-let config = function($stateProvider, $urlRouterProvider) {
-  
+let config = function($stateProvider, $urlRouterProvider, $locationProvider) {
+
   $stateProvider
 
     // Layout & Home States
@@ -61,15 +61,17 @@ let config = function($stateProvider, $urlRouterProvider) {
       },
       controller: 'ItemController as vm'
     })
-  
+
   ; // End $stateProvider
 
 
   $urlRouterProvider.otherwise('/');
-  
+
+  $locationProvider.html5Mode(true);
+
 
 };
 
-config.$inject = ['$stateProvider', '$urlRouterProvider'];
+config.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];
 
 export default config;
