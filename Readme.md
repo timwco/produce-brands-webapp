@@ -7,6 +7,7 @@
 
 - `npm install`
 - `gulp start`
+- Enjoy
 
 ## App Message Codes (Shown in Alerts)
 
