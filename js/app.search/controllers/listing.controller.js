@@ -1,5 +1,5 @@
 let ListingController = function(SearchService, $stateParams) {
-  
+
   let vm = this;
   vm.items = [];
   vm.current_page = 1;
@@ -9,8 +9,8 @@ let ListingController = function(SearchService, $stateParams) {
   vm.openImage = openImage;
 
   // Options
-  vm.brandColumns = ['name', 'country', 'state', 'image', 'description', 'producer'];
-  vm.producerColumns = ['name', 'city', 'state', 'social'];
+  vm.brandColumns = ['name', 'country', 'image'];
+  vm.producerColumns = ['name', 'city', 'state'];
   vm.commodityColumns = ['name', 'description'];
 
   activate();

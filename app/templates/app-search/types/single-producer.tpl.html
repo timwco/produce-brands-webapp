@@ -29,56 +29,54 @@
     </ul>
   </div>
   <div class="small-9 columns">
-    <div class="description">    
+    <div class="description">
       <h5>About</h5>
       <p>{{ vm.item.description }}</p>
     </div>
-    <table class="hover full-width">
-      <tbody>
-        <tr ng-show="vm.item.contact">
-          <td>Contact Person</td>
-          <td>{{ vm.item.contact }}</td>
-        </tr>
-        <tr ng-show="vm.item.state">
-          <td>Address</td>
-          <td>
-            {{ vm.item.street }} <br>
-            {{ vm.item.city}}, {{ vm.item.state}} {{ vm.item.zip }}
-          </td>
-        </tr>
-        <tr ng-show="vm.item.email">
-          <td>Email</td>
-          <td>{{ vm.item.email }}</td>
-        </tr>
-        <tr ng-show="vm.item.phone">
-          <td>Phone</td>
-          <td>{{ vm.item.phone }}</td>
-        </tr>
-        <tr ng-show="vm.item.fax">
-          <td>Fax</td>
-          <td>{{ vm.item.fax }}</td>
-        </tr>
-        <tr>
-          <td>Traceble</td>
-          <td>
-            <i class="fa fa-check-square-o" ng-show="vm.item.traceable"></i>
-            <i class="fa fa-square-o" ng-hide="vm.item.traceable"></i>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="commodities-list" ng-show="vm.commodities">
-      <h6>Brands We Work With</h6>
-      <a href="/#/brand/{{ b.id }}" ng-repeat="b in vm.brands">{{ b.name }}</a>
+    <div class="hidden-for-unauth" ng-show="vm.authed">
+      <table class="hover full-width">
+        <tbody>
+          <tr ng-show="vm.item.contact">
+            <td>Contact Person</td>
+            <td>{{ vm.item.contact }}</td>
+          </tr>
+          <tr ng-show="vm.item.state">
+            <td>Address</td>
+            <td>
+              {{ vm.item.street }} <br>
+              {{ vm.item.city}}, {{ vm.item.state}} {{ vm.item.zip }}
+            </td>
+          </tr>
+          <tr ng-show="vm.item.email">
+            <td>Email</td>
+            <td>{{ vm.item.email }}</td>
+          </tr>
+          <tr ng-show="vm.item.phone">
+            <td>Phone</td>
+            <td>{{ vm.item.phone }}</td>
+          </tr>
+          <tr ng-show="vm.item.fax">
+            <td>Fax</td>
+            <td>{{ vm.item.fax }}</td>
+          </tr>
+          <tr>
+            <td>Traceble</td>
+            <td>
+              <i class="fa fa-check-square-o" ng-show="vm.item.traceable"></i>
+              <i class="fa fa-square-o" ng-hide="vm.item.traceable"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="commodities-list" ng-show="vm.commodities">
+        <h6>Brands We Work With</h6>
+        <a href="/#/brand/{{ b.id }}" ng-repeat="b in vm.brands">{{ b.name }}</a>
+      </div>
+      <div class="commodities-list" ng-show="vm.commodities">
+        <h6>Commodities Grown</h6>
+        <a href="/#/commodity/{{ c.id }}" ng-repeat="c in vm.commodities">{{ c.name }}</a>
+      </div>
     </div>
-    <div class="commodities-list" ng-show="vm.commodities">
-      <h6>Commodities Grown</h6>
-      <a href="/#/commodity/{{ c.id }}" ng-repeat="c in vm.commodities">{{ c.name }}</a>
-    </div>
+    <div ng-hide="vm.authed" class="show-for-unauth" ng-include="'templates/includes/hidden.tpl.html'"></div>
   </div>
 </div>
-
-
-<!--  fax -->
-
-<!-- name, street, city, state, zip, website, phone, email, facebook, contact, logo, fax, twitter, traceable, created_at -->

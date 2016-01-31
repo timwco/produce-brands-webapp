@@ -23,37 +23,38 @@
     </ul>
   </div>
   <div class="small-9 columns">
-    <div class="description">    
+    <div class="description">
       <h5>Description</h5>
       <p>{{ vm.item.description }}</p>
     </div>
-    <table class="hover full-width">
-      <tbody>
-        <tr>
-          <td>Food Safety</td>
-          <td>
-            <i class="fa fa-check-square-o" ng-show="vm.item.food_safety"></i>
-            <i class="fa fa-square-o" ng-hide="vm.item.food_safety"></i>
-          </td>
-        </tr>
-        <tr>
-          <td>Organic</td>
-          <td>
-            <i class="fa fa-check-square-o" ng-show="vm.item.organic"></i>
-            <i class="fa fa-square-o" ng-hide="vm.item.organic"></i>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="producer-info" ng-show="vm.producer.name">
-      Produced By: 
-      <a href="/#/producer/{{ vm.producer.id }}">{{ vm.producer.name }} of {{ vm.producer.city }}, {{ vm.producer.state }}</a>
+    <div class="hidden-for-unauth" ng-show="vm.authed">
+      <table class="hover full-width">
+        <tbody>
+          <tr>
+            <td>Food Safety</td>
+            <td>
+              <i class="fa fa-check-square-o" ng-show="vm.item.food_safety"></i>
+              <i class="fa fa-square-o" ng-hide="vm.item.food_safety"></i>
+            </td>
+          </tr>
+          <tr>
+            <td>Organic</td>
+            <td>
+              <i class="fa fa-check-square-o" ng-show="vm.item.organic"></i>
+              <i class="fa fa-square-o" ng-hide="vm.item.organic"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="producer-info" ng-show="vm.producer.name">
+        Produced By:
+        <a href="/#/producer/{{ vm.producer.id }}">{{ vm.producer.name }} of {{ vm.producer.city }}, {{ vm.producer.state }}</a>
+      </div>
+      <div class="commodities-list" ng-show="vm.commodities">
+        <h6>Commodities Grown</h6>
+        <a href="/#/commodity/{{ c.id }}" ng-repeat="c in vm.commodities">{{ c.name }}</a>
+      </div>
     </div>
-    <div class="commodities-list" ng-show="vm.commodities">
-      <h6>Commodities Grown</h6>
-      <a href="/#/commodity/{{ c.id }}" ng-repeat="c in vm.commodities">{{ c.name }}</a>
-    </div>
+    <div ng-hide="vm.authed" class="show-for-unauth" ng-include="'templates/includes/hidden.tpl.html'"></div>
   </div>
 </div>
-
-<!-- name, country, state, organic, image, description, food_safety, producer_id, updated_at, created_at -->

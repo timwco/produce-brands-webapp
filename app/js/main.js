@@ -61,9 +61,13 @@ var config = function config($stateProvider, $urlRouterProvider, $locationProvid
     controller: 'ItemController as vm'
   }); // End $stateProvider
 
+  // Route home if a state from above does not match the one attempted
   $urlRouterProvider.otherwise('/');
 
-  $locationProvider.html5Mode(true);
+  // Use HTML5 Mode if not on localhost
+  if (window.location.href.indexOf("localhost") < 0) {
+    $locationProvider.html5Mode(true);
+  }
 };
 
 config.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];
@@ -84,7 +88,8 @@ var production = 'http://api.producebrands.com/';
 exports['default'] = {
   URL: window.location.href.indexOf("localhost") > 0 ? development : production,
   CONFIG: { headers: {} },
-  VERSION: 0.1
+  VERSION: 0.2,
+  YEAR: 2016
 };
 module.exports = exports['default'];
 
@@ -424,6 +429,7 @@ var LayoutController = function LayoutController(UserService, $scope, APP) {
   vm.logout = logout;
   vm.user = null;
   vm.version = APP.VERSION;
+  vm.year = APP.YEAR;
 
   function logout() {
     UserService.logout();
@@ -482,8 +488,12 @@ var ItemController = function ItemController(SearchService, $stateParams) {
 
   function activate() {
     SearchService.getSingle($stateParams.type, $stateParams.id).then(function (res) {
-      console.log(res);
+      setTimeout(function () {
+        console.clear();
+        console.log(res);
+      }, 100);
       vm.item = res.data.item;
+      vm.authed = res.data.is_authed;
       // Extra fields
       if (res.data.producer) {
         vm.producer = res.data.producer;
@@ -524,8 +534,8 @@ var ListingController = function ListingController(SearchService, $stateParams) 
   vm.openImage = openImage;
 
   // Options
-  vm.brandColumns = ['name', 'country', 'state', 'image', 'description', 'producer'];
-  vm.producerColumns = ['name', 'city', 'state', 'social'];
+  vm.brandColumns = ['name', 'country', 'image'];
+  vm.producerColumns = ['name', 'city', 'state'];
   vm.commodityColumns = ['name', 'description'];
 
   activate();

@@ -64,10 +64,14 @@ let config = function($stateProvider, $urlRouterProvider, $locationProvider) {
 
   ; // End $stateProvider
 
-
+  // Route home if a state from above does not match the one attempted
   $urlRouterProvider.otherwise('/');
 
-  $locationProvider.html5Mode(true);
+  // Use HTML5 Mode if not on localhost
+  if (window.location.href.indexOf("localhost") < 0) {
+    $locationProvider.html5Mode(true);
+  }
+
 
 
 };

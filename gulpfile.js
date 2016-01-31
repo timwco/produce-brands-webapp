@@ -98,8 +98,8 @@ gulp.task('hint:html', function() {
 gulp.task('lint', ['style:js', 'hint:js', 'hint:html']);
 
 gulp.task('watch', function() {
-  watch('./sass/**/*.scss', function () {  
-    gulp.start('sass'); 
+  watch('./sass/**/*.scss', function () {
+    gulp.start('sass');
   });
   watch(['./js/**/*.js', './package.json'], function () {
     gulp.start('browserify');
