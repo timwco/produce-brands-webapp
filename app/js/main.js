@@ -83,7 +83,7 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 });
 var development = 'http://localhost:5000/';
-var production = 'http://api.producebrands.com/';
+var production = 'https://api.producebrands.com/';
 
 exports['default'] = {
   URL: window.location.href.indexOf("localhost") > 0 ? development : production,
