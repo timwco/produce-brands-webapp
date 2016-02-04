@@ -1,5 +1,5 @@
-let SearchController = function(SearchService, $timeout) {
-  
+let SearchController = function(SearchService, $timeout, UserService) {
+
   let vm = this;
 
   vm.search = search;
@@ -7,6 +7,17 @@ let SearchController = function(SearchService, $timeout) {
   vm.noresults = false;
   vm.searching = false;
   vm.count = 0;
+
+  activate();
+
+  function activate () {
+    let user = UserService.currentUser();
+    if (user) {
+      vm.authed = true;
+    } else {
+      vm.authed = false;
+    }
+  }
 
   function search (query) {
     SearchService.search(query).then( (res) => {
@@ -34,5 +45,5 @@ let SearchController = function(SearchService, $timeout) {
 
 };
 
-SearchController.$inject = ['SearchService', '$timeout'];
+SearchController.$inject = ['SearchService', '$timeout', 'UserService'];
 export default SearchController;
