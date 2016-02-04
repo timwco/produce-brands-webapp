@@ -345,7 +345,7 @@ var _directivesNutritionDirective = require('./directives/nutrition.directive');
 
 var _directivesNutritionDirective2 = _interopRequireDefault(_directivesNutritionDirective);
 
-_angular2['default'].module('app.core', ['ui.router', 'flash', 'angular-loading-bar', 'ngAnimate']).config(_config2['default']).constant('APP', _constantsAppConstant2['default']).service('MessageService', _servicesMessageService2['default']).filter('moment', _filtersMomentFilter2['default']).filter('underscoreCap', _filtersUnderscorecapFilter2['default']).filter('addHTTP', _filtersAddHTTPFilter2['default']).filter('capitalize', _filtersCapitalizeFilter2['default']).directive('verifySrc', _directivesVerifySrcDirective2['default']).directive('nutritionLabel', _directivesNutritionDirective2['default']);
+_angular2['default'].module('app.core', ['ui.router', 'flash', 'angular-loading-bar']).config(_config2['default']).constant('APP', _constantsAppConstant2['default']).service('MessageService', _servicesMessageService2['default']).filter('moment', _filtersMomentFilter2['default']).filter('underscoreCap', _filtersUnderscorecapFilter2['default']).filter('addHTTP', _filtersAddHTTPFilter2['default']).filter('capitalize', _filtersCapitalizeFilter2['default']).directive('verifySrc', _directivesVerifySrcDirective2['default']).directive('nutritionLabel', _directivesNutritionDirective2['default']);
 
 },{"./config":1,"./constants/app.constant":2,"./directives/nutrition.directive":3,"./directives/verify-src.directive":4,"./filters/addHTTP.filter":5,"./filters/capitalize.filter":6,"./filters/moment.filter":7,"./filters/underscorecap.filter":8,"./services/message.service":10,"angular":34,"angular-animate":26,"angular-flash-alert":29,"angular-loading-bar":31,"angular-ui-router":32}],10:[function(require,module,exports){
 'use strict';
@@ -581,7 +581,7 @@ module.exports = exports['default'];
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-var SearchController = function SearchController(SearchService, $timeout) {
+var SearchController = function SearchController(SearchService, $timeout, UserService) {
 
   var vm = this;
 
@@ -590,6 +590,17 @@ var SearchController = function SearchController(SearchService, $timeout) {
   vm.noresults = false;
   vm.searching = false;
   vm.count = 0;
+
+  activate();
+
+  function activate() {
+    var user = UserService.currentUser();
+    if (user) {
+      vm.authed = true;
+    } else {
+      vm.authed = false;
+    }
+  }
 
   function search(query) {
     SearchService.search(query).then(function (res) {
@@ -616,7 +627,7 @@ var SearchController = function SearchController(SearchService, $timeout) {
   }
 };
 
-SearchController.$inject = ['SearchService', '$timeout'];
+SearchController.$inject = ['SearchService', '$timeout', 'UserService'];
 exports['default'] = SearchController;
 module.exports = exports['default'];
 

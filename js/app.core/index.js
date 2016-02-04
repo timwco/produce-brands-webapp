@@ -22,7 +22,7 @@ import VerifySrcDirective from './directives/verify-src.directive';
 import NutritionDirective from './directives/nutrition.directive';
 
 angular
-  .module('app.core', ['ui.router', 'flash', 'angular-loading-bar', 'ngAnimate'])
+  .module('app.core', ['ui.router', 'flash', 'angular-loading-bar'])
   .config(config)
   .constant('APP', APP)
   .service('MessageService', MessageService)
