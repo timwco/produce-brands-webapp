@@ -1,5 +1,5 @@
-let config = function($stateProvider, $urlRouterProvider) {
-  
+let config = function($stateProvider, $urlRouterProvider, $locationProvider) {
+
   $stateProvider
 
     // Layout & Home States
@@ -61,15 +61,21 @@ let config = function($stateProvider, $urlRouterProvider) {
       },
       controller: 'ItemController as vm'
     })
-  
+
   ; // End $stateProvider
 
-
+  // Route home if a state from above does not match the one attempted
   $urlRouterProvider.otherwise('/');
-  
+
+  // Use HTML5 Mode if not on localhost
+  if (window.location.href.indexOf("localhost") < 0) {
+    $locationProvider.html5Mode(true);
+  }
+
+
 
 };
 
-config.$inject = ['$stateProvider', '$urlRouterProvider'];
+config.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];
 
 export default config;

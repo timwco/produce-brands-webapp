@@ -1,6 +1,6 @@
 <div class="bc-cont" ng-include="'templates/includes/breadcrumbs.tpl.html'"></div>
 <h4>
-  All Producers - 
+  All Producers -
   <span class="meta">Page {{ vm.current_page}} of {{ vm.pages }}</span>
 </h4>
 
@@ -17,17 +17,6 @@
           <td><a href="/#/producer/{{ item.id }}">{{ item.name }}</a></td>
           <td>{{ item.city }}</td>
           <td>{{ item.state }}</td>
-          <td>
-            <a ng-show="item.facebook" href="{{ item.facebook }}" target="_blank">
-              <i class="fa fa-facebook-square"></i>
-            </a>
-            <a ng-show="item.twitter" href="{{ item.twitter }}" target="_blank">
-              <i class="fa fa-twitter-square"></i>
-            </a>
-            <a ng-show="item.website" href="{{ item.website | addHTTP }}" target="_blank">
-              <i class="fa fa-globe"></i>
-            </a>
-          </td>
         </tr>
       </tbody>
     </table>

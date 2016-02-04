@@ -1,6 +1,6 @@
 <div class="bc-cont" ng-include="'templates/includes/breadcrumbs.tpl.html'"></div>
 <h4>
-  All Brands - 
+  All Brands -
   <span class="meta">Page {{ vm.current_page}} of {{ vm.pages }}</span>
 </h4>
 
@@ -16,10 +16,7 @@
         <tr ng-repeat="item in vm.items">
           <td><a href="/#/brand/{{ item.id }}">{{ item.name }}</a></td>
           <td>{{ item.country }}</td>
-          <td>{{ item.state }}</td>
           <td><a ng-click="vm.openImage(item.image)"><i class="fa fa-picture-o"></i></a></td>
-          <td>{{ item.description }}</td>
-          <td><a href="/#/producer/{{ item.producer_id }}">Producer Info</a></td>
         </tr>
       </tbody>
     </table>

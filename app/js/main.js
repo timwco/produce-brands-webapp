@@ -4,7 +4,7 @@
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-var config = function config($stateProvider, $urlRouterProvider) {
+var config = function config($stateProvider, $urlRouterProvider, $locationProvider) {
 
   $stateProvider
 
@@ -61,10 +61,16 @@ var config = function config($stateProvider, $urlRouterProvider) {
     controller: 'ItemController as vm'
   }); // End $stateProvider
 
+  // Route home if a state from above does not match the one attempted
   $urlRouterProvider.otherwise('/');
+
+  // Use HTML5 Mode if not on localhost
+  if (window.location.href.indexOf("localhost") < 0) {
+    $locationProvider.html5Mode(true);
+  }
 };
 
-config.$inject = ['$stateProvider', '$urlRouterProvider'];
+config.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];
 
 exports['default'] = config;
 module.exports = exports['default'];
@@ -77,12 +83,13 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 });
 var development = 'http://localhost:5000/';
-var production = 'http://api.producebrands.com/';
+var production = 'https://api.producebrands.com/';
 
 exports['default'] = {
   URL: window.location.href.indexOf("localhost") > 0 ? development : production,
   CONFIG: { headers: {} },
-  VERSION: 0.1
+  VERSION: 0.2,
+  YEAR: 2016
 };
 module.exports = exports['default'];
 
@@ -422,6 +429,7 @@ var LayoutController = function LayoutController(UserService, $scope, APP) {
   vm.logout = logout;
   vm.user = null;
   vm.version = APP.VERSION;
+  vm.year = APP.YEAR;
 
   function logout() {
     UserService.logout();
@@ -480,8 +488,12 @@ var ItemController = function ItemController(SearchService, $stateParams) {
 
   function activate() {
     SearchService.getSingle($stateParams.type, $stateParams.id).then(function (res) {
-      console.log(res);
+      setTimeout(function () {
+        console.clear();
+        console.log(res);
+      }, 100);
       vm.item = res.data.item;
+      vm.authed = res.data.is_authed;
       // Extra fields
       if (res.data.producer) {
         vm.producer = res.data.producer;
@@ -522,8 +534,8 @@ var ListingController = function ListingController(SearchService, $stateParams) 
   vm.openImage = openImage;
 
   // Options
-  vm.brandColumns = ['name', 'country', 'state', 'image', 'description', 'producer'];
-  vm.producerColumns = ['name', 'city', 'state', 'social'];
+  vm.brandColumns = ['name', 'country', 'image'];
+  vm.producerColumns = ['name', 'city', 'state'];
   vm.commodityColumns = ['name', 'description'];
 
   activate();
@@ -874,13 +886,13 @@ var UserService = function UserService($http, $cookies, $state, $rootScope, APP)
     var user = $cookies.getObject('produce-user');
     if (!user) {
       // Logic needs to be better
-      if (!$state.is('root.register') && !$state.is('root.login') && !$state.is('root.landing') && !$state.is('root.apply')) {
-        return $state.go('root.landing');
-      }
+      // if (!$state.is('root.register') && !$state.is('root.login') && !$state.is('root.landing') && !$state.is('root.apply')) {
+      //   return $state.go('root.landing');
+      // }
     } else {
-      $rootScope.$broadcast('user:updated', user);
-      APP.CONFIG.headers['X-AUTH-TOKEN'] = user.auth_token;
-    }
+        $rootScope.$broadcast('user:updated', user);
+        APP.CONFIG.headers['X-AUTH-TOKEN'] = user.auth_token;
+      }
   };
 
   // Logout
