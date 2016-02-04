@@ -581,7 +581,7 @@ module.exports = exports['default'];
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-var SearchController = function SearchController(SearchService, $timeout, UserService) {
+var SearchController = function SearchController(SearchService, $timeout) {
 
   var vm = this;
 
@@ -590,17 +590,6 @@ var SearchController = function SearchController(SearchService, $timeout, UserSe
   vm.noresults = false;
   vm.searching = false;
   vm.count = 0;
-
-  activate();
-
-  function activate() {
-    var user = UserService.currentUser();
-    if (user) {
-      vm.authed = true;
-    } else {
-      vm.authed = false;
-    }
-  }
 
   function search(query) {
     SearchService.search(query).then(function (res) {
@@ -627,7 +616,7 @@ var SearchController = function SearchController(SearchService, $timeout, UserSe
   }
 };
 
-SearchController.$inject = ['SearchService', '$timeout', 'UserService'];
+SearchController.$inject = ['SearchService', '$timeout'];
 exports['default'] = SearchController;
 module.exports = exports['default'];
 
