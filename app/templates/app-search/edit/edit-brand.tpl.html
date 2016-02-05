@@ -1,0 +1,38 @@
+<div class="row item-page">
+  <div class="small-12 columns">
+    <h1 class="single-title">
+      {{ vm.item.name }}
+      <span class="type">Brand</span>
+    </h1>
+  </div>
+</div>
+<div class="row item-page">
+  <div class="small-3 columns">
+    <img ng-src="https://static.producebrands.com/db/images/{{ vm.item.image }}" verify-src>
+  </div>
+  <div class="small-9 columns">
+    <h3>Edit</h3>
+    <form ng-submit="vm.updateItem(item, 'brand')">
+      <label>Brand Name<input type="text" ng-model="item.name" ng-value="vm.item.name"></label>
+      <label>Country<input type="text" ng-model="item.country" ng-value="vm.item.country"></label>
+      <label>State<input type="text" ng-model="item.state" ng-value="vm.item.state"></label>
+
+      <fieldset>
+        <legend>Is this Brand Organic</legend>
+        <input type="radio" ng-model="item.organic" value="1" id="organicYes"><label for="organicYes">Yes</label>
+        <input type="radio" ng-model="item.organic" value="0" id="organicNo"><label for="organicNo">No</label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Does this Brand offer Food Safety Information</legend>
+        <input type="radio" ng-model="item.food_safety" value="1" id="safetyYes"><label for="safetyYes">Yes</label>
+        <input type="radio" ng-model="item.food_safety" value="0" id="safetyNo"><label for="safetyNo">No</label>
+      </fieldset>
+
+      <label>Description<textarea ng-value="vm.item.description" ng-model="item.description"></textarea></label>
+      <label>Producer<input type="text" ng-model="item.producer_id" ng-value="vm.item.producer_id"></label>
+
+      <button class="button">Update Brand</button>
+    </form>
+  </div>
+</div>

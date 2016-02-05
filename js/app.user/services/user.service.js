@@ -20,6 +20,11 @@ let UserService = function($http, $cookies, $state, $rootScope, APP) {
     $cookies.putObject('produce-user', user);
   };
 
+  // Check for Admin
+  this.isAdmin = () => {
+    return this.currentUser().is_admin;
+  };
+
   // Expose User
   this.currentUser = () => {
     return $cookies.getObject('produce-user');

@@ -1,6 +1,6 @@
 import _ from 'underscore';
 
-let ItemController = function(SearchService, $stateParams) {
+let ItemController = function(SearchService, $stateParams, UserService) {
 
   let vm = this;
 
@@ -12,11 +12,10 @@ let ItemController = function(SearchService, $stateParams) {
   activate();
 
   function activate () {
+
+    vm.adminUser = UserService.isAdmin();
+
     SearchService.getSingle($stateParams.type, $stateParams.id).then ( (res) => {
-      setTimeout( () => {
-        console.clear();
-        console.log(res);
-      }, 100);
       vm.item = res.data.item;
       vm.authed = res.data.is_authed;
       // Extra fields
@@ -31,5 +30,5 @@ let ItemController = function(SearchService, $stateParams) {
 
 };
 
-ItemController.$inject = ['SearchService', '$stateParams'];
+ItemController.$inject = ['SearchService', '$stateParams', 'UserService'];
 export default ItemController;

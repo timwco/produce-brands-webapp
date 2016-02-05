@@ -62,6 +62,17 @@ let config = function($stateProvider, $urlRouterProvider, $locationProvider) {
       controller: 'ItemController as vm'
     })
 
+
+    // Edit States
+    .state('root.editBrand', {
+      url: '/:type/edit/:id',
+      templateUrl: function (params) {
+        return 'templates/app-search/edit/edit-' + params.type + '.tpl.html';
+      },
+      controller: 'ItemEditController as vm'
+    })
+
+
   ; // End $stateProvider
 
   // Route home if a state from above does not match the one attempted
