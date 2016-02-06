@@ -4,41 +4,43 @@
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-var config = function config($stateProvider, $urlRouterProvider, $locationProvider) {
+var config = function config($stateProvider, $urlRouterProvider, $locationProvider, APP) {
+
+  var cache_version = '?v' + APP.VERSION;
 
   $stateProvider
 
   // Layout & Home States
   .state('root', {
     abstract: true,
-    templateUrl: 'templates/app-layout/layout.tpl.html',
+    templateUrl: 'templates/app-layout/layout.tpl.html' + cache_version,
     controller: 'LayoutController as vm'
   }).state('root.landing', {
     url: '/',
-    templateUrl: 'templates/app-layout/landing.tpl.html',
+    templateUrl: 'templates/app-layout/landing.tpl.html' + cache_version,
     controller: 'HomeController as vm'
   }).state('root.start', {
     url: '/start',
-    templateUrl: 'templates/app-layout/start.tpl.html',
+    templateUrl: 'templates/app-layout/start.tpl.html' + cache_version,
     controller: 'HomeController as vm'
   }).state('root.apply', {
     url: '/apply',
-    templateUrl: 'templates/app-layout/apply.tpl.html',
+    templateUrl: 'templates/app-layout/apply.tpl.html' + cache_version,
     controller: 'HomeController as vm'
   })
 
   // User States
   .state('root.login', {
     url: '/login?c',
-    templateUrl: 'templates/app-user/login.tpl.html',
+    templateUrl: 'templates/app-user/login.tpl.html' + cache_version,
     controller: 'AuthController as vm'
   }).state('root.register', {
     url: '/register',
-    templateUrl: 'templates/app-user/register.tpl.html',
+    templateUrl: 'templates/app-user/register.tpl.html' + cache_version,
     controller: 'AuthController as vm'
   }).state('root.profile', {
     url: '/profile?c',
-    templateUrl: 'templates/app-user/profile.tpl.html',
+    templateUrl: 'templates/app-user/profile.tpl.html' + cache_version,
     controller: 'ProfileController as vm'
   })
 
@@ -46,17 +48,17 @@ var config = function config($stateProvider, $urlRouterProvider, $locationProvid
   .state('root.all', {
     url: '/all/:type?page',
     templateUrl: function templateUrl(params) {
-      return 'templates/app-search/listings/' + params.type + '.tpl.html';
+      return 'templates/app-search/listings/' + params.type + '.tpl.html' + cache_version;
     },
     controller: 'ListingController as vm'
   }).state('root.search', {
     url: '/search?q',
-    templateUrl: 'templates/app-search/search.tpl.html',
+    templateUrl: 'templates/app-search/search.tpl.html' + cache_version,
     controller: 'SearchController as vm'
   }).state('root.item', {
     url: '/:type/:id',
     templateUrl: function templateUrl(params) {
-      return 'templates/app-search/types/single-' + params.type + '.tpl.html';
+      return 'templates/app-search/types/single-' + params.type + '.tpl.html' + cache_version;
     },
     controller: 'ItemController as vm'
   })
@@ -65,7 +67,7 @@ var config = function config($stateProvider, $urlRouterProvider, $locationProvid
   .state('root.editBrand', {
     url: '/:type/edit/:id',
     templateUrl: function templateUrl(params) {
-      return 'templates/app-search/edit/edit-' + params.type + '.tpl.html';
+      return 'templates/app-search/edit/edit-' + params.type + '.tpl.html' + cache_version;
     },
     controller: 'ItemEditController as vm'
   }); // End $stateProvider
@@ -79,7 +81,7 @@ var config = function config($stateProvider, $urlRouterProvider, $locationProvid
   }
 };
 
-config.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];
+config.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider', 'APP'];
 
 exports['default'] = config;
 module.exports = exports['default'];
@@ -97,7 +99,7 @@ var production = 'https://api.producebrands.com/';
 exports['default'] = {
   URL: window.location.href.indexOf("localhost") > 0 ? development : production,
   CONFIG: { headers: {} },
-  VERSION: 0.3, // Also Change on `index.html` page for Cache
+  VERSION: 0.5, // Also Change on `index.html` page for Cache
   YEAR: 2016
 };
 module.exports = exports['default'];
@@ -538,7 +540,7 @@ var _underscore = require('underscore');
 
 var _underscore2 = _interopRequireDefault(_underscore);
 
-var ItemEditController = function ItemEditController(SearchService, $stateParams, UserService, $state, EditService) {
+var ItemEditController = function ItemEditController(SearchService, $stateParams, UserService, $state, EditService, Flash) {
 
   var vm = this;
   var tempObj = {};
@@ -568,15 +570,13 @@ var ItemEditController = function ItemEditController(SearchService, $stateParams
       return tempObj[k] === v;
     });
 
-    console.log(merged);
-
     EditService.updateItem(merged, type, vm.item.id).then(function (res) {
-      console.log(res.data.item);
+      Flash.create('success', 'Item has been updated.');
     });
   }
 };
 
-ItemEditController.$inject = ['SearchService', '$stateParams', 'UserService', '$state', 'EditService'];
+ItemEditController.$inject = ['SearchService', '$stateParams', 'UserService', '$state', 'EditService', 'Flash'];
 exports['default'] = ItemEditController;
 module.exports = exports['default'];
 
