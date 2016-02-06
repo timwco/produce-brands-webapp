@@ -1,6 +1,6 @@
 import _ from 'underscore';
 
-let ItemEditController = function(SearchService, $stateParams, UserService, $state, EditService) {
+let ItemEditController = function(SearchService, $stateParams, UserService, $state, EditService, Flash) {
 
   let vm = this;
   let tempObj = {};
@@ -30,16 +30,14 @@ let ItemEditController = function(SearchService, $stateParams, UserService, $sta
 
     let merged = _.omit(item, function(v,k) { return tempObj[k] === v; });
 
-    console.log(merged);
-
     EditService.updateItem(merged, type, vm.item.id)
     .then ( (res) => {
-      console.log(res.data.item);
+      Flash.create('success', 'Item has been updated.');
     });
 
   }
 
 };
 
-ItemEditController.$inject = ['SearchService', '$stateParams', 'UserService', '$state', 'EditService'];
+ItemEditController.$inject = ['SearchService', '$stateParams', 'UserService', '$state', 'EditService', 'Flash'];
 export default ItemEditController;
