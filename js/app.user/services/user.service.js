@@ -22,7 +22,8 @@ let UserService = function($http, $cookies, $state, $rootScope, APP) {
 
   // Check for Admin
   this.isAdmin = () => {
-    return this.currentUser().is_admin;
+    let user = this.currentUser();
+    return (user && user.is_admin) ? true : false;
   };
 
   // Expose User
