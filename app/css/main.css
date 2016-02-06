@@ -18738,6 +18738,18 @@ h3.page-header {
       padding-bottom: 14px;
       padding-top: 14px;
       position: relative; }
+      .header-nav li span.static {
+        border-bottom: 2px solid transparent;
+        border-radius: 0px;
+        color: #fff;
+        display: block;
+        font-size: 13px;
+        padding: 10px 15px; }
+        .header-nav li span.static .fa {
+          color: #f15b36;
+          font-size: 10px;
+          margin-left: 10px;
+          vertical-align: 1px; }
       .header-nav li a {
         border-bottom: 2px solid transparent;
         border-radius: 0px;
