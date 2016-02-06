@@ -531,9 +531,17 @@ module.exports = exports['default'];
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _underscore = require('underscore');
+
+var _underscore2 = _interopRequireDefault(_underscore);
+
 var ItemEditController = function ItemEditController(SearchService, $stateParams, UserService, $state, EditService) {
 
   var vm = this;
+  var tempObj = {};
 
   vm.item = {};
   vm.updateItem = updateItem;
@@ -550,17 +558,18 @@ var ItemEditController = function ItemEditController(SearchService, $stateParams
 
     SearchService.getSingle($stateParams.type, $stateParams.id).then(function (res) {
       vm.item = res.data.item;
+      tempObj = _underscore2['default'].clone(res.data.item);
     });
   }
 
   function updateItem(item, type) {
 
-    console.log(type);
-    console.log(item);
-    console.log(vm.item);
+    var merged = _underscore2['default'].omit(item, function (v, k) {
+      return tempObj[k] === v;
+    });
 
-    EditService.updateItem(item, type, vm.item.id).then(function (res) {
-      console.log(res);
+    EditService.updateItem(merged, type, vm.item.id).then(function (res) {
+      console.log(res.data.item);
     });
   }
 };
@@ -569,7 +578,7 @@ ItemEditController.$inject = ['SearchService', '$stateParams', 'UserService', '$
 exports['default'] = ItemEditController;
 module.exports = exports['default'];
 
-},{}],16:[function(require,module,exports){
+},{"underscore":175}],16:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {

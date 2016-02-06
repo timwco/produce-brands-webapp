@@ -1,9 +1,13 @@
+import _ from 'underscore';
+
 let ItemEditController = function(SearchService, $stateParams, UserService, $state, EditService) {
 
   let vm = this;
+  let tempObj = {};
 
   vm.item = {};
   vm.updateItem = updateItem;
+
 
   activate();
 
@@ -17,19 +21,18 @@ let ItemEditController = function(SearchService, $stateParams, UserService, $sta
 
     SearchService.getSingle($stateParams.type, $stateParams.id).then ( (res) => {
       vm.item = res.data.item;
+      tempObj = _.clone(res.data.item);
     });
 
   }
 
   function updateItem (item, type) {
 
-    console.log(type);
-    console.log(item);
-    console.log(vm.item);
+    let merged = _.omit(item, function(v,k) { return tempObj[k] === v; });
 
-    EditService.updateItem(item, type, vm.item.id)
+    EditService.updateItem(merged, type, vm.item.id)
     .then ( (res) => {
-      console.log(res);
+      console.log(res.data.item);
     });
 
   }
