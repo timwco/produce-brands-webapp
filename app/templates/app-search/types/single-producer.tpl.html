@@ -26,6 +26,9 @@
       <li>
         <i class="fa fa-clock-o"></i> Added: {{ vm.item.created_at | moment }}
       </li>
+      <li ng-show="vm.adminUser">
+        <a href="/#/producer/edit/{{ vm.item.id }}"><i class="fa fa-pencil"></i> Edit</a>
+      </li>
     </ul>
   </div>
   <div class="small-9 columns">

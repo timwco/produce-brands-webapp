@@ -568,6 +568,8 @@ var ItemEditController = function ItemEditController(SearchService, $stateParams
       return tempObj[k] === v;
     });
 
+    console.log(merged);
+
     EditService.updateItem(merged, type, vm.item.id).then(function (res) {
       console.log(res.data.item);
     });

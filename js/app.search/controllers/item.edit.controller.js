@@ -30,6 +30,8 @@ let ItemEditController = function(SearchService, $stateParams, UserService, $sta
 
     let merged = _.omit(item, function(v,k) { return tempObj[k] === v; });
 
+    console.log(merged);
+
     EditService.updateItem(merged, type, vm.item.id)
     .then ( (res) => {
       console.log(res.data.item);
