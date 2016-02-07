@@ -49,6 +49,14 @@
         display: table-cell;
         line-height: 24px;
         padding: 8px 20px;
+
+        a {
+          width: 150px;
+          overflow: hidden;
+          display: inline-block;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
     }
 }
 

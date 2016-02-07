@@ -43,6 +43,7 @@
 - [ ] Login
 - [ ] Register
 - [ ] Profile
+- [ ] Submit
 
 #### Includes
 
