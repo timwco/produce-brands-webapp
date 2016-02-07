@@ -27,8 +27,9 @@
 
 #### App Search
 
-- [ ] Edit / Edit Brand
-- [ ] Edit / Edit Producer
+- [x] Edit / Edit Brand
+- [x] Edit / Edit Producer
+- [ ] Edit / Commodity
 - [x] Listings / Brands
 - [x] Listings / Commodities
 - [x] Listings / Producers

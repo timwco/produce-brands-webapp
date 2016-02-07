@@ -20577,4 +20577,7 @@ ul.filter-list {
   padding: 15px;
   font-style: italic; }
 
+.form-group input[type='text'] {
+  margin-bottom: 15px; }
+
 /*# sourceMappingURL=main.css.map */

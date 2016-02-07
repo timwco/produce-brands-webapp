@@ -1,56 +1,75 @@
-<div class="row item-page">
-  <div class="small-12 columns">
-    <h1 class="single-title">
-      {{ vm.item.name }}
-      <span class="type">Producer</span>
-    </h1>
+<div class="document-title">
+  <div class="container">
+    <h1>Editing: <strong>{{ vm.item.name }}</strong></h1>
   </div>
 </div>
-<div class="row item-page">
-  <div class="small-3 columns">
-    <img ng-src="https://static.producebrands.com/db/images/{{ vm.item.logo }}" verify-src>
-    <ul class="item-meta">
-      <li>
-        <a href="/#/producer/{{ vm.item.id }}"><i class="fa fa-ban"></i> Cancel Edit</a>
-      </li>
-    </ul>
-  </div>
-  <div class="small-9 columns">
-    <h3>Edit</h3>
 
-    <form ng-submit="vm.updateItem(vm.item, 'producer')">
-      <label>Producer Name<input type="text" ng-model="vm.item.name"></label>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="company-card">
+        <div class="company-card-image">
+          <img ng-src="https://static.producebrands.com/db/images/{{ vm.item.logo }}" verify-src>
+        </div>
+        <div class="company-card-data">
+          <dl>
+            <dt>Added</dt>
+            <dd>{{ vm.item.created_at | moment }}</dd>
+          </dl>
+        </div>
+      </div>
 
-      <fieldset class="fieldset">
-        <legend>Address</legend>
-        <label>Street<input type="text" ng-model="vm.item.street"></label>
-        <label>City<input type="text" ng-model="vm.item.city"></label>
-        <label>State<input type="text" ng-model="vm.item.state"></label>
-        <label>Zip<input type="text" ng-model="vm.item.zip"></label>
-      </fieldset>
+    </div>
+    <!-- /.col-* -->
+    <div class="col-sm-8">
+      <div class="company-header">
+        <h1>{{ vm.item.name }} <span>Producer</span></h1>
+      </div>
+      <form ng-submit="vm.updateItem(vm.item, 'producer')">
 
-      <fieldset class="fieldset">
-        <legend>Contact Information</legend>
-        <label>Contact Name<input type="text" ng-model="vm.item.contact"></label>
-        <label>Website<input type="text" ng-model="vm.item.website"></label>
-        <label>Phone<input type="text" ng-model="vm.item.phone"></label>
-        <label>Email<input type="text" ng-model="vm.item.email"></label>
-        <label>Fax<input type="text" ng-model="vm.item.fax"></label>
-      </fieldset>
+        <fieldset class="form-group">
+          <legend>Address</legend>
+          <label>Street</label><input type="text" class="form-control" ng-model="vm.item.street">
+          <label>City</label><input type="text" class="form-control" ng-model="vm.item.city">
+          <label>State</label><input type="text" class="form-control" ng-model="vm.item.state">
+          <label>Zip</label><input type="text" class="form-control" ng-model="vm.item.zip">
+        </fieldset>
 
-      <fieldset class="fieldset">
-        <legend>Social Media</legend>
-        <label>Facebook<input type="text" ng-model="vm.item.facebook"></label>
-        <label>Twitter<input type="text" ng-model="vm.item.twitter"></label>
-      </fieldset>
+        <fieldset class="form-group">
+          <legend>Contact Information</legend>
+          <label>Contact Name</label><input type="text" class="form-control" ng-model="vm.item.contact">
+          <label>Website</label><input type="text" class="form-control" ng-model="vm.item.website">
+          <label>Email</label><input type="text" class="form-control" ng-model="vm.item.email">
+          <label>Phone</label><input type="text" class="form-control" ng-model="vm.item.phone">
+          <label>Fax</label><input type="text" class="form-control" ng-model="vm.item.fax">
+        </fieldset>
 
-      <fieldset>
-        <legend>Is this Producer Traceable</legend>
-        <input type="radio" ng-model="vm.item.traceable" value="1" id="traceableYes"><label for="traceableYes">Yes</label>
-        <input type="radio" ng-model="vm.item.traceable" value="0" id="traceableNo"><label for="traceableNo">No</label>
-      </fieldset>
+        <fieldset class="form-group">
+          <legend>Social Media</legend>
+          <label>Facebook</label><input type="text" class="form-control" ng-model="vm.item.facebook">
+          <label>Twitter</label><input type="text" class="form-control" ng-model="vm.item.twitter">
+        </fieldset>
 
-      <button class="button">Update Producer</button>
-    </form>
+        <fieldset class="form-group">
+          <legend>Is this Producer Traceable</legend>
+          <div class="btn-group">
+            <label class="btn btn-default">
+              <input type="radio" ng-model="vm.item.traceable" value="1" id="traceableYes">&nbsp; Yes
+            </label>
+            <label class="btn btn-default">
+              <input type="radio" ng-model="vm.item.traceable" value="0" id="traceableNo">&nbsp; No
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+          <label>Description</label>
+          <textarea class="form-control" ng-model="vm.item.description"></textarea>
+        </fieldset>
+
+          <button class="btn btn-secondary">Update Producer</button>
+          <a href="/#/brand/{{ vm.item.id }}" class="btn btn-default">Cancel</a>
+      </form>
+    </div>
   </div>
 </div>
