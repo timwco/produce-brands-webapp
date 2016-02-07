@@ -21,7 +21,6 @@
 
 #### App Layout
 
-- [ ] Apply
 - [x] Landing
 - [x] Layout
 

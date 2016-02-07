@@ -19,10 +19,6 @@ var config = function config($stateProvider, $urlRouterProvider, $locationProvid
     url: '/',
     templateUrl: 'templates/app-layout/landing.tpl.html' + cache_version,
     controller: 'HomeController as vm'
-  }).state('root.apply', {
-    url: '/apply',
-    templateUrl: 'templates/app-layout/apply.tpl.html' + cache_version,
-    controller: 'HomeController as vm'
   })
 
   // User States
@@ -396,7 +392,7 @@ Object.defineProperty(exports, '__esModule', {
 var HomeController = function HomeController(UserService, $state, Flash, $scope) {
 
   var vm = this;
-  vm.apply = apply;
+  // vm.apply = apply;
 
   activate();
 
@@ -407,15 +403,15 @@ var HomeController = function HomeController(UserService, $state, Flash, $scope)
     }
   }
 
-  function apply(user) {
-    if (!user || !user.full_name || !user.company || !user.comment) {
-      return Flash.create('warning', 'Error: All fields are required.');
-    }
-    UserService.apply(user).then(function (res) {
-      Flash.create('success', 'Application Recieved. We will be in touch! Thanks!');
-      $scope.user = {};
-    });
-  }
+  // function apply (user) {
+  //   if (!user || !user.full_name || !user.company || !user.comment) {
+  //     return Flash.create('warning', 'Error: All fields are required.');
+  //   }
+  //   UserService.apply(user).then( (res) => {
+  //     Flash.create('success', 'Application Recieved. We will be in touch! Thanks!');
+  //     $scope.user = {};
+  //   });
+  // }
 };
 
 HomeController.$inject = ['UserService', '$state', 'Flash', '$scope'];
