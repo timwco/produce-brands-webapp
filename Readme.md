@@ -36,16 +36,15 @@
 - [x] Types / Commodity
 - [x] Types / Producer
 - [x] Search
-- [ ] Hidden Types
 
 #### App User
 
 - [x] Login
 - [x] Register
 - [x] Profile
-- [ ] Submit
+- [x] Submit
 
 #### Includes
 
-- [ ] Hidden (Paid)
-- [ ] Flash
+- [x] Hidden (Paid)
+- [x] Flash

@@ -41,24 +41,27 @@
       <div class="company-header">
         <h1>{{ vm.item.name }} <span>Brand</span></h1>
       </div>
-      <h3 class="page-header">Company Profile</h3>
-      <p>{{ vm.item.description }}</p>
-      <div class="company-stats">
-        <div class="company-stat">
-          <span>Organic Brand</span>
-          <strong ng-show="vm.item.organic">Yes</strong>
-          <strong ng-hide="vm.item.organic">No</strong>
+      <div ng-show="vm.authed">
+        <h3 class="page-header">Company Profile</h3>
+        <p>{{ vm.item.description }}</p>
+        <div class="company-stats">
+          <div class="company-stat">
+            <span>Organic Brand</span>
+            <strong ng-show="vm.item.organic">Yes</strong>
+            <strong ng-hide="vm.item.organic">No</strong>
+          </div>
+          <div class="company-stat">
+            <span>Tracks Food Safety</span>
+            <strong ng-show="vm.item.food_safety">Yes</strong>
+            <strong ng-hide="vm.item.food_safety">No</strong>
+          </div>
         </div>
-        <div class="company-stat">
-          <span>Tracks Food Safety</span>
-          <strong ng-show="vm.item.food_safety">Yes</strong>
-          <strong ng-hide="vm.item.food_safety">No</strong>
+        <h3 class="page-header" ng-show="vm.commodities">Commodities Grown</h3>
+        <div class="positions-list commodity-list" ng-show="vm.commodities">
+          <a href="/#/commodity/{{ c.id }}" ng-repeat="c in vm.commodities">{{ c.name }}</a>
         </div>
       </div>
-      <h3 class="page-header" ng-show="vm.commodities">Commodities Grown</h3>
-      <div class="positions-list commodity-list" ng-show="vm.commodities">
-        <a href="/#/commodity/{{ c.id }}" ng-repeat="c in vm.commodities">{{ c.name }}</a>
-      </div>
+      <div ng-hide="vm.authed" class="show-for-unauth" ng-include="'templates/includes/hidden.tpl.html'"></div>
     </div>
   </div>
 </div>

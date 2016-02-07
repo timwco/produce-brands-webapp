@@ -21,6 +21,12 @@ var config = function config($stateProvider, $urlRouterProvider, $locationProvid
     controller: 'HomeController as vm'
   })
 
+  // Submission
+  .state('root.submit', {
+    url: '/submit',
+    templateUrl: 'templates/app-layout/submit.tpl.html' + cache_version
+  })
+
   // User States
   .state('root.login', {
     url: '/login?c',
@@ -549,6 +555,8 @@ var ItemEditController = function ItemEditController(SearchService, $stateParams
   activate();
 
   function activate() {
+
+    Flash.create('success', 'yayyayaya');
 
     vm.adminUser = UserService.isAdmin();
 

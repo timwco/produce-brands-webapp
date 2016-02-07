@@ -53,3 +53,17 @@ $color-secondary: $orange;
 }
 .form-group input[type='text'], .form-group input[type='password'] { margin-bottom: 15px; }
 .fix-check { margin-left: 20px !important; }
+
+.flash-message-container {
+  .alert {
+    width: 450px;
+    position: fixed;
+    z-index: 999999;
+    right: 10px;
+    top: 22px;
+    padding: 15px 24px;
+    font-size: 15px;
+    margin-bottom: 0;
+  }
+  .alert-dismissable .close, .alert-dismissible .close { right: -10px; }
+}

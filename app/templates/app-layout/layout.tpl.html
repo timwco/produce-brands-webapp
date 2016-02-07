@@ -17,8 +17,7 @@
           <li><a href="/#/register" class="primary">Sign Up</a></li>
         </ul>
         <ul class="header-actions nav nav-pills" ng-show="vm.user">
-          <li><a href="/#/profile">Profile</a></li>
-          <li><a href="/#/" ng-click="vm.logout()">Log Out</a></li>
+          <li><a href="/#/profile"><i class="fa fa-user"></i> &nbsp;&nbsp; {{ vm.user.first_name }} {{ vm.user.last_name }}</a></li>
         </ul>
         <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".header-nav">
           <span class="sr-only">Toggle navigation</span>
@@ -36,7 +35,7 @@
           <li><a href="/#/all/commodities">Commodities</a></li>
           <li><a href="/#/submit">Submit</a></li>
           <li>
-            <a href="#">Account <i class="fa fa-chevron-down"></i></a>
+            <a href="/#/profile">Account <i class="fa fa-chevron-down"></i></a>
             <ul class="sub-menu" ng-hide="vm.user">
               <li><a href="/#/login">Login</a></li>
               <li><a href="/#/register">Registration</a></li>
@@ -78,4 +77,4 @@
 
 
 
-<!-- // <div class="flash-message-container" flash-message="5000"></div> -->
+<div class="flash-message-container" flash-message="5000"></div>

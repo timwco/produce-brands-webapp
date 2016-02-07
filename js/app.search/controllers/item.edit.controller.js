@@ -13,6 +13,8 @@ let ItemEditController = function(SearchService, $stateParams, UserService, $sta
 
   function activate () {
 
+    Flash.create('success', 'yayyayaya');
+
     vm.adminUser = UserService.isAdmin();
 
     if (!vm.adminUser) {

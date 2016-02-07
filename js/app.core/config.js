@@ -16,6 +16,12 @@ let config = function($stateProvider, $urlRouterProvider, $locationProvider, APP
       controller: 'HomeController as vm'
     })
 
+    // Submission
+    .state('root.submit', {
+      url: '/submit',
+      templateUrl: 'templates/app-layout/submit.tpl.html' + cache_version
+    })
+
     // User States
     .state('root.login', {
       url: '/login?c',
@@ -53,7 +59,6 @@ let config = function($stateProvider, $urlRouterProvider, $locationProvider, APP
       },
       controller: 'ItemController as vm'
     })
-
 
     // Edit States
     .state('root.editBrand', {

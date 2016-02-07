@@ -5,7 +5,7 @@
 </div>
 
 
-<div class="container">
+<div class="container" ng-show="vm.authed">
   <h2 class="page-header"><strong>{{ vm.count }}</strong> results found</h2>
   <div class="row">
     <div class="col-sm-3">
@@ -34,4 +34,8 @@
       </div>
     </div>
   </div>
+</div>
+
+<div class="container" ng-hide="vm.authed">
+  <div class="show-for-unauth" ng-include="'templates/includes/hidden.tpl.html'"></div>
 </div>
