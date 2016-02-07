@@ -32,10 +32,11 @@
 - [x] Listings / Brands
 - [x] Listings / Commodities
 - [x] Listings / Producers
-- [ ] Types / Brand
+- [x] Types / Brand
 - [ ] Types / Commodity
 - [ ] Types / Producer
 - [ ] Search
+- [ ] Hidden Types
 
 #### App User
 

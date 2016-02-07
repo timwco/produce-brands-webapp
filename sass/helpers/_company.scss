@@ -11,7 +11,7 @@
 
     img {
         height: auto;
-        width: 90px;
+        width: 245px;
     }
 
     span {
@@ -64,7 +64,7 @@
         @media (max-width: $screen-xs-max) {
             font-size: 38px;
         }
-        
+
         span {
             color: $color-gray;
             font-size: 18px;
@@ -91,7 +91,7 @@
 .company-stat {
     float: left;
     text-align: center;
-    width: 33%;
+    width: 50%;
 
     span, strong {
         display: block;

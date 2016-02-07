@@ -2,6 +2,11 @@
     @extend .clearfix;
     margin: 0px 0px 50px 0px;
 
+    h3 {
+      font-size: 18px;
+      padding: 0 0 10px 0;
+    }
+
     h2 {
         font-size: 14px;
         font-weight: 600;
@@ -33,7 +38,7 @@
         li {
             border-bottom: 1px dashed $color-gray-light;
             padding: 0px;
-            
+
             &:last-child {
                 border-bottom: 0px;
             }

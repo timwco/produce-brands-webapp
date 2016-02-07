@@ -19992,7 +19992,7 @@ ul.filter-list {
   text-align: center; }
   .company-card-image img {
     height: auto;
-    width: 90px; }
+    width: 245px; }
   .company-card-image span {
     background-color: #f15b36;
     border-radius: 3px 0px 3px 0px;
@@ -20050,7 +20050,7 @@ ul.filter-list {
 .company-stat {
   float: left;
   text-align: center;
-  width: 33%; }
+  width: 50%; }
   .company-stat span, .company-stat strong {
     display: block; }
   .company-stat span {
@@ -20498,6 +20498,9 @@ ul.filter-list {
 */
 .widget {
   margin: 0px 0px 50px 0px; }
+  .widget h3 {
+    font-size: 18px;
+    padding: 0 0 10px 0; }
   .widget h2 {
     font-size: 14px;
     font-weight: 600;
@@ -20555,5 +20558,12 @@ ul.filter-list {
 
 .main {
   padding: 60px 0px; }
+
+.commodity-list a {
+  text-transform: capitalize;
+  background: #41494d;
+  color: white;
+  padding: 5px 8px;
+  border-radius: 4px; }
 
 /*# sourceMappingURL=main.css.map */

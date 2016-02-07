@@ -1,85 +1,60 @@
-<div class="bc-cont" ng-include="'templates/includes/breadcrumbs.tpl.html'"></div>
-<div class="row item-page">
-  <div class="small-12 columns">
-    <h1 class="single-title">
-      {{ vm.item.name }}
-      <span class="type">Producer</span>
-    </h1>
+<div class="document-title">
+  <div class="container">
+    <h1>Company Detail</h1>
   </div>
 </div>
-<div class="row item-page">
-  <div class="small-3 columns">
-    <img ng-src="https://static.producebrands.com/db/images/{{ vm.item.logo }}" verify-src>
-    <ul class="item-meta">
-      <li ng-show="vm.item.facebook">
-        <i class="fa fa-facebook-square"></i>
-        <a href="{{ vm.item.facebook }}" target="_blank">Facebook</a>
-      </li>
-      <li ng-show="vm.item.twitter">
-        <i class="fa fa-twitter-square"></i>
-        <a href="{{ vm.item.twitter }}" target="_blank">Twitter</a>
-      </li>
-      <li ng-show="vm.item.website">
-        <i class="fa fa-globe"></i>
-        <a href="{{ vm.item.website | addHTTP }}" target="_blank">Website</a>
-      </li>
-      <li>
-        <i class="fa fa-clock-o"></i> Added: {{ vm.item.created_at | moment }}
-      </li>
-      <li ng-show="vm.adminUser">
-        <a href="/#/producer/edit/{{ vm.item.id }}"><i class="fa fa-pencil"></i> Edit</a>
-      </li>
-    </ul>
-  </div>
-  <div class="small-9 columns">
-    <div class="description">
-      <h5>About</h5>
-      <p>{{ vm.item.description }}</p>
-    </div>
-    <div class="hidden-for-unauth" ng-show="vm.authed">
-      <table class="hover full-width">
-        <tbody>
-          <tr ng-show="vm.item.contact">
-            <td>Contact Person</td>
-            <td>{{ vm.item.contact }}</td>
-          </tr>
-          <tr ng-show="vm.item.state">
-            <td>Address</td>
-            <td>
-              {{ vm.item.street }} <br>
-              {{ vm.item.city}}, {{ vm.item.state}} {{ vm.item.zip }}
-            </td>
-          </tr>
-          <tr ng-show="vm.item.email">
-            <td>Email</td>
-            <td>{{ vm.item.email }}</td>
-          </tr>
-          <tr ng-show="vm.item.phone">
-            <td>Phone</td>
-            <td>{{ vm.item.phone }}</td>
-          </tr>
-          <tr ng-show="vm.item.fax">
-            <td>Fax</td>
-            <td>{{ vm.item.fax }}</td>
-          </tr>
-          <tr>
-            <td>Traceble</td>
-            <td>
-              <i class="fa fa-check-square-o" ng-show="vm.item.traceable"></i>
-              <i class="fa fa-square-o" ng-hide="vm.item.traceable"></i>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="commodities-list" ng-show="vm.commodities">
-        <h6>Brands We Work With</h6>
-        <a href="/#/brand/{{ b.id }}" ng-repeat="b in vm.brands">{{ b.name }}</a>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="company-card">
+        <div class="company-card-image">
+          <img ng-src="https://static.producebrands.com/db/images/{{ vm.item.logo }}" verify-src>
+        </div>
+        <div class="company-card-data">
+          <dl ng-show="vm.producer.name">
+            <dt>Producer</dt>
+            <dd><a href="/#/producer/{{ vm.producer.id }}">{{ vm.producer.name }} <i class="fa fa-external-link"></i></a></dd>
+          </dl>
+          <dl ng-show="vm.item.country">
+            <dt>Country</dt>
+            <dd>{{ vm.item.country }}</dd>
+          </dl>
+          <dl ng-show="vm.item.state">
+            <dt>State</dt>
+            <dd>{{ vm.item.state }}</dd>
+          </dl>
+          <dl>
+            <dt>Added</dt>
+            <dd>{{ vm.item.created_at | moment }}</dd>
+          </dl>
+        </div>
       </div>
-      <div class="commodities-list" ng-show="vm.commodities">
-        <h6>Commodities Grown</h6>
+
+    </div>
+    <!-- /.col-* -->
+    <div class="col-sm-8">
+      <div class="company-header">
+        <h1>{{ vm.item.name }} <span>Producer</span></h1>
+      </div>
+      <h3 class="page-header">Company Profile</h3>
+      <p>{{ vm.item.description }}</p>
+      <div class="company-stats">
+        <div class="company-stat">
+          <span>Organic Brand</span>
+          <strong ng-show="vm.item.organic">Yes</strong>
+          <strong ng-hide="vm.item.organic">No</strong>
+        </div>
+        <div class="company-stat">
+          <span>Tracks Food Safety</span>
+          <strong ng-show="vm.item.food_safety">Yes</strong>
+          <strong ng-hide="vm.item.food_safety">No</strong>
+        </div>
+      </div>
+      <h3 class="page-header" ng-show="vm.commodities">Commodities Grown</h3>
+      <div class="positions-list commodity-list" ng-show="vm.commodities">
         <a href="/#/commodity/{{ c.id }}" ng-repeat="c in vm.commodities">{{ c.name }}</a>
       </div>
     </div>
-    <div ng-hide="vm.authed" class="show-for-unauth" ng-include="'templates/includes/hidden.tpl.html'"></div>
   </div>
 </div>
