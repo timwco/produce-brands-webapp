@@ -505,12 +505,13 @@ var ItemController = function ItemController(SearchService, $stateParams, UserSe
         vm.producer = res.data.producer;
       }
       if (res.data.commodities) {
-        vm.commodities = _underscore2['default'].uniq(res.data.commodities, function (c) {
+        var commodities = _underscore2['default'].sortBy(res.data.commodities, 'name');
+        vm.commodities = _underscore2['default'].uniq(commodities, function (c) {
           return c.name;
         });
       }
       if (res.data.brands) {
-        vm.brands = res.data.brands;
+        vm.brands = _underscore2['default'].sortBy(res.data.brands, 'name');
       }
       if (res.data.nutrition) {
         vm.nutrition = JSON.parse(res.data.nutrition.data);

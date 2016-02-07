@@ -12,21 +12,29 @@
           <img ng-src="https://static.producebrands.com/db/images/{{ vm.item.logo }}" verify-src>
         </div>
         <div class="company-card-data">
-          <dl ng-show="vm.producer.name">
-            <dt>Producer</dt>
-            <dd><a href="/#/producer/{{ vm.producer.id }}">{{ vm.producer.name }} <i class="fa fa-external-link"></i></a></dd>
+          <dl ng-show="vm.item.website">
+            <dt>Website</dt>
+            <dd><a href="{{ vm.item.website | addHTTP }}" target="_blank">{{ vm.item.website}} </a></dd>
           </dl>
-          <dl ng-show="vm.item.country">
-            <dt>Country</dt>
-            <dd>{{ vm.item.country }}</dd>
+          <dl ng-show="vm.item.email">
+            <dt>Email</dt>
+            <dd><a href="mailto:{{ vm.item.email }}">{{ vm.item.email }}</a></dd>
           </dl>
-          <dl ng-show="vm.item.state">
-            <dt>State</dt>
-            <dd>{{ vm.item.state }}</dd>
+          <dl ng-show="vm.item.facebook">
+            <dt>Facebook</dt>
+            <dd><a href="{{ vm.item.facebook }}" target="_blank">Company Facebook</a></dd>
+          </dl>
+          <dl ng-show="vm.item.twitter">
+            <dt>Twitter</dt>
+            <dd><a href="{{ vm.item.twitter }}" target="_blank">Company Twitter</a></dd>
           </dl>
           <dl>
             <dt>Added</dt>
             <dd>{{ vm.item.created_at | moment }}</dd>
+          </dl>
+          <dl ng-show="vm.adminUser">
+            <dt>Admin</dt>
+            <dd><a href="/#/producer/edit/{{ vm.item.id }}"><i class="fa fa-pencil"></i> Edit</a></dd>
           </dl>
         </div>
       </div>
@@ -39,18 +47,40 @@
       </div>
       <h3 class="page-header">Company Profile</h3>
       <p>{{ vm.item.description }}</p>
-      <div class="company-stats">
-        <div class="company-stat">
-          <span>Organic Brand</span>
-          <strong ng-show="vm.item.organic">Yes</strong>
-          <strong ng-hide="vm.item.organic">No</strong>
-        </div>
-        <div class="company-stat">
-          <span>Tracks Food Safety</span>
-          <strong ng-show="vm.item.food_safety">Yes</strong>
-          <strong ng-hide="vm.item.food_safety">No</strong>
-        </div>
+
+      <div class="position-general-information">
+				<dl ng-show="vm.item.contact">
+					<dt>Contact Person</dt>
+					<dd>{{ vm.item.contact }}</dd>
+        </dl>
+        <dl ng-show="vm.item.state">
+					<dt>Address</dt>
+					<dd>{{ vm.item.street }}</dd>
+          <dt>City/State</dt>
+          <dd>{{ vm.item.city}}, {{ vm.item.state}} {{ vm.item.zip }}</dd>
+        </dl>
+        <dl ng-show="vm.item.phone">
+					<dt>Phone</dt>
+					<dd>{{ vm.item.phone }}</dd>
+        </dl>
+        <dl ng-show="vm.item.fax">
+					<dt>Fax</dt>
+					<dd>{{ vm.item.fax }}</dd>
+        </dl>
+        <dl>
+					<dt>Traceable</dt>
+					<dd>
+            <span ng-show="vm.item.traceable">Yes</span>
+            <span ng-hide="vm.item.traceable">No</span>
+          </dd>
+				</dl>
+			</div>
+
+      <h3 class="page-header" ng-show="vm.brands">Brands We Work With</h3>
+      <div class="positions-list commodity-list" ng-show="vm.brands">
+        <a href="/#/brand/{{ b.id }}" ng-repeat="b in vm.brands">{{ b.name }}</a>
       </div>
+
       <h3 class="page-header" ng-show="vm.commodities">Commodities Grown</h3>
       <div class="positions-list commodity-list" ng-show="vm.commodities">
         <a href="/#/commodity/{{ c.id }}" ng-repeat="c in vm.commodities">{{ c.name }}</a>

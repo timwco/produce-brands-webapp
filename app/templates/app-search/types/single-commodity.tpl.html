@@ -1,26 +1,33 @@
-<div class="bc-cont" ng-include="'templates/includes/breadcrumbs.tpl.html'"></div>
-<div class="row item-page commodity-page">
-  <div class="small-12 columns">
-    <h1 class="single-title">{{ vm.item.name }}</h1>
+<div class="document-title">
+  <div class="container">
+    <h1>Commodity Information</h1>
   </div>
 </div>
-<div class="row item-page">
-  <div class="large-3 columns">
-    <img ng-src="https://static.producebrands.com/db/images/{{ vm.item.image }}" verify-src>
-    <div nutrition-label name="vm.item.name" nutrition="vm.nutrition"></div>
-    <div class="nutritionWarning">
-      Please Note: Nutritional values will vary by variety, growing location and method prepared. These are a guideline and more specific information can be found at <a href="http://ndb.nal.usda.gov/" target="_blank">here</a>.
-    </div>
-  </div>
-  <div class="large-9 columns">
-    <div class="description">
-      <p>{{ vm.item.description }}</p>
-      <div class="commodities-list" ng-show="vm.brands">
-        <h6>Brands of {{ vm.item.name | capitalize }}</h6>
-        <div class="hidden-for-unauth" ng-show="vm.authed">
-          <a href="/#/brand/{{ b.id }}" ng-repeat="b in vm.brands">{{ b.name }}</a>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="company-card">
+        <div class="company-card-image non-centered">
+          <div nutrition-label name="vm.item.name" nutrition="vm.nutrition"></div>
         </div>
-        <div ng-hide="vm.authed" class="show-for-unauth" ng-include="'templates/includes/hidden.tpl.html'"></div>
+        <div class="company-card-data commodity-warning">
+          Please Note: Nutritional values will vary by variety, growing location and method prepared. These are a guideline and more specific information can be found at <a href="http://ndb.nal.usda.gov/" target="_blank">here</a>.
+        </div>
+      </div>
+
+    </div>
+    <!-- /.col-* -->
+    <div class="col-sm-8">
+      <div class="company-header">
+        <h1>{{ vm.item.name | capitalize }} <span>Commodity</span></h1>
+      </div>
+      <h3 class="page-header">Commodity Details</h3>
+      <p>{{ vm.item.description }}</p>
+
+      <h3 class="page-header" ng-show="vm.brands">Brands of {{ vm.item.name | capitalize }}</h3>
+      <div class="positions-list brands-list" ng-show="vm.brands">
+        <a href="/#/brand/{{ b.id }}" ng-repeat="b in vm.brands">{{ b.name }}</a>
       </div>
     </div>
   </div>

@@ -19993,17 +19993,6 @@ ul.filter-list {
   .company-card-image img {
     height: auto;
     width: 245px; }
-  .company-card-image span {
-    background-color: #f15b36;
-    border-radius: 3px 0px 3px 0px;
-    color: #fff;
-    display: block;
-    left: -1px;
-    font-size: 11px;
-    font-weight: 600;
-    padding: 7px 10px;
-    position: absolute;
-    top: -1px; }
 
 .company-card-data {
   background-color: #f7f7f7;
@@ -20564,6 +20553,22 @@ ul.filter-list {
   background: #41494d;
   color: white;
   padding: 5px 8px;
-  border-radius: 4px; }
+  border-radius: 4px;
+  margin-right: 6px; }
+
+.brands-list {
+  overflow: hidden; }
+  .brands-list a {
+    float: left;
+    width: 31%;
+    font-size: 15px;
+    margin-right: 2%; }
+
+.non-centered {
+  text-align: left !important; }
+
+.commodity-warning {
+  padding: 15px;
+  font-style: italic; }
 
 /*# sourceMappingURL=main.css.map */

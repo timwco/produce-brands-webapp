@@ -21,9 +21,10 @@ let ItemController = function(SearchService, $stateParams, UserService) {
       // Extra fields
       if (res.data.producer) { vm.producer = res.data.producer; }
       if (res.data.commodities) {
-        vm.commodities = _.uniq(res.data.commodities, (c) => { return c.name; });
+        let commodities = _.sortBy(res.data.commodities, 'name');
+        vm.commodities = _.uniq(commodities, (c) => { return c.name; });
       }
-      if (res.data.brands) { vm.brands = res.data.brands; }
+      if (res.data.brands) { vm.brands = _.sortBy(res.data.brands, 'name'); }
       if (res.data.nutrition) { vm.nutrition = JSON.parse(res.data.nutrition.data); }
     });
   }

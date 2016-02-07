@@ -33,8 +33,8 @@
 - [x] Listings / Commodities
 - [x] Listings / Producers
 - [x] Types / Brand
-- [ ] Types / Commodity
-- [ ] Types / Producer
+- [x] Types / Commodity
+- [x] Types / Producer
 - [ ] Search
 - [ ] Hidden Types
 
