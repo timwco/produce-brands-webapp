@@ -1,36 +1,60 @@
-<div class="bc-cont" ng-include="'templates/includes/breadcrumbs.tpl.html'"></div>
-<h4>
-  All Producers -
-  <span class="meta">Page {{ vm.current_page}} of {{ vm.pages }}</span>
-</h4>
-
-<div class="row top-pad">
-  <div class="columns small-12">
-    <table class="hover full-width listing-table">
-      <thead>
-        <tr>
-          <th ng-repeat="column in vm.producerColumns">{{ column | underscoreCap }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="item in vm.items">
-          <td><a href="/#/producer/{{ item.id }}">{{ item.name }}</a></td>
-          <td>{{ item.city }}</td>
-          <td>{{ item.state }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="meta">Total Producers: {{ vm.entries | number }}</div>
-
-    <ul class="pagination" role="navigation">
-      <li class="pagination-previous" ng-show="vm.prev_page">
-        <a href="/#/all/producers?page={{ vm.prev_page }}">Previous</a>
-      </li>
-      <li class="pagination-next" ng-show="vm.next_page">
-        <a href="/#/all/producers?page={{ vm.next_page }}">Next</a>
-      </li>
-    </ul>
-
-
+<div class="document-title">
+  <div class="container">
+    <h1>Producers</h1>
   </div>
 </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9">
+      <h2 class="page-header">Browsing page <strong>{{ vm.current_page}}</strong> of <strong>{{ vm.pages }}</strong></h2>
+      <div class="companies-list">
+        <div class="companies-list-item" ng-repeat="item in vm.items">
+          <div class="companies-list-item-image">
+            <a href="/#/producer/{{ item.id }}">
+              <img ng-src="https://static.producebrands.com/db/images/{{ item.logo }}" verify-src>
+            </a>
+          </div>
+          <!-- /.companies-list-item-image -->
+          <div class="companies-list-item-heading">
+            <h2><a href="/#/producer/{{ item.id }}">{{ item.name }}</a></h2>
+            <h3>Producer</h3>
+          </div>
+          <div class="companies-list-item-count" ng-show="item.state">
+            <i class="fa fa-map-marker"></i> {{ item.city }}, {{ item.state }}
+          </div>
+          <div class="companies-list-item-rating">
+            <a href="/#/producer/{{ item.id }}">See More</a>
+          </div>
+        </div>
+      </div>
+      <!-- /.companies-list -->
+      <div class="center">
+        <ul class="pagination">
+          <li ng-show="vm.prev_page">
+            <a href="/#/all/producers?page={{ vm.prev_page }}">
+              <i class="fa fa-chevron-left"></i>
+            </a>
+          </li>
+          <li ng-show="vm.next_page">
+            <a href="/#/all/producers?page={{ vm.next_page }}">
+              <i class="fa fa-chevron-right"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- /.center -->
+    </div>
+    <!-- /.col-* -->
+    <div class="sidebar col-sm-3">
+      <h2>{{ vm.entries | number }} Producers</h2>
+      <div class="positions-list-small">
+        <div class="positions-list-small-item">
+          <h2>Want your company listed?</h2>
+          <h3>Submit your company <a href="/#/submit">here</a></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /.container -->

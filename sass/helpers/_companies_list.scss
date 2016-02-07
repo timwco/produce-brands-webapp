@@ -18,6 +18,7 @@
 		font-weight: 400;
 		margin: 0px;
 		padding: 0px;
+		text-transform: capitalize;
 	}
 
 	h3 {
@@ -60,7 +61,9 @@
 		top: 50%;
 		transform: translateX(-50%) translateY(-50%);
 		-webkit-transform: translateX(-50%) translateY(-50%);
-		width: 28px;
+		width: 40px;
+    border-radius: 50em;
+    height: 40px;
 	}
 }
 

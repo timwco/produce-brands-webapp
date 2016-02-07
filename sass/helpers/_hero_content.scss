@@ -1,6 +1,6 @@
 .hero-content {
 	background-color: #fff;
-	background-image: url('../img/map.png');
+	background-image: url('../images/hero.png');
 	background-position: center center;
 	background-repeat: no-repeat;
 	margin: -60px 0px 0px 0px;
@@ -70,7 +70,7 @@
 	}
 
 	.hero-content-dark & {
-		background-color: rgba(white, .025);
+		background-color: rgba(white, .125);
 		box-shadow: none;
 	}
 

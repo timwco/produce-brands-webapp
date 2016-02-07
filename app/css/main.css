@@ -18305,7 +18305,7 @@ textarea.form-control {
 [ 4. Common Classes ]
 */
 .document-title {
-  background-image: url("../img/map.png");
+  background-image: url("../images/hero.png");
   background-position: center -230px;
   border-bottom: 1px solid #e9e9e9;
   margin: -60px 0px 60px 0px;
@@ -19053,7 +19053,7 @@ ul.filter-list {
 */
 .hero-content {
   background-color: #fff;
-  background-image: url("../img/map.png");
+  background-image: url("../images/hero.png");
   background-position: center center;
   background-repeat: no-repeat;
   margin: -60px 0px 0px 0px;
@@ -19105,7 +19105,7 @@ ul.filter-list {
     .hero-content-carousel {
       margin: 30px 0px 0px 0px; } }
   .hero-content-dark .hero-content-carousel {
-    background-color: rgba(255, 255, 255, 0.025);
+    background-color: rgba(255, 255, 255, 0.125);
     box-shadow: none; }
   .hero-content-carousel h2 {
     color: #363636;
@@ -19633,7 +19633,7 @@ ul.filter-list {
     width: 100%; }
 
 .candidate-title {
-  background-image: url("../img/map.png");
+  background-image: url("../images/hero.png");
   background-position: center center;
   margin-bottom: -80px; }
 
@@ -19897,7 +19897,8 @@ ul.filter-list {
     font-size: 15px;
     font-weight: 400;
     margin: 0px;
-    padding: 0px; }
+    padding: 0px;
+    text-transform: capitalize; }
   .companies-list-item h3 {
     color: #999;
     font-size: 13px;
@@ -19931,7 +19932,9 @@ ul.filter-list {
     top: 50%;
     transform: translateX(-50%) translateY(-50%);
     -webkit-transform: translateX(-50%) translateY(-50%);
-    width: 28px; }
+    width: 40px;
+    border-radius: 50em;
+    height: 40px; }
 
 .companies-list-item-heading {
   float: left;

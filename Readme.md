@@ -19,4 +19,31 @@
 
 ## Todo
 
-- [Listed Here (Private)](https://trello.com/b/D0Nv6Y9F/todo-s)
+#### App Layout
+
+- [ ] Apply
+- [x] Landing
+- [x] Layout
+
+#### App Search
+
+- [ ] Edit / Edit Brand
+- [ ] Edit / Edit Producer
+- [x] Listings / Brands
+- [x] Listings / Commodities
+- [x] Listings / Producers
+- [ ] Types / Brand
+- [ ] Types / Commodity
+- [ ] Types / Producer
+- [ ] Search
+
+#### App User
+
+- [ ] Login
+- [ ] Register
+- [ ] Profile
+
+#### Includes
+
+- [ ] Breadcrumbs
+- [ ] Hidden (Paid)

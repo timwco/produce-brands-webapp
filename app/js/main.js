@@ -19,10 +19,6 @@ var config = function config($stateProvider, $urlRouterProvider, $locationProvid
     url: '/',
     templateUrl: 'templates/app-layout/landing.tpl.html' + cache_version,
     controller: 'HomeController as vm'
-  }).state('root.start', {
-    url: '/start',
-    templateUrl: 'templates/app-layout/start.tpl.html' + cache_version,
-    controller: 'HomeController as vm'
   }).state('root.apply', {
     url: '/apply',
     templateUrl: 'templates/app-layout/apply.tpl.html' + cache_version,
@@ -407,7 +403,7 @@ var HomeController = function HomeController(UserService, $state, Flash, $scope)
   function activate() {
     var user = UserService.currentUser();
     if (user) {
-      $state.go('root.start');
+      $state.go('root.landing');
     }
   }
 
@@ -854,7 +850,7 @@ var AuthController = function AuthController(UserService, Flash, $stateParams, M
 
   function authSuccess(user) {
     UserService.store(user);
-    $state.go('root.start');
+    $state.go('root.profile');
   }
 };
 

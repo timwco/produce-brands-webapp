@@ -1,5 +1,5 @@
 let AuthController = function(UserService, Flash, $stateParams, MessageService, $state) {
-  
+
   let vm = this;
 
   vm.login = login;
@@ -40,7 +40,7 @@ let AuthController = function(UserService, Flash, $stateParams, MessageService, 
 
   function authSuccess (user) {
     UserService.store(user);
-    $state.go('root.start');
+    $state.go('root.profile');
   }
 
 };

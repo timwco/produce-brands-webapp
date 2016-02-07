@@ -1,5 +1,5 @@
 let HomeController = function(UserService, $state, Flash, $scope) {
-  
+
   let vm = this;
   vm.apply = apply;
 
@@ -7,7 +7,7 @@ let HomeController = function(UserService, $state, Flash, $scope) {
 
   function activate () {
     let user = UserService.currentUser();
-    if (user) { $state.go('root.start'); }
+    if (user) { $state.go('root.landing'); }
   }
 
   function apply (user) {
