@@ -833,7 +833,7 @@ var AuthController = function AuthController(UserService, Flash, $stateParams, M
     // First Check for user authed, then route away
     var user = UserService.currentUser();
     if (user) {
-      $state.go('root.start');
+      $state.go('root.landing');
     }
 
     // Second Check for Auth Message

@@ -1,37 +1,66 @@
-<div class="row item-page">
-  <div class="small-12 columns">
-    <h1 class="single-title">
-      {{ vm.user.first_name }} {{ vm.user.last_name }}
-      <span class="type">Profile</span>
-    </h1>
+<div class="document-title">
+  <div class="container">
+    <h1>Profile</h1>
   </div>
 </div>
-<div class="row item-page">
-  <div class="small-3 columns">
-    <img ng-src="{{ vm.profilePic }}" verify-src>
-    <ul class="item-meta">
-      <li ng-show="vm.user.company"><i class="fa fa-building"></i> {{ vm.user.company }}</li>
-      <li ng-show="vm.user.email"><i class="fa fa-envelope"></i> {{ vm.user.email }}</li>
-    </ul>
-    <small>Note: Your image is generated from <a href="https://en.gravatar.com/">Gravatar</a>. If you wish to update this, please update it there or change your email to an associated account.</small>
-  </div>
-  <div class="small-9 columns">
-    <div class="favorites">
-      <h3>Favorites</h3>
-      <p>You currently don't have any favorites.</p>
+
+<div class="container">
+  <div class="resume">
+
+    <div class="resume-main">
+      <div class="resume-main-image">
+         <img ng-src="{{ vm.profilePic }}" verify-src>
+      </div>
+      <div class="resume-main-content">
+        <h2>{{ vm.user.first_name }} {{ vm.user.last_name }}</h2>
+        <h3>{{ vm.user.company }}</h3>
+        <p class="resume-main-contacts">
+          Email: <a href="mailto:{{ vm.user.email }}">{{ vm.user.email }}</a>
+        </p>
+      </div>
     </div>
-    <div class="description">    
-      <h3>Update Email</h3>
-      <form ng-submit="vm.updateEmail(email)">
-        <input type="email" placeholder="{{ vm.user.email }}" ng-model="email">
-        <button class="button">Update</button>
-      </form>
-      <h3>Update Password</h3>
-      <form ng-submit="vm.updatePassword(password, password2)">
-        <input type="password" placeholder="Enter New Password" ng-model="password">
-        <input type="password" placeholder="Enter New Password Again" ng-model="password2">
-        <button class="button">Update</button>
-      </form>
+
+    <div class="resume-chapter">
+      <div class="resume-chapter-inner">
+        <div class="resume-chapter-title">
+          <h2>Favorites</h2>
+        </div>
+        <div class="resume-chapter-content">
+          <p><i>Soon, you'll be able to save brands or companies to watch.</i></p>
+        </div>
+      </div>
     </div>
+
+    <div class="resume-chapter">
+      <div class="resume-chapter-inner">
+        <div class="resume-chapter-title">
+          <h2>Edit Email</h2>
+        </div>
+        <div class="resume-chapter-content">
+          <form ng-submit="vm.updateEmail(email)">
+            <div class="form-group">
+              <input type="email" class="form-control" placeholder="{{ vm.user.email }}" ng-model="email">
+            </div>
+            <button class="btn btn-secondary">Update</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="resume-chapter">
+      <div class="resume-chapter-inner">
+        <div class="resume-chapter-title">
+          <h2>Edit Password</h2>
+        </div>
+        <form ng-submit="vm.updatePassword(password, password2)">
+          <div class="form-group">
+            <input class="form-control" type="password" placeholder="Enter New Password" ng-model="password">
+            <input class="form-control" type="password" placeholder="Enter New Password Again" ng-model="password2">
+          </div>
+          <button class="btn btn-secondary">Update</button>
+        </form>
+      </div>
+    </div>
+
   </div>
 </div>

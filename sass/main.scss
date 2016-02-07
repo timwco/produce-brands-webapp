@@ -3,13 +3,16 @@
 
 @import "font-awesome";
 @import "extras/flash";
-@import "extras/nutrition";
 @import "extras/fonts";
 
 // Colors
 $orange: #f15b36;
 $grey: #41494d;
 $green: #5ac15e;
+
+// Nutrition
+@import "extras/nutrition";
+.nutritionLabel .name, .servingSizeField { display: none; }
 
 // Loading Bar
 @import "extras/loading";
@@ -48,4 +51,5 @@ $color-secondary: $orange;
   padding: 15px;
   font-style: italic;
 }
-.form-group input[type='text'] { margin-bottom: 15px; }
+.form-group input[type='text'], .form-group input[type='password'] { margin-bottom: 15px; }
+.fix-check { margin-left: 20px !important; }

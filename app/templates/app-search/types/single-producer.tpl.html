@@ -53,9 +53,11 @@
 					<dt>Contact Person</dt>
 					<dd>{{ vm.item.contact }}</dd>
         </dl>
-        <dl ng-show="vm.item.state">
+        <dl ng-show="vm.item.street">
 					<dt>Address</dt>
 					<dd>{{ vm.item.street }}</dd>
+        </dl>
+        <dl ng-show="vm.item.state">
           <dt>City/State</dt>
           <dd>{{ vm.item.city}}, {{ vm.item.state}} {{ vm.item.zip }}</dd>
         </dl>

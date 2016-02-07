@@ -40,12 +40,12 @@
 
 #### App User
 
-- [ ] Login
-- [ ] Register
-- [ ] Profile
+- [x] Login
+- [x] Register
+- [x] Profile
 - [ ] Submit
 
 #### Includes
 
-- [ ] Breadcrumbs
 - [ ] Hidden (Paid)
+- [ ] Flash

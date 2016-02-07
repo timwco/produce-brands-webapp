@@ -2202,6 +2202,28 @@ button.close {
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0); }
 
+@font-face {
+  font-family: 'profession';
+  src: url("../fonts/profession.eot?rtzfer");
+  src: url("../fonts/profession.eot?#iefixrtzfer") format("embedded-opentype"), url("../fonts/profession.ttf?rtzfer") format("truetype"), url("../fonts/profession.woff?rtzfer") format("woff"), url("../fonts/profession.svg?rtzfer#profession") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+[class^="profession-"], [class*=" profession-"] {
+  font-family: 'profession';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+.profession-logo:before {
+  content: "\e600"; }
+
 /*
  ******************************************************************************************************************+
  * NUTRITIONIX.com                                                                                                 |
@@ -2441,27 +2463,8 @@ button.close {
 .nutritionLabel .ingredientListDiv {
   padding-top: 10px; }
 
-@font-face {
-  font-family: 'profession';
-  src: url("../fonts/profession.eot?rtzfer");
-  src: url("../fonts/profession.eot?#iefixrtzfer") format("embedded-opentype"), url("../fonts/profession.ttf?rtzfer") format("truetype"), url("../fonts/profession.woff?rtzfer") format("woff"), url("../fonts/profession.svg?rtzfer#profession") format("svg");
-  font-weight: normal;
-  font-style: normal; }
-
-[class^="profession-"], [class*=" profession-"] {
-  font-family: 'profession';
-  speak: none;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
-  /* Better Font Rendering =========== */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale; }
-
-.profession-logo:before {
-  content: "\e600"; }
+.nutritionLabel .name, .servingSizeField {
+  display: none; }
 
 /* Make clicks pass-through */
 #loading-bar,
@@ -20577,7 +20580,10 @@ ul.filter-list {
   padding: 15px;
   font-style: italic; }
 
-.form-group input[type='text'] {
+.form-group input[type='text'], .form-group input[type='password'] {
   margin-bottom: 15px; }
+
+.fix-check {
+  margin-left: 20px !important; }
 
 /*# sourceMappingURL=main.css.map */

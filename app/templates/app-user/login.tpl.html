@@ -1,16 +1,27 @@
-<div class="row">
-  <div class="medium-6 medium-centered large-4 large-centered columns">
-    <h3>Log In</h3>
-    <form ng-submit="vm.login(user)">
-      <div class="row column log-in-form">
-        <input type="text" placeholder="Email Address" ng-model="user.email">
-        <input ng-init="showPassword = 'password'" type="{{ showPassword }}" placeholder="Password" ng-model="user.password">
-        <input id="show-password" type="checkbox" ng-model="showPassword" ng-true-value="'text'" ng-false-value="'password'">
-        <label for="show-password">Show password</label>
-        <p><button class="button expanded">Log In</button></p>
-        <p class="text-center"><a href="/#/register">Need An Account? Get One Here.</a></p>    
-      </div>
-    </form>
+<div class="document-title">
+  <div class="container">
+    <h1 class="center">User Login</h1>
+  </div>
+</div>
 
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+      <form ng-submit="vm.login(user)">
+        <div class="form-group">
+          <input class="form-control" type="text" placeholder="Email Address" ng-model="user.email">
+          <input class="form-control" ng-init="showPassword = 'password'" type="{{ showPassword }}" placeholder="Password" ng-model="user.password">
+        </div>
+        <div class="checkbox fix-check">
+          <label>
+            <input id="show-password" type="checkbox" ng-model="showPassword" ng-true-value="'text'" ng-false-value="'password'">
+            Show Password
+          </label>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-secondary btn-block">Sign in</button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
