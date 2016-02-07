@@ -35,7 +35,7 @@
 - [x] Types / Brand
 - [x] Types / Commodity
 - [x] Types / Producer
-- [ ] Search
+- [x] Search
 - [ ] Hidden Types
 
 #### App User

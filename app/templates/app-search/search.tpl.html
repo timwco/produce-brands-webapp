@@ -1,34 +1,37 @@
-<div class="bc-cont" ng-include="'templates/includes/breadcrumbs.tpl.html'"></div>
-<div class="row">
-  <div class="small-12 columns">
-    <h4>Search</h4>
-    <small ng-show="vm.authed">Note: You can search for any brand or producer. Commodity searching is not ready yet.</small>
-    <form ng-submit="vm.search(query)" class="search-form" ng-show="vm.authed">
-      <div class="row column">
-        <input type="text" placeholder="Search Term" ng-model="query">
-        <i class="fa fa-search search-icon"></i>
+<div class="document-title">
+  <div class="container">
+    <h1>Results for <strong>{{ vm.query }}</strong></h1>
+  </div>
+</div>
+
+
+<div class="container">
+  <h2 class="page-header"><strong>{{ vm.count }}</strong> results found</h2>
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="filter-stacked">
+        <form ng-submit="vm.updateSearch(query)">
+          <div class="form-group">
+            <input type="text" ng-model="query" class="form-control" placeholder="Search Again...">
+          </div>
+        </form>
+        <i>Note: You can search for any brand or producer. Commodity searching is not ready yet.</i>
       </div>
-    </form>
-    <div class="row results">
-      <div class="large-12 columns ">
-        <div class="search-results">
-          <div class="searching" ng-show="vm.searching"><i class="fa fa-spinner"></i> Searching... </div>
-          <div class="no-results" ng-show="vm.noresults">Sorry, no results found.</div>
-          <div class="result-count" ng-show="vm.count">{{ vm.count }} results found.</div>
-          <div class="row result-block" ng-repeat="item in vm.results">
-            <div class="large-9 columns">
-              <h5>{{ item.content }}</h5>
-              <p>Type: {{ item.searchable_type }}</p>
-            </div>
-            <div class=" large-3 columns align-right">
-              <a href="/#/{{ item.searchable_type | lowercase }}/{{ item.searchable_id }}"  class="button  expand medium">
-                <span>View Here</span>
-              </a>
-            </div>
+      <!-- /.filter-stacked -->
+    </div>
+    <!-- /.col-* -->
+    <div class="col-sm-9">
+      <div class="positions-list">
+        <div class="positions-list-item" ng-repeat="item in vm.results">
+          <h2>
+            <a href="/#/{{ item.searchable_type | lowercase }}/{{ item.searchable_id }}">{{ item.content }}</a>
+          </h2>
+          <h3>{{ item.searchable_type }}</h3>
+          <div class="position-list-item-date">
+            <a href="/#/{{ item.searchable_type | lowercase }}/{{ item.searchable_id }}">See Details</a>
           </div>
         </div>
       </div>
     </div>
-    <div ng-hide="vm.authed" class="show-for-unauth" ng-include="'templates/includes/hidden.tpl.html'"></div>
   </div>
 </div>

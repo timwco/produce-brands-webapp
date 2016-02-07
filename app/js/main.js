@@ -429,7 +429,7 @@ module.exports = exports['default'];
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-var LayoutController = function LayoutController(UserService, $scope, APP) {
+var LayoutController = function LayoutController(UserService, $scope, APP, $state) {
 
   var vm = this;
 
@@ -437,6 +437,7 @@ var LayoutController = function LayoutController(UserService, $scope, APP) {
   vm.user = null;
   vm.version = APP.VERSION;
   vm.year = APP.YEAR;
+  vm.searchForm = searchForm;
 
   function logout() {
     UserService.logout();
@@ -445,8 +446,12 @@ var LayoutController = function LayoutController(UserService, $scope, APP) {
   $scope.$on('user:updated', function (event, args) {
     vm.user = args;
   });
+
+  function searchForm(term) {
+    $state.go('root.search', { q: term });
+  }
 };
-LayoutController.$inject = ['UserService', '$scope', 'APP'];
+LayoutController.$inject = ['UserService', '$scope', 'APP', '$state'];
 exports['default'] = LayoutController;
 module.exports = exports['default'];
 
@@ -641,19 +646,29 @@ module.exports = exports['default'];
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-var SearchController = function SearchController(SearchService, $timeout, UserService) {
+var SearchController = function SearchController(SearchService, $timeout, UserService, $stateParams, $state) {
 
   var vm = this;
 
   vm.search = search;
+  vm.updateSearch = updateSearch;
   vm.results = [];
   vm.noresults = false;
-  vm.searching = false;
   vm.count = 0;
+  vm.query = '';
 
   activate();
 
   function activate() {
+
+    // Check for default query
+    var query = $stateParams.q;
+    if (query !== '') {
+      vm.query = query;
+      search(query);
+    }
+
+    // Validate User
     var user = UserService.currentUser();
     if (user) {
       vm.authed = true;
@@ -664,30 +679,29 @@ var SearchController = function SearchController(SearchService, $timeout, UserSe
 
   function search(query) {
     SearchService.search(query).then(function (res) {
-      console.log(res);
       showSearch();
-      $timeout(function () {
-        vm.searching = false;
-        if (res.data.length > 0) {
-          vm.noresults = false;
-          vm.results = res.data;
-          vm.count = res.data.length;
-        } else {
-          vm.noresults = true;
-        }
-      }, 1500);
+      if (res.data.length > 0) {
+        vm.noresults = false;
+        vm.results = res.data;
+        vm.count = res.data.length;
+      } else {
+        vm.noresults = true;
+      }
     });
   }
 
+  function updateSearch(query) {
+    $state.go('root.search', { q: query });
+  }
+
   function showSearch() {
-    vm.searching = true;
     vm.noresults = false;
     vm.count = 0;
     vm.results = [];
   }
 };
 
-SearchController.$inject = ['SearchService', '$timeout', 'UserService'];
+SearchController.$inject = ['SearchService', '$timeout', 'UserService', '$stateParams', '$state'];
 exports['default'] = SearchController;
 module.exports = exports['default'];
 

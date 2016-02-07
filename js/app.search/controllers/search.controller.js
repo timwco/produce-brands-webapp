@@ -1,16 +1,26 @@
-let SearchController = function(SearchService, $timeout, UserService) {
+let SearchController = function(SearchService, $timeout, UserService, $stateParams, $state) {
 
   let vm = this;
 
   vm.search = search;
+  vm.updateSearch = updateSearch;
   vm.results = [];
   vm.noresults = false;
-  vm.searching = false;
   vm.count = 0;
+  vm.query = '';
 
   activate();
 
   function activate () {
+
+    // Check for default query
+    let query = $stateParams.q;
+    if (query !== ''){
+      vm.query = query;
+      search(query);
+    }
+
+    // Validate User
     let user = UserService.currentUser();
     if (user) {
       vm.authed = true;
@@ -21,23 +31,22 @@ let SearchController = function(SearchService, $timeout, UserService) {
 
   function search (query) {
     SearchService.search(query).then( (res) => {
-      console.log(res);
       showSearch();
-      $timeout( function () {
-        vm.searching = false;
-        if (res.data.length > 0) {
-          vm.noresults = false;
-          vm.results = res.data;
-          vm.count = res.data.length;
-        } else {
-          vm.noresults = true;
-        }
-      }, 1500);
+      if (res.data.length > 0) {
+        vm.noresults = false;
+        vm.results = res.data;
+        vm.count = res.data.length;
+      } else {
+        vm.noresults = true;
+      }
     });
   }
 
+  function updateSearch (query) {
+    $state.go('root.search', {q: query });
+  }
+
   function showSearch () {
-    vm.searching = true;
     vm.noresults = false;
     vm.count = 0;
     vm.results = [];
@@ -45,5 +54,5 @@ let SearchController = function(SearchService, $timeout, UserService) {
 
 };
 
-SearchController.$inject = ['SearchService', '$timeout', 'UserService'];
+SearchController.$inject = ['SearchService', '$timeout', 'UserService', '$stateParams', '$state'];
 export default SearchController;

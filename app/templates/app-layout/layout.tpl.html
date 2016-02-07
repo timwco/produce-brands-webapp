@@ -41,8 +41,8 @@
           </li>
         </ul>
         <div class="header-search hidden-sm">
-          <form method="get" action="?">
-            <input type="text" class="form-control" placeholder="Search ...">
+          <form ng-submit="vm.searchForm(term)">
+            <input type="text" ng-model="term" class="form-control" placeholder="Search ...">
           </form>
         </div>
       </div>
