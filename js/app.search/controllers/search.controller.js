@@ -1,4 +1,4 @@
-let SearchController = function(SearchService, $timeout, UserService, $stateParams, $state) {
+let SearchController = function(SearchService, $timeout, $stateParams, $state) {
 
   let vm = this;
 
@@ -20,13 +20,6 @@ let SearchController = function(SearchService, $timeout, UserService, $statePara
       search(query);
     }
 
-    // Validate User
-    let user = UserService.currentUser();
-    if (user) {
-      vm.authed = true;
-    } else {
-      vm.authed = false;
-    }
   }
 
   function search (query) {
@@ -54,5 +47,5 @@ let SearchController = function(SearchService, $timeout, UserService, $statePara
 
 };
 
-SearchController.$inject = ['SearchService', '$timeout', 'UserService', '$stateParams', '$state'];
+SearchController.$inject = ['SearchService', '$timeout', '$stateParams', '$state'];
 export default SearchController;
