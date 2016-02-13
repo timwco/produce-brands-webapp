@@ -97,7 +97,7 @@ var production = 'https://api.producebrands.com/';
 exports['default'] = {
   URL: window.location.href.indexOf("localhost") > 0 ? development : production,
   CONFIG: { headers: {} },
-  VERSION: 0.6, // Also Change on `index.html` page for Cache
+  VERSION: 0.7, // Also Change on `index.html` page for Cache
   YEAR: 2016
 };
 module.exports = exports['default'];
@@ -650,7 +650,7 @@ module.exports = exports['default'];
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
-var SearchController = function SearchController(SearchService, $timeout, UserService, $stateParams, $state) {
+var SearchController = function SearchController(SearchService, $timeout, $stateParams, $state) {
 
   var vm = this;
 
@@ -670,14 +670,6 @@ var SearchController = function SearchController(SearchService, $timeout, UserSe
     if (query !== '') {
       vm.query = query;
       search(query);
-    }
-
-    // Validate User
-    var user = UserService.currentUser();
-    if (user) {
-      vm.authed = true;
-    } else {
-      vm.authed = false;
     }
   }
 
@@ -705,7 +697,7 @@ var SearchController = function SearchController(SearchService, $timeout, UserSe
   }
 };
 
-SearchController.$inject = ['SearchService', '$timeout', 'UserService', '$stateParams', '$state'];
+SearchController.$inject = ['SearchService', '$timeout', '$stateParams', '$state'];
 exports['default'] = SearchController;
 module.exports = exports['default'];
 
