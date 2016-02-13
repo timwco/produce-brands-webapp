@@ -9,11 +9,12 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "angulartics": "1.0.3",
     "babelify": "^6.3.0",
     "browserify": "^11.2.0",
+    "browserify-shim": "^3.8.11",
     "chai": "^3.4.0",
     "foundation-sites": "^6.0.3",
-    "browserify-shim": "^3.8.11",
     "gulp": "^3.9.0",
     "gulp-htmlhint": "^0.3.0",
     "gulp-jscs": "^3.0.1",
