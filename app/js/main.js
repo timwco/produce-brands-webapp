@@ -19,6 +19,10 @@ var config = function config($stateProvider, $urlRouterProvider, $locationProvid
     url: '/',
     templateUrl: 'templates/app-layout/landing.tpl.html' + cache_version,
     controller: 'HomeController as vm'
+  }).state('root.start', {
+    url: '/start',
+    templateUrl: 'templates/app-layout/start.tpl.html' + cache_version,
+    controller: 'HomeController as vm'
   })
 
   // Submission
@@ -402,22 +406,7 @@ var HomeController = function HomeController(UserService, $state, Flash, $scope)
 
   activate();
 
-  function activate() {
-    var user = UserService.currentUser();
-    if (user) {
-      $state.go('root.landing');
-    }
-  }
-
-  // function apply (user) {
-  //   if (!user || !user.full_name || !user.company || !user.comment) {
-  //     return Flash.create('warning', 'Error: All fields are required.');
-  //   }
-  //   UserService.apply(user).then( (res) => {
-  //     Flash.create('success', 'Application Recieved. We will be in touch! Thanks!');
-  //     $scope.user = {};
-  //   });
-  // }
+  function activate() {}
 };
 
 HomeController.$inject = ['UserService', '$state', 'Flash', '$scope'];
@@ -450,6 +439,7 @@ var LayoutController = function LayoutController(UserService, $scope, APP, $stat
   });
 
   function searchForm(term) {
+    vm.term = "";
     $state.go('root.search', { q: term });
   }
 };
@@ -555,8 +545,6 @@ var ItemEditController = function ItemEditController(SearchService, $stateParams
   activate();
 
   function activate() {
-
-    Flash.create('success', 'yayyayaya');
 
     vm.adminUser = UserService.isAdmin();
 

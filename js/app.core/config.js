@@ -15,6 +15,11 @@ let config = function($stateProvider, $urlRouterProvider, $locationProvider, APP
       templateUrl: 'templates/app-layout/landing.tpl.html' + cache_version,
       controller: 'HomeController as vm'
     })
+    .state('root.start', {
+      url: '/start',
+      templateUrl: 'templates/app-layout/start.tpl.html' + cache_version,
+      controller: 'HomeController as vm'
+    })
 
     // Submission
     .state('root.submit', {

@@ -72,12 +72,9 @@
             <dt>Fax</dt>
             <dd>{{ vm.item.fax }}</dd>
           </dl>
-          <dl>
+          <dl ng-show="vm.item.traceable">
             <dt>Traceable</dt>
-            <dd>
-              <span ng-show="vm.item.traceable">Yes</span>
-              <span ng-hide="vm.item.traceable">No</span>
-            </dd>
+            <dd>Yes</dd>
           </dl>
         </div>
 

@@ -17,6 +17,7 @@ let LayoutController = function (UserService, $scope, APP, $state) {
   });
 
   function searchForm (term) {
+    vm.term = "";
     $state.go('root.search', {q: term});
   }
 

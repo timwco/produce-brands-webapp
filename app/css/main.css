@@ -19059,6 +19059,7 @@ ul.filter-list {
   background-image: url("../images/hero.png");
   background-position: center center;
   background-repeat: no-repeat;
+  background-size: cover;
   margin: -60px 0px 0px 0px;
   padding: 110px 0px 110px 0px; }
   .hero-content h1 {
@@ -19768,7 +19769,7 @@ ul.filter-list {
 [ 19. Position list ]
 */
 .positions-list {
-  margin-bottom: 60px; }
+  margin-bottom: 30px; }
 
 .positions-list-item {
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
@@ -20563,7 +20564,9 @@ ul.filter-list {
   color: white;
   padding: 5px 8px;
   border-radius: 4px;
-  margin-right: 6px; }
+  margin-right: 6px;
+  display: inline-block;
+  margin-bottom: 6px; }
 
 .brands-list {
   overflow: hidden; }

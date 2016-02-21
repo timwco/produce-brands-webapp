@@ -44,17 +44,15 @@
       <div ng-show="vm.authed">
         <h3 class="page-header">Company Profile</h3>
         <p>{{ vm.item.description }}</p>
-        <div class="company-stats">
-          <div class="company-stat">
-            <span>Organic Brand</span>
-            <strong ng-show="vm.item.organic">Yes</strong>
-            <strong ng-hide="vm.item.organic">No</strong>
-          </div>
-          <div class="company-stat">
-            <span>Tracks Food Safety</span>
-            <strong ng-show="vm.item.food_safety">Yes</strong>
-            <strong ng-hide="vm.item.food_safety">No</strong>
-          </div>
+        <div class="position-general-information">
+          <dl ng-show="vm.item.organic">
+            <dt>Organic Brand</dt>
+            <dd>Yes</dd>
+          </dl>
+          <dl ng-show="vm.item.food_safety">
+            <dt>Tracks Food Safety</dt>
+            <dd>Yes</dd>
+          </dl>
         </div>
         <h3 class="page-header" ng-show="vm.commodities">Commodities Grown</h3>
         <div class="positions-list commodity-list" ng-show="vm.commodities">
