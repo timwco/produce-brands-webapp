@@ -15,7 +15,7 @@
             <input type="text" ng-model="query" class="form-control" placeholder="Search Again...">
           </div>
         </form>
-        <i>Note: You can search for any brand or producer. Commodity searching is not ready yet.</i>
+        <i>You can search for any brand or producer. Commodity searching is not ready yet. Also, be aware that there could be multiple brands with the same name, but they might belong to different producers.</i>
       </div>
       <!-- /.filter-stacked -->
     </div>
@@ -26,10 +26,7 @@
           <h2>
             <a href="/#/{{ item.searchable_type | lowercase }}/{{ item.searchable_id }}">{{ item.content }}</a>
           </h2>
-          <h3>{{ item.searchable_type }}</h3>
-          <div class="position-list-item-date">
-            <a href="/#/{{ item.searchable_type | lowercase }}/{{ item.searchable_id }}">See Details</a>
-          </div>
+          <div class="position-list-item-date"><i>{{ item.searchable_type }}</i></div>
         </div>
       </div>
     </div>
