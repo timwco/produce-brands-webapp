@@ -20612,4 +20612,8 @@ ul.filter-list {
 .container .filter {
   margin-bottom: 30px; }
 
+.submitInfo {
+  font-style: italic;
+  margin-top: -25px; }
+
 /*# sourceMappingURL=main.css.map */

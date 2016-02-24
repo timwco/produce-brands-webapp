@@ -40,6 +40,9 @@
           </dl>
         </div>
       </div>
+      <div class="submitInfo">
+        Something not look right? <a href="/#/submit">Submit</a> a change.
+      </div>
 
     </div>
     <!-- /.col-* -->
@@ -88,7 +91,7 @@
           <a href="/#/commodity/{{ c.id }}" ng-repeat="c in vm.commodities">{{ c.name }}</a>
         </div>
       </div>
-      <div ng-hide="vm.authed" class="show-for-unauth" ng-include="'templates/includes/hidden.tpl.html'"></div>
+      <div ng-hide="vm.authed" class="show-for-unauth" ng-include="'templates/includes/hidden-producer.tpl.html'"></div>
     </div>
   </div>
 </div>
