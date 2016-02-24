@@ -402,11 +402,15 @@ Object.defineProperty(exports, '__esModule', {
 var HomeController = function HomeController(UserService, $state, Flash, $scope) {
 
   var vm = this;
-  // vm.apply = apply;
+  vm.sendSearch = sendSearch;
 
   activate();
 
   function activate() {}
+
+  function sendSearch(query) {
+    $state.go('root.search', { q: query });
+  }
 };
 
 HomeController.$inject = ['UserService', '$state', 'Flash', '$scope'];
@@ -849,7 +853,7 @@ var AuthController = function AuthController(UserService, Flash, $stateParams, M
 
   function authSuccess(user) {
     UserService.store(user);
-    $state.go('root.profile');
+    $state.go('root.start');
   }
 };
 

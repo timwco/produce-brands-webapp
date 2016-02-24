@@ -20602,4 +20602,14 @@ ul.filter-list {
 .flash-message-container .alert-dismissable .close, .flash-message-container .alert-dismissible .close {
   right: -10px; }
 
+.bigger {
+  font-size: 18px;
+  margin-bottom: 35px; }
+
+.post-box-small a:hover {
+  text-decoration: none; }
+
+.container .filter {
+  margin-bottom: 30px; }
+
 /*# sourceMappingURL=main.css.map */

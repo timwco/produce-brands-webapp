@@ -40,7 +40,7 @@ let AuthController = function(UserService, Flash, $stateParams, MessageService, 
 
   function authSuccess (user) {
     UserService.store(user);
-    $state.go('root.profile');
+    $state.go('root.start');
   }
 
 };

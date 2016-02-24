@@ -5,7 +5,63 @@
 </div>
 
 <div class="container">
-  <p>
-    Welcome?
-  </p>
+
+  <div class="page-title bigger">
+    <p>Thanks for signing up to the Produce Brands database. Below are a few options to help you get started.</p>
+  </div>
+
+  <div class="filter">
+      <h2>Start Your Search Now</h2>
+      <form ng-submit="vm.sendSearch(query)">
+          <div class="row">
+              <div class="form-group col-sm-9">
+                <input type="text" ng-model="query" class="form-control" placeholder="Enter Search Term">
+              </div><!-- /.form-group -->
+
+              <div class="form-group col-sm-3">
+                  <button type="submit" class="btn btn-block btn-secondary">Search</button>
+              </div><!-- /.form-group -->
+          </div><!-- /.row -->
+      </form>
+  </div>
+
+  <h2>Browse by Category</h2>
+  <hr>
+
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="post-box post-box-small">
+        <a href="/#/all/producers">
+          <div class="post-box-content">
+            <h2>Producers</h2>
+            <p>Learn more about the companies that produce the food you enjoy eating.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="col-sm-4">
+      <div class="post-box post-box-small">
+        <a href="/#/all/brands">
+          <div class="post-box-content">
+            <h2>Brands</h2>
+            <p>Learn about the brands that you and your family enjoy.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="col-sm-4">
+      <div class="post-box post-box-small">
+        <a href="/#/all/commodities">
+          <div class="post-box-content">
+            <h2>Commodities</h2>
+            <p>Learn more about a specific fruit or vegetable and see it's nutritional content.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+
 </div>

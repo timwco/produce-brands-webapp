@@ -69,3 +69,12 @@ $color-secondary: $orange;
   }
   .alert-dismissable .close, .alert-dismissible .close { right: -10px; }
 }
+.bigger {
+  font-size: 18px;
+  margin-bottom: 35px;
+}
+.post-box-small a:hover { text-decoration: none; }
+
+.container .filter {
+  margin-bottom: 30px;
+}
