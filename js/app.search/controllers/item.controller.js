@@ -8,6 +8,7 @@ let ItemController = function(SearchService, $stateParams, UserService) {
   vm.producer = {};
   vm.commodities = [];
   vm.brands = [];
+  vm.authed = true;
 
   activate();
 
