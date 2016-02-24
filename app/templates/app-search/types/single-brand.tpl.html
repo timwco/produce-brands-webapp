@@ -14,7 +14,12 @@
         <div class="company-card-data">
           <dl ng-show="vm.producer.name">
             <dt>Producer</dt>
-            <dd><a href="/#/producer/{{ vm.producer.id }}">{{ vm.producer.name }} <i class="fa fa-external-link"></i></a></dd>
+            <dd ng-show="vm.authed">
+              <a href="/#/producer/{{ vm.producer.id }}">{{ vm.producer.name }} <i class="fa fa-external-link"></i></a>
+            </dd>
+            <dd ng-hide="vm.authed">
+              <a href="/#/register">Register to see this!</a>
+            </dd>
           </dl>
           <dl ng-show="vm.item.country">
             <dt>Country</dt>
