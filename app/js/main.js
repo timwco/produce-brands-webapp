@@ -101,7 +101,7 @@ var production = 'https://api.producebrands.com/';
 exports['default'] = {
   URL: window.location.href.indexOf("localhost") > 0 ? development : production,
   CONFIG: { headers: {} },
-  VERSION: 0.81, // Also Change on `index.html` page for Cache
+  VERSION: 0.82, // Also Change on `index.html` page for Cache
   YEAR: 2016
 };
 module.exports = exports['default'];
