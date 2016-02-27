@@ -38,10 +38,18 @@
             <dt>Admin</dt>
             <dd><a href="/#/producer/edit/{{ vm.item.id }}"><i class="fa fa-pencil"></i> Edit</a></dd>
           </dl>
+          <dl class="centered">
+            <a class="propose" href="/#/submit">Propose a Change</a>
+          </dl>
         </div>
       </div>
-      <div class="submitInfo">
-        Something not look right? <a href="/#/submit">Submit</a> a change.
+      <div class="shareButtons">
+        <span>Share: </span>
+        <span class='st_facebook' st_url="https://db.producebrands.com/producer/{{ vm.item.id }}" st_title="{{ vm.item.name }} | Produce Brands"></span>
+        <span class='st_twitter' st_url="https://db.producebrands.com/producer/{{ vm.item.id }}" st_title="{{ vm.item.name }} | Produce Brands"></span>
+        <span class='st_linkedin' st_url="https://db.producebrands.com/producer/{{ vm.item.id }}" st_title="{{ vm.item.name }} | Produce Brands"></span>
+        <span class='st_pinterest' st_url="https://db.producebrands.com/producer/{{ vm.item.id }}" st_title="{{ vm.item.name }} | Produce Brands"></span>
+        <span class='st_email' st_url="https://db.producebrands.com/producer/{{ vm.item.id }}" st_title="{{ vm.item.name }} | Produce Brands"></span>
       </div>
 
     </div>

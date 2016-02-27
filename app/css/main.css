@@ -20579,6 +20579,9 @@ ul.filter-list {
 .non-centered {
   text-align: left !important; }
 
+.centered {
+  text-align: center; }
+
 .commodity-warning {
   padding: 15px;
   font-style: italic; }
@@ -20612,8 +20615,19 @@ ul.filter-list {
 .container .filter {
   margin-bottom: 30px; }
 
-.submitInfo {
-  font-style: italic;
-  margin-top: -25px; }
+.shareButtons {
+  margin-top: -25px;
+  text-align: center; }
+
+.propose {
+  background-color: #f15b36;
+  color: white;
+  padding: 5px 20px;
+  border-radius: 3px;
+  display: inline-block;
+  margin-top: 25px; }
+  .propose:hover {
+    color: white;
+    text-decoration: none; }
 
 /*# sourceMappingURL=main.css.map */

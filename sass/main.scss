@@ -49,6 +49,7 @@ $color-secondary: $orange;
   }
 }
 .non-centered { text-align: left !important; }
+.centered { text-align: center; }
 .commodity-warning {
   padding: 15px;
   font-style: italic;
@@ -79,7 +80,20 @@ $color-secondary: $orange;
   margin-bottom: 30px;
 }
 
-.submitInfo {
-  font-style: italic;
+.shareButtons {
   margin-top: -25px;
+  text-align: center;
+}
+
+.propose {
+  background-color: #f15b36;
+  color: white;
+  padding: 5px 20px;
+  border-radius: 3px;
+  display: inline-block;
+  margin-top: 25px;
+  &:hover {
+    color: white;
+    text-decoration: none;
+  }
 }
