@@ -97,3 +97,14 @@ $color-secondary: $orange;
     text-decoration: none;
   }
 }
+
+ul.share-buttons{
+  list-style: none;
+  padding: 0;
+  text-align: center;
+}
+
+ul.share-buttons li{
+  display: inline;
+  margin-right: 5px;
+}

@@ -101,7 +101,7 @@ var production = 'https://api.producebrands.com/';
 exports['default'] = {
   URL: window.location.href.indexOf("localhost") > 0 ? development : production,
   CONFIG: { headers: {} },
-  VERSION: 0.82, // Also Change on `index.html` page for Cache
+  VERSION: 1.0, // Also Change on `index.html` page for Cache
   YEAR: 2016
 };
 module.exports = exports['default'];
@@ -502,6 +502,9 @@ var ItemController = function ItemController(SearchService, $stateParams, UserSe
     SearchService.getSingle($stateParams.type, $stateParams.id).then(function (res) {
       vm.item = res.data.item;
       vm.authed = res.data.is_authed;
+
+      shareLinks(res.data.item);
+
       // Extra fields
       if (res.data.producer) {
         vm.producer = res.data.producer;
@@ -519,6 +522,17 @@ var ItemController = function ItemController(SearchService, $stateParams, UserSe
         vm.nutrition = JSON.parse(res.data.nutrition.data);
       }
     });
+  }
+
+  function shareLinks(item) {
+
+    var titleEncode = encodeURIComponent(item.name + " : Produce Brands");
+    var urlEncode = encodeURIComponent("https://db.producebrands.com/" + $stateParams.type + "/" + $stateParams.id);
+
+    vm.share_facebook = "https://www.facebook.com/sharer/sharer.php?u=" + urlEncode + "&t=" + titleEncode;
+    vm.share_twitter = "https://twitter.com/intent/tweet?source=" + urlEncode + "%2F&text=" + titleEncode + ":%20" + urlEncode + "%2F&via=producebrands";
+    vm.share_pinterest = "http://pinterest.com/pin/create/button/?url=" + urlEncode + "%2F&description=" + titleEncode;
+    vm.share_linkedin = "http://www.linkedin.com/shareArticle?mini=true&url=" + urlEncode + "%2F&title=" + titleEncode + "&summary=&source=" + urlEncode + "%2F";
   }
 };
 

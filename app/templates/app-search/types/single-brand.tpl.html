@@ -42,14 +42,12 @@
           </dl>
         </div>
       </div>
-      <div class="shareButtons">
-        <span>Share: </span>
-        <span class='st_facebook' st_url="https://db.producebrands.com/brand/{{ vm.item.id }}" st_title="{{ vm.item.name }} | Produce Brands"></span>
-        <span class='st_twitter' st_url="https://db.producebrands.com/brand/{{ vm.item.id }}" st_title="{{ vm.item.name }} | Produce Brands"></span>
-        <span class='st_linkedin' st_url="https://db.producebrands.com/brand/{{ vm.item.id }}" st_title="{{ vm.item.name }} | Produce Brands"></span>
-        <span class='st_pinterest' st_url="https://db.producebrands.com/brand/{{ vm.item.id }}" st_title="{{ vm.item.name }} | Produce Brands"></span>
-        <span class='st_email' st_url="https://db.producebrands.com/brand/{{ vm.item.id }}" st_title="{{ vm.item.name }} | Produce Brands"></span>
-      </div>
+      <ul class="share-buttons">
+        <li><a href="{{ vm.share_facebook }}" title="Share on Facebook" target="_blank"><img src="images/flat_web_icon_set/color/Facebook.png"></a></li>
+        <li><a href="{{ vm.share_twitter }}" target="_blank" title="Tweet" ><img src="images/flat_web_icon_set/color/Twitter.png"></a></li>
+        <li><a href="{{ vm.share_pinterest }}" target="_blank" title="Pin it"><img src="images/flat_web_icon_set/color/Pinterest.png"></a></li>
+        <li><a href="{{ vm.share_linkedin }}" target="_blank" title="Share on LinkedIn"><img src="images/flat_web_icon_set/color/LinkedIn.png"></a></li>
+      </ul>
     </div>
     <!-- /.col-* -->
     <div class="col-sm-8">
