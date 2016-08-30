@@ -1,0 +1,61 @@
+<div class="document-title">
+  <div class="container">
+    <h1>Add <strong>Brand</strong></h1>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <form ng-submit="vm.addItem(item, 'brand')">
+        <fieldset class="form-group">
+          <label>Brand Name</label><input type="text" class="form-control" ng-model="item.name">
+          <label>Country</label><input type="text" class="form-control" ng-model="item.country">
+          <label>State</label><input type="text" class="form-control" ng-model="item.state">
+        </fieldset>
+
+        <fieldset class="form-group">
+          <legend>Is this Brand Organic</legend>
+          <div class="btn-group">
+            <label class="btn btn-default">
+              <input type="radio" ng-model="item.organic" value="1" id="organicYes">&nbsp; Yes
+            </label>
+            <label class="btn btn-default">
+              <input type="radio" ng-model="item.organic" value="0" id="organicNo">&nbsp; No
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+          <legend>Does this Brand offer Food Safety Information</legend>
+          <div class="btn-group">
+            <label class="btn btn-default">
+              <input type="radio" ng-model="item.food_safety" value="1" id="safetyYes">&nbsp; Yes
+            </label>
+            <label class="btn btn-default">
+              <input type="radio" ng-model="item.food_safety" value="0" id="safetyNo">&nbsp; No
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+          <label>Description</label>
+          <textarea class="form-control" ng-model="item.description"></textarea>
+        </fieldset>
+
+        <fieldset class="form-group">
+          <label>Producer</label>
+          <select class="form-control select-override" ng-model="item.producer_id">
+            <option value="">Choose Producer</option>
+            <option ng-repeat="item in vm.items" value="{{item.id}}">
+              {{item.name}}
+            </option>
+          </select>
+          <small class="bg-warning">Note: The producer of this brand must already be in the database. If not, then please add the producer first, then come back and add the brand later.</small>
+        </fieldset>
+
+        <button class="btn btn-secondary">Add Brand</button>
+      </form>
+    </div>
+  </div>
+</div>

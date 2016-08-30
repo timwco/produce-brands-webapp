@@ -7,6 +7,7 @@ import SearchController from './controllers/search.controller';
 import ItemController from './controllers/item.controller';
 import ListingController from './controllers/listing.controller';
 import ItemEditController from './controllers/item.edit.controller';
+import ItemAddController from './controllers/item.add.controller';
 
 angular
   .module('app.search', [])
@@ -16,4 +17,5 @@ angular
   .controller('ItemController', ItemController)
   .controller('ListingController', ListingController)
   .controller('ItemEditController', ItemEditController)
+  .controller('ItemAddController', ItemAddController)
 ;

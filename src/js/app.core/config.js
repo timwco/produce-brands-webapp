@@ -44,6 +44,15 @@ let config = function($stateProvider, $urlRouterProvider, $locationProvider, APP
       controller: 'ProfileController as vm'
     })
 
+    // Add States
+    .state('root.addItem', {
+      url: '/:type/add',
+      templateUrl: function (params) {
+        return 'templates/app-search/add/add-' + params.type + '.tpl.html' + cache_version;
+      },
+      controller: 'ItemAddController as vm'
+    })
+
     // Search & Listing States
     .state('root.all', {
       url: '/all/:type?page',

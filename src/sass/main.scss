@@ -56,6 +56,7 @@ $color-secondary: $orange;
 }
 .form-group input[type='text'], .form-group input[type='password'] { margin-bottom: 15px; }
 .fix-check { margin-left: 20px !important; }
+.select-override { -webkit-appearance: menulist; }
 
 .flash-message-container {
   .alert {

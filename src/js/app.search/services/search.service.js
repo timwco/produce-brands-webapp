@@ -4,6 +4,7 @@ let SearchService = function($http, APP) {
   this.getListing   = getListing;
   this.getSingle    = getSingle;
   this.getNutrients = getNutrients;
+  this.getAll       = getAll;
 
   // Standard Query
   function search (q) {
@@ -11,7 +12,13 @@ let SearchService = function($http, APP) {
     return $http.get(url, APP.CONFIG);
   }
 
-  // Get Listing Results
+  // Get All (no pagination)
+  function getAll (type) {
+    let url = APP.URL + type + '/all';
+    return $http.get(url, APP.CONFIG);
+  }
+
+  // Get Listing Results (pagination)
   function getListing (type, page) {
     let p = page ? page : 1;
     let url = APP.URL + type + '?page=' + p;

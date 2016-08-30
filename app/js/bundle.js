@@ -64880,6 +64880,15 @@ var config = function config($stateProvider, $urlRouterProvider, $locationProvid
     controller: 'ProfileController as vm'
   })
 
+  // Add States
+  .state('root.addItem', {
+    url: '/:type/add',
+    templateUrl: function templateUrl(params) {
+      return 'templates/app-search/add/add-' + params.type + '.tpl.html' + cache_version;
+    },
+    controller: 'ItemAddController as vm'
+  })
+
   // Search & Listing States
   .state('root.all', {
     url: '/all/:type?page',
@@ -65230,10 +65239,6 @@ var HomeController = function HomeController(UserService, $state, Flash, $scope)
   var vm = this;
   vm.sendSearch = sendSearch;
 
-  activate();
-
-  function activate() {}
-
   function sendSearch(query) {
     $state.go('root.search', { q: query });
   }
@@ -65263,10 +65268,13 @@ var LayoutController = function LayoutController(UserService, $scope, APP, $stat
     UserService.logout();
   }
 
-  $scope.$on('user:updated', function (event, args) {
-    console.log(args);
-    vm.user = args;
-    vm.adminUser = args.is_admin;
+  $scope.$on('user:updated', function (event, user) {
+    vm.user = user;
+    if (user) {
+      vm.adminUser = user.is_admin;
+    } else {
+      vm.adminUser = null;
+    }
   });
 
   function searchForm(term) {
@@ -65297,6 +65305,36 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 _angular2.default.module('app.layout', []).controller('HomeController', _home2.default).controller('LayoutController', _layout2.default);
 
 },{"./controllers/home.controller":162,"./controllers/layout.controller":163,"angular":10}],165:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+function ItemAddController($stateParams, SearchService) {
+
+  var vm = this;
+
+  vm.addItem = addItem;
+
+  activate();
+
+  function activate() {
+    var needs = $stateParams.type === 'brand' ? 'producer' : 'brand';
+    SearchService.getAll(needs).then(function (res) {
+      vm.items = res.data.items;
+    });
+  }
+
+  function addItem(item, type) {
+    console.log('Adding: ' + type);
+    console.log(item);
+  }
+}
+
+ItemAddController.$inject = ['$stateParams', 'SearchService'];
+exports.default = ItemAddController;
+
+},{}],166:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -65365,7 +65403,7 @@ var ItemController = function ItemController(SearchService, $stateParams, UserSe
 ItemController.$inject = ['SearchService', '$stateParams', 'UserService'];
 exports.default = ItemController;
 
-},{"underscore":149}],166:[function(require,module,exports){
+},{"underscore":149}],167:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -65417,7 +65455,7 @@ var ItemEditController = function ItemEditController(SearchService, $stateParams
 ItemEditController.$inject = ['SearchService', '$stateParams', 'UserService', '$state', 'EditService', 'Flash'];
 exports.default = ItemEditController;
 
-},{"underscore":149}],167:[function(require,module,exports){
+},{"underscore":149}],168:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -65474,7 +65512,7 @@ var ListingController = function ListingController(SearchService, $stateParams) 
 ListingController.$inject = ['SearchService', '$stateParams'];
 exports.default = ListingController;
 
-},{}],168:[function(require,module,exports){
+},{}],169:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -65530,7 +65568,7 @@ var SearchController = function SearchController(SearchService, $timeout, $state
 SearchController.$inject = ['SearchService', '$timeout', '$stateParams', '$state'];
 exports.default = SearchController;
 
-},{}],169:[function(require,module,exports){
+},{}],170:[function(require,module,exports){
 'use strict';
 
 var _angular = require('angular');
@@ -65561,11 +65599,15 @@ var _itemEdit = require('./controllers/item.edit.controller');
 
 var _itemEdit2 = _interopRequireDefault(_itemEdit);
 
+var _itemAdd = require('./controllers/item.add.controller');
+
+var _itemAdd2 = _interopRequireDefault(_itemAdd);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_angular2.default.module('app.search', []).service('SearchService', _search2.default).service('EditService', _edit2.default).controller('SearchController', _search4.default).controller('ItemController', _item2.default).controller('ListingController', _listing2.default).controller('ItemEditController', _itemEdit2.default);
+_angular2.default.module('app.search', []).service('SearchService', _search2.default).service('EditService', _edit2.default).controller('SearchController', _search4.default).controller('ItemController', _item2.default).controller('ListingController', _listing2.default).controller('ItemEditController', _itemEdit2.default).controller('ItemAddController', _itemAdd2.default);
 
-},{"./controllers/item.controller":165,"./controllers/item.edit.controller":166,"./controllers/listing.controller":167,"./controllers/search.controller":168,"./services/edit.service":170,"./services/search.service":171,"angular":10}],170:[function(require,module,exports){
+},{"./controllers/item.add.controller":165,"./controllers/item.controller":166,"./controllers/item.edit.controller":167,"./controllers/listing.controller":168,"./controllers/search.controller":169,"./services/edit.service":171,"./services/search.service":172,"angular":10}],171:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -65582,7 +65624,7 @@ var EditService = function EditService($http, APP) {
 EditService.$inject = ['$http', 'APP'];
 exports.default = EditService;
 
-},{}],171:[function(require,module,exports){
+},{}],172:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -65594,6 +65636,7 @@ var SearchService = function SearchService($http, APP) {
   this.getListing = getListing;
   this.getSingle = getSingle;
   this.getNutrients = getNutrients;
+  this.getAll = getAll;
 
   // Standard Query
   function search(q) {
@@ -65601,7 +65644,13 @@ var SearchService = function SearchService($http, APP) {
     return $http.get(url, APP.CONFIG);
   }
 
-  // Get Listing Results
+  // Get All (no pagination)
+  function getAll(type) {
+    var url = APP.URL + type + '/all';
+    return $http.get(url, APP.CONFIG);
+  }
+
+  // Get Listing Results (pagination)
   function getListing(type, page) {
     var p = page ? page : 1;
     var url = APP.URL + type + '?page=' + p;
@@ -65640,7 +65689,7 @@ var SearchService = function SearchService($http, APP) {
 SearchService.$inject = ['$http', 'APP'];
 exports.default = SearchService;
 
-},{}],172:[function(require,module,exports){
+},{}],173:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -65696,7 +65745,7 @@ AuthController.$inject = ['UserService', 'Flash', '$stateParams', 'MessageServic
 
 exports.default = AuthController;
 
-},{}],173:[function(require,module,exports){
+},{}],174:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -65755,7 +65804,7 @@ var ProfileController = function ProfileController(UserService, Flash, $state, M
 ProfileController.$inject = ['UserService', 'Flash', '$state', 'MessageService', '$stateParams'];
 exports.default = ProfileController;
 
-},{"gravatar":93}],174:[function(require,module,exports){
+},{"gravatar":93}],175:[function(require,module,exports){
 'use strict';
 
 var _angular = require('angular');
@@ -65780,7 +65829,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _angular2.default.module('app.user', ['ngCookies']).service('UserService', _user2.default).controller('AuthController', _auth2.default).controller('ProfileController', _profile2.default);
 
-},{"./controllers/auth.controller":172,"./controllers/profile.controller":173,"./services/user.service":175,"angular":10,"angular-cookies":4}],175:[function(require,module,exports){
+},{"./controllers/auth.controller":173,"./controllers/profile.controller":174,"./services/user.service":176,"angular":10,"angular-cookies":4}],176:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -65850,7 +65899,7 @@ var UserService = function UserService($http, $cookies, $state, $rootScope, APP)
 UserService.$inject = ['$http', '$cookies', '$state', '$rootScope', 'APP'];
 exports.default = UserService;
 
-},{}],176:[function(require,module,exports){
+},{}],177:[function(require,module,exports){
 'use strict';
 
 var _angular = require('angular');
@@ -65880,7 +65929,7 @@ _angular2.default.module('app', ['app.core', 'app.layout', 'app.search', 'app.us
 
 // Custom Modules
 
-},{"./app.core/index":160,"./app.layout/index":164,"./app.search/index":169,"./app.user/index":174,"./utils/run.js":177,"angular":10}],177:[function(require,module,exports){
+},{"./app.core/index":160,"./app.layout/index":164,"./app.search/index":170,"./app.user/index":175,"./utils/run.js":178,"angular":10}],178:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -65889,8 +65938,6 @@ Object.defineProperty(exports, "__esModule", {
 var run = function run($rootScope, UserService, Flash) {
 
   $rootScope.$on('$viewContentLoaded', function (event) {
-    // When content loads, run the Foundation Object
-    $(document).foundation();
 
     // Check Login - Update Nav Bar
     UserService.checkAuth();
@@ -65906,7 +65953,7 @@ var run = function run($rootScope, UserService, Flash) {
 run.$inject = ['$rootScope', 'UserService', 'Flash'];
 exports.default = run;
 
-},{}]},{},[176])
+},{}]},{},[177])
 
 
 //# sourceMappingURL=bundle.js.map

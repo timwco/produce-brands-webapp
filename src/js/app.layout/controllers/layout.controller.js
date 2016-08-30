@@ -12,10 +12,13 @@ let LayoutController = function (UserService, $scope, APP, $state) {
     UserService.logout();
   }
 
-  $scope.$on('user:updated', (event, args) => {
-    console.log(args);
-    vm.user = args;
-    vm.adminUser = args.is_admin;
+  $scope.$on('user:updated', (event, user) => {
+    vm.user = user;
+    if (user) {
+      vm.adminUser = user.is_admin;
+    } else {
+      vm.adminUser = null;
+    }
   });
 
   function searchForm (term) {

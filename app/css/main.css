@@ -20708,6 +20708,9 @@ ul.filter-list {
 .fix-check {
   margin-left: 20px !important; }
 
+.select-override {
+  -webkit-appearance: menulist; }
+
 .flash-message-container .alert {
   width: 450px;
   position: fixed;
