@@ -1,9 +1,5 @@
 import angular from 'angular';
 
-// Import jQuery & Foundaiton & Moment
-import $ from 'jquery';
-import 'foundation';
-
 // Custom Modules
 import './app.core/index';
 import './app.layout/index';

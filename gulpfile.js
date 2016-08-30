@@ -1,129 +1,71 @@
-var gulp = require('gulp');
-var sourcemaps = require('gulp-sourcemaps');
-var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
-var browserify = require('browserify');
-var babel = require('babelify');
-var sass = require('gulp-sass');
-var plumber = require('gulp-plumber');
-var notify  = require('gulp-notify');
-var uglify = require('gulp-uglify');
-var server  = require('gulp-server-livereload');
-var fontAwesome = require('node-font-awesome');
-var jshint = require('gulp-jshint');
-var stylish = require('jshint-stylish');
-var htmlhint = require('gulp-htmlhint');
-var jscs = require('gulp-jscs');
-var watch = require('gulp-watch'); // A Better File Watcher
+'use strict';
 
-// Set up Foundation
-var path = require('path');
-var foundationEntry = require.resolve('foundation-sites');
-var foundationSCSS = path.join(foundationEntry, '..', '..', 'scss');
+// Require our Gulp Plugins
+const gulp        = require('gulp'),
+      sourcemaps  = require('gulp-sourcemaps'),
+      source      = require('vinyl-source-stream'),
+      buffer      = require('vinyl-buffer'),
+      browserify  = require('browserify'),
+      notify      = require('gulp-notify'),
+      babel       = require('babelify'),
+      chalk       = require('chalk'),
+      sass        = require('gulp-sass'),
+      sassImport  = require('sass-module-importer'),
+      plumber     = require('gulp-plumber'),
+      watch       = require('gulp-watch'),
+      browserSync = require('browser-sync').create();
 
-var notifyError = function() {
-  return plumber({
-    errorHandler: notify.onError("Error: <%= error.message %>")
-  });
-}
-
-var browserifyError = function(err) {
-  notify.onError("Error: <%= error.message %>")(err);
+// Function to handle errors.
+// Prevents Gulp from stopping.
+var handleError = function(err) {
+  notify.onError("Doh! Check iTerm for details!")(err);
+  console.log(chalk.white.bgRed(' <error> ------------------------ '));
+  console.log(chalk.white(err.message));
+  console.log(chalk.white.bgRed(' </error> ----------------------- '));
   this.emit('end');
 }
 
-
-gulp.task('sass', function () {
-  gulp.src('./sass/main.scss')
-    .pipe( notifyError() )
+// Converts SASS into CSS
+gulp.task('sass', () => {
+  gulp.src('./src/sass/main.scss')
     .pipe(sourcemaps.init({ loadMaps: true }))
-    .pipe(sass({
-      includePaths: require('node-neat').with([fontAwesome.scssPath, foundationSCSS])
-    }))
+    .pipe(sass({ importer: sassImport() }).on('error', handleError))
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('./app/css'));
 });
 
-gulp.task('fonts', function() {
-  gulp.src(fontAwesome.fonts)
-    .pipe( notifyError() )
-    .pipe(gulp.dest('./app/fonts'));
-});
-
-gulp.task('normalize', function() {
-  gulp.src(require.resolve('normalize.css'))
-    .pipe( notifyError() )
-    .pipe(gulp.dest('./app/css'));
-});
-
-gulp.task('browserify', function() {
-  return browserify('./js/main.js', {debug: true})
+// Converts ES2015+ to ES5 & Supports Modules
+gulp.task('browserify', () => {
+  return browserify('./src/js/main.js', {debug: true})
     .transform(babel)
     .bundle()
-    .on('error', browserifyError)
-    .pipe(source('./main.js'))
+    .on('error', handleError)
+    .pipe(source('./bundle.js'))
     .pipe(buffer())
     .pipe(sourcemaps.init({loadMaps: true}))
-    // .pipe(uglify())
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('./app/js'));
 });
 
-gulp.task('style:js', function() {
-  return gulp.src('./js/**/*.js')
-    .pipe(notifyError())
-    .pipe(jscs())
-    .pipe(jscs.reporter())
-    .pipe(jscs.reporter('fail'))
+// Watches our .scss & .js files for change
+gulp.task('watch', () => {
+  watch('./src/sass/**/*.scss', () => { gulp.start('sass'); });
+  watch(['./src/js/**/*.js', './package.json'], () => { gulp.start('browserify'); });
+  watch('./app/**/**', () => { browserSync.reload(); });
 });
 
-gulp.task('hint:js', function() {
-  return gulp.src('./js/**/*.js')
-    .pipe(notifyError())
-    .pipe(jshint({
-      esnext: true, eqeqeq: true,
-      linter: require('jshint-jsx').JSXHINT
-    }))
-    .pipe(jshint.reporter('fail'))
-    .pipe(jshint.reporter('jshint-stylish'));
-});
-
-gulp.task('hint:html', function() {
-  return gulp.src('./app/index.html')
-    .pipe(notifyError())
-    .pipe(htmlhint())
-    .pipe(htmlhint.failReporter());
-});
-
-gulp.task('lint', ['style:js', 'hint:js', 'hint:html']);
-
-gulp.task('watch', function() {
-  watch('./sass/**/*.scss', function () {
-    gulp.start('sass');
-  });
-  watch(['./js/**/*.js', './package.json'], function () {
-    gulp.start('browserify');
-  });
-  watch('./app/index.html', function () {
-    gulp.start('hint:html');
-  });
-  watch('./js/**/*.js', function () {
-    gulp.start('hint:js');
-    gulp.start('style:js');
+// Runs a simple browser sync server
+gulp.task('server', function(done) {
+  browserSync.init({
+    server: "./app",
+    port: 8000,
+    open: false,
+    notify: false
   });
 });
 
-gulp.task('server', ['default'], function () {
-  return gulp.src(['app', '!app/images/**/*'])
-    .pipe(server({
-      livereload: true
-    }));
-});
+// Builds our app
+gulp.task('build', ['sass', 'browserify']);
 
-gulp.task('default', ['sass',
-                      'fonts',
-                      'normalize',
-                      'lint',
-                      'browserify']);
-
-gulp.task('start', ['default', 'watch', 'server']);
+// Starts the development process
+gulp.task('start', ['build', 'watch', 'server']);

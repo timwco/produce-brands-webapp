@@ -439,7 +439,9 @@ var LayoutController = function LayoutController(UserService, $scope, APP, $stat
   }
 
   $scope.$on('user:updated', function (event, args) {
+    console.log(args);
     vm.user = args;
+    vm.adminUser = args.is_admin;
   });
 
   function searchForm(term) {
