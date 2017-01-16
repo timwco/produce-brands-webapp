@@ -1,0 +1,52 @@
+<div class="document-title">
+  <div class="container">
+    <h1>Add <strong>Producer</strong></h1>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <small class="bg-warning"><b>ALERT</b>: Before creating a new producer, please check to ensure it does not currenlty exist!</small>
+
+      <form ng-submit="vm.addItem(item, 'producer')">
+        <fieldset class="form-group">
+          <label>Producer Name</label><input type="text" class="form-control" ng-model="item.name">
+          <label>Street</label><input type="text" class="form-control" ng-model="item.street">
+          <label>City</label><input type="text" class="form-control" ng-model="item.city">
+          <label>State</label><input type="text" class="form-control" ng-model="item.state">
+          <label>Zip</label><input type="text" class="form-control" ng-model="item.zip">
+        </fieldset>
+
+        <fieldset class="form-group">
+          <label>Contact Person</label><input type="text" class="form-control" ng-model="item.contact">
+          <label>Website</label><input type="text" class="form-control" ng-model="item.website">
+          <label>Phone Number</label><input type="text" class="form-control" ng-model="item.phone">
+          <label>Email</label><input type="text" class="form-control" ng-model="item.email">
+          <label>Fax</label><input type="text" class="form-control" ng-model="item.fax">
+          <label>Facebook Page</label><input type="text" class="form-control" ng-model="item.facebook">
+          <label>Twitter Page</label><input type="text" class="form-control" ng-model="item.twitter">
+        </fieldset>
+
+        <fieldset class="form-group">
+          <legend>Is this Producer traceable?</legend>
+          <div class="btn-group">
+            <label class="btn btn-default">
+              <input type="radio" ng-model="item.traceable" value="1">&nbsp; Yes
+            </label>
+            <label class="btn btn-default">
+              <input type="radio" ng-model="item.traceable" value="0">&nbsp; No
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-group">
+          <label>Company Logo</label>
+          <input class="form-control" type="file" id="attachmentInput">
+        </fieldset>
+
+        <button class="btn btn-secondary">Add Brand</button>
+      </form>
+    </div>
+  </div>
+</div>
