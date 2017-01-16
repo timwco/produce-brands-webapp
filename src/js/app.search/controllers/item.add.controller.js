@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-function ItemAddController ($stateParams, SearchService, AddService) {
+function ItemAddController ($stateParams, SearchService, AddService, $state) {
 
   let vm = this;
 
@@ -29,14 +29,13 @@ function ItemAddController ($stateParams, SearchService, AddService) {
     });
 
     // Send data to server
-    console.log('Adding: ' + type);
-
     AddService.addItem(formData, type).then( res => {
-      console.log(res);
+      alert("New Item Added!!");
+      $state.go('root.item', { type: type, id: res.data.item.id });
     });
   }
 
 }
 
-ItemAddController.$inject = ['$stateParams', 'SearchService', 'AddService'];
+ItemAddController.$inject = ['$stateParams', 'SearchService', 'AddService', '$state'];
 export default ItemAddController;

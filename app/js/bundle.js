@@ -82055,7 +82055,7 @@ var _lodash2 = _interopRequireDefault(_lodash);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function ItemAddController($stateParams, SearchService, AddService) {
+function ItemAddController($stateParams, SearchService, AddService, $state) {
 
   var vm = this;
 
@@ -82084,15 +82084,14 @@ function ItemAddController($stateParams, SearchService, AddService) {
     });
 
     // Send data to server
-    console.log('Adding: ' + type);
-
     AddService.addItem(formData, type).then(function (res) {
-      console.log(res);
+      alert("New Item Added!!");
+      $state.go('root.item', { type: type, id: res.data.item.id });
     });
   }
 }
 
-ItemAddController.$inject = ['$stateParams', 'SearchService', 'AddService'];
+ItemAddController.$inject = ['$stateParams', 'SearchService', 'AddService', '$state'];
 exports.default = ItemAddController;
 
 },{"lodash":106}],167:[function(require,module,exports){
