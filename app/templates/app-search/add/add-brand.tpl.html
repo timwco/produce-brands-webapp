@@ -7,6 +7,8 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
+      <small class="bg-warning"><b>ALERT</b>: Before creating a new brand, please check to ensure it does not currenlty exist!</small>
+      <small class="bg-warning"><b>NOTE:</b> The producer of this brand must already be in the database. If not, then please add the producer first, then come back and add the brand later.</small>
       <form ng-submit="vm.addItem(item, 'brand')">
         <fieldset class="form-group">
           <label>Brand Name</label><input type="text" class="form-control" ng-model="item.name">
@@ -44,6 +46,11 @@
         </fieldset>
 
         <fieldset class="form-group">
+          <label>Brand Image</label>
+          <input class="form-control" type="file" id="attachmentInput">
+        </fieldset>
+
+        <fieldset class="form-group">
           <label>Producer</label>
           <select class="form-control select-override" ng-model="item.producer_id">
             <option value="">Choose Producer</option>
@@ -51,7 +58,6 @@
               {{item.name}}
             </option>
           </select>
-          <small class="bg-warning">Note: The producer of this brand must already be in the database. If not, then please add the producer first, then come back and add the brand later.</small>
         </fieldset>
 
         <button class="btn btn-secondary">Add Brand</button>

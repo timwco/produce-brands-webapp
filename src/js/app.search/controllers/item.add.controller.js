@@ -1,4 +1,6 @@
-function ItemAddController ($stateParams, SearchService) {
+import _ from 'lodash';
+
+function ItemAddController ($stateParams, SearchService, AddService) {
 
   let vm = this;
 
@@ -14,11 +16,27 @@ function ItemAddController ($stateParams, SearchService) {
   }
 
   function addItem (item, type) {
+
+    // Get our Attachment
+    let attachment = document.getElementById('attachmentInput').files[0];
+    let formData   = new FormData();
+
+    // Append all data to our form data object
+    formData.append('attachment', attachment);
+
+    _.forIn(item, (value, key) => {
+      formData.append(key, value);
+    });
+
+    // Send data to server
     console.log('Adding: ' + type);
-    console.log(item);
+
+    AddService.addItem(formData, type).then( res => {
+      console.log(res);
+    });
   }
 
 }
 
-ItemAddController.$inject = ['$stateParams', 'SearchService'];
+ItemAddController.$inject = ['$stateParams', 'SearchService', 'AddService'];
 export default ItemAddController;

@@ -20,6 +20,12 @@ let ItemController = function(SearchService, $stateParams, UserService) {
       vm.item = res.data.item;
       vm.authed = res.data.is_authed;
 
+      if (res.data.url) {
+        vm.attachment = res.data.url;
+      } else {
+        vm.attachment = 'https://static.producebrands.com/db/images/' + res.data.item.image;
+      }
+
       shareLinks(res.data.item);
 
       // Extra fields
