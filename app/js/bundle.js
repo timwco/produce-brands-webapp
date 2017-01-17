@@ -82128,12 +82128,20 @@ var ItemController = function ItemController(SearchService, $stateParams, UserSe
       vm.authed = res.data.is_authed;
 
       var attach = res.data.url;
+      var type = $stateParams.type;
 
       if (attach && attach !== 'images/notfound.jpg') {
         vm.attachment = res.data.url;
       } else {
-        vm.attachment = 'https://static.producebrands.com/db/images/' + res.data.item.image;
+        if (type === 'brand') {
+          vm.attachment = 'https://static.producebrands.com/db/images/' + res.data.item.image;
+        } else {
+          vm.attachment = 'https://static.producebrands.com/db/images/' + res.data.item.logo;
+        }
       }
+
+      console.log(attach);
+      console.log(vm.attachment);
 
       shareLinks(res.data.item);
 
