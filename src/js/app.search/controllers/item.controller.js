@@ -20,7 +20,9 @@ let ItemController = function(SearchService, $stateParams, UserService) {
       vm.item = res.data.item;
       vm.authed = res.data.is_authed;
 
-      if (res.data.url) {
+      let attach = res.data.url;
+
+      if (attach && attach !== 'images/notfound.jpg') {
         vm.attachment = res.data.url;
       } else {
         vm.attachment = 'https://static.producebrands.com/db/images/' + res.data.item.image;

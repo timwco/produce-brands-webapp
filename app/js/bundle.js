@@ -81681,8 +81681,8 @@ var production = 'https://api.producebrands.com/';
 exports.default = {
   URL: window.location.href.indexOf("localhost") > 0 ? development : production,
   CONFIG: { headers: {} },
-  VERSION: 1.0, // Also Change on `index.html` page for Cache
-  YEAR: 2016
+  VERSION: 1.4, // Also Change on `index.html` page for Cache
+  YEAR: 2017
 };
 
 },{}],155:[function(require,module,exports){
@@ -82127,7 +82127,9 @@ var ItemController = function ItemController(SearchService, $stateParams, UserSe
       vm.item = res.data.item;
       vm.authed = res.data.is_authed;
 
-      if (res.data.url) {
+      var attach = res.data.url;
+
+      if (attach && attach !== 'images/notfound.jpg') {
         vm.attachment = res.data.url;
       } else {
         vm.attachment = 'https://static.producebrands.com/db/images/' + res.data.item.image;
