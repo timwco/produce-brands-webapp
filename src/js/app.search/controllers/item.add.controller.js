@@ -12,9 +12,11 @@ function ItemAddController ($stateParams, SearchService, AddService, $state) {
   activate();
 
   function activate () {
-    let needs = ($stateParams.type === 'brand') ? 'producer' : 'brand';
+
+    // If on the brand page,
+    // get all the producers & commodities
     if ($stateParams.type === 'brand') {
-      SearchService.getAll('brand').then( res => {
+      SearchService.getAll('producer').then( res => {
         vm.items = res.data.items;
       });
       SearchService.getAll('commodity').then( res => {
