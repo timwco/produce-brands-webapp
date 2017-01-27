@@ -5,7 +5,7 @@ let production = 'https://api.producebrands.com/';
 export default {
   URL: (window.location.href.indexOf("localhost") > 0) ? development : production,
   CONFIG: { headers: {} },
-  VERSION: 1.6.1, // Also Change on `index.html` page for Cache
+  VERSION: '1.6.2', // Also Change on `index.html` page for Cache
   YEAR: 2017
 };
 

@@ -81681,9 +81681,14 @@ var production = 'https://api.producebrands.com/';
 exports.default = {
   URL: window.location.href.indexOf("localhost") > 0 ? development : production,
   CONFIG: { headers: {} },
-  VERSION: 1.5, // Also Change on `index.html` page for Cache
+  VERSION: '1.6.2', // Also Change on `index.html` page for Cache
   YEAR: 2017
 };
+
+// Versions
+// MAJOR version when you make incompatible API changes,
+// MINOR version when you add functionality in a backwards-compatible manner, and
+// PATCH version when you make backwards-compatible bug fixes.
 
 },{}],155:[function(require,module,exports){
 'use strict';
@@ -82067,9 +82072,11 @@ function ItemAddController($stateParams, SearchService, AddService, $state) {
   activate();
 
   function activate() {
-    var needs = $stateParams.type === 'brand' ? 'producer' : 'brand';
+
+    // If on the brand page,
+    // get all the producers & commodities
     if ($stateParams.type === 'brand') {
-      SearchService.getAll('brand').then(function (res) {
+      SearchService.getAll('producer').then(function (res) {
         vm.items = res.data.items;
       });
       SearchService.getAll('commodity').then(function (res) {
