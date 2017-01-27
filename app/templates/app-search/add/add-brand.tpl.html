@@ -60,6 +60,19 @@
           </select>
         </fieldset>
 
+        <fieldset class="form-group">
+          <label>Commodities</label>
+          <div class="commodity-group">
+            <label class="btn btn-default" ng-repeat="commodity in vm.commodities">
+              <input 
+                type="checkbox"
+                ng-click="vm.checkCommodity(commodity.id)" 
+                value="{{ commodity.id }}">
+                &nbsp; {{ commodity.name }}
+            </label>
+          </div>
+        </fieldset>
+
         <button class="btn btn-secondary">Add Brand</button>
       </form>
     </div>

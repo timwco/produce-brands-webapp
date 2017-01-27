@@ -81681,7 +81681,7 @@ var production = 'https://api.producebrands.com/';
 exports.default = {
   URL: window.location.href.indexOf("localhost") > 0 ? development : production,
   CONFIG: { headers: {} },
-  VERSION: 1.4, // Also Change on `index.html` page for Cache
+  VERSION: 1.5, // Also Change on `index.html` page for Cache
   YEAR: 2017
 };
 
@@ -82061,13 +82061,31 @@ function ItemAddController($stateParams, SearchService, AddService, $state) {
 
   vm.addItem = addItem;
 
+  vm.selectedCommodities = [];
+  vm.checkCommodity = checkCommodity;
+
   activate();
 
   function activate() {
     var needs = $stateParams.type === 'brand' ? 'producer' : 'brand';
-    SearchService.getAll(needs).then(function (res) {
-      vm.items = res.data.items;
-    });
+    if ($stateParams.type === 'brand') {
+      SearchService.getAll('brand').then(function (res) {
+        vm.items = res.data.items;
+      });
+      SearchService.getAll('commodity').then(function (res) {
+        vm.commodities = res.data.items;
+      });
+    }
+  }
+
+  function checkCommodity(commodity_id) {
+    var idLoc = vm.selectedCommodities.indexOf(commodity_id);
+
+    if (idLoc > -1) {
+      vm.selectedCommodities.splice(idLoc, 1);
+    } else {
+      vm.selectedCommodities.push(commodity_id);
+    }
   }
 
   function addItem(item, type) {
@@ -82082,6 +82100,11 @@ function ItemAddController($stateParams, SearchService, AddService, $state) {
     _lodash2.default.forIn(item, function (value, key) {
       formData.append(key, value);
     });
+
+    // If Brand & commodities, append commodities
+    if (type === 'brand' && vm.selectedCommodities.length > 0) {
+      formData.append('commodities', vm.selectedCommodities);
+    }
 
     // Send data to server
     AddService.addItem(formData, type).then(function (res) {

@@ -42,7 +42,12 @@
               <li><a href="/#/producer/add">Add Producer</a></li>
             </ul>
           </li>
-          <li><a href="/#/all/commodities">Commodities</a></li>
+          <li>
+            <a href="/#/all/commodities">Commodities <i class="fa fa-chevron-down" ng-show="vm.adminUser"></i></a>
+            <ul class="sub-menu" ng-show="vm.adminUser">
+              <li><a href="/#/commodity/add">Add Commodity</a></li>
+            </ul>            
+          </li>
           <li><a href="/#/submit">Submit</a></li>
           <li><a href="http://producebrands.com/stories/">Stories</a></li>
           <li>
