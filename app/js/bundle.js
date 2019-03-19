@@ -82164,9 +82164,9 @@ var ItemController = function ItemController(SearchService, $stateParams, UserSe
         vm.attachment = res.data.url;
       } else {
         if (type === 'brand') {
-          vm.attachment = 'https://static.producebrands.com/db/images/' + res.data.item.image;
+          vm.attachment = 'https://res.cloudinary.com/producebrands/image/upload/v1553013101/images/' + res.data.item.image;
         } else {
-          vm.attachment = 'https://static.producebrands.com/db/images/' + res.data.item.logo;
+          vm.attachment = 'https://res.cloudinary.com/producebrands/image/upload/v1553013101/images/' + res.data.item.logo;
         }
       }
 
@@ -82307,7 +82307,7 @@ var ListingController = function ListingController(SearchService, $stateParams) 
     var $modal = $('#modal');
     var url = '';
     if (id) {
-      url = 'http://static.producebrands.com/db/images/' + id;
+      url = 'https://res.cloudinary.com/producebrands/image/upload/v1553013101/images/' + id;
     } else {
       url = 'images/notfound.jpg';
     }

@@ -39,7 +39,7 @@ let ListingController = function(SearchService, $stateParams) {
     let $modal = $('#modal');
     let url = '';
     if (id) {
-      url = 'http://static.producebrands.com/db/images/' + id;
+      url = 'https://res.cloudinary.com/producebrands/image/upload/v1553013101/images/' + id;
     } else {
       url = 'images/notfound.jpg';
     }
